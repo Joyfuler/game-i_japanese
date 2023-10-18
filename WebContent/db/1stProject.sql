@@ -10,8 +10,9 @@ DROP TABLE REVIEW;
 DROP SEQUENCE REVIEW_SEQ;
 DROP TABLE GAME;
 DROP TABLE MEMBER;
+SELECT * FROM MEMBER;
 
- -- 2 ) Table Creating
+-- 2 ) Table Creating
  
  CREATE TABLE MEMBER(
     MID VARCHAR2 (30) PRIMARY KEY,
@@ -25,16 +26,7 @@ DROP TABLE MEMBER;
     MLEVEL NUMBER(1) DEFAULT 0        
     MRDATE DATE DEFAULT SYSDATE
  );
-  CREATE SEQUENCE WITHDRAW_SEQ MAXVALUE 99999 NOCACHE NOCYCLE;
-  SELECT * FROM MEMBER;
-  SELECT * FROM MEMBER;
-  UPDATE MEMBER SET MLEVEL = -1 WHERE MID ='fff';
-  rollback;
-  select * from game;
-  select * from game where ghit = 1; 
-  SELECT ROWNUM RN, A.* FROM (SELECT * FROM GAME WHERE GHIT=1) A;
-  SELECT COUNT(*) CNT FROM GAME WHERE GHIT = 1;
-  SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM GAME WHERE GHIT=1) A) WHERE RN BETWEEN 6 AND 11;
+  
  CREATE TABLE GAME(
     GID VARCHAR2 (60) PRIMARY KEY,
     GNAME VARCHAR2 (120) NOT NULL,
@@ -45,11 +37,7 @@ DROP TABLE MEMBER;
     GDESC CLOB,
     GHIT NUMBER(1) DEFAULT 0 NOT NULL    
  );
- SELECT * FROM MEMBER;
- SELECT ROWNUM RN, A.* FROM (SELECT * FROM MEMBER ORDER BY MRDATE) A;
- SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT * FROM MEMBER ORDER BY MRDATE) A) WHERE RN BETWEEN 3 AND 6;
- SELECT COUNT(*) CNT FROM MEMBER;
- select * from game;
+ 
  CREATE SEQUENCE BOARD_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
  CREATE TABLE BOARD(
      BNO NUMBER(8) PRIMARY KEY,
@@ -83,9 +71,6 @@ CREATE TABLE BOARD_COMMENT (
     FOREIGN KEY (MID) REFERENCES MEMBER(MID)
 );
 
-
-SELECT * FROM BOARD_COMMENT;
-
 CREATE SEQUENCE FAVORITE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
 CREATE TABLE FAVORITE (
     FID NUMBER(5) PRIMARY KEY,
@@ -110,29 +95,15 @@ CREATE TABLE REVIEW (
     FOREIGN KEY (GID) REFERENCES GAME(GID)
 );
 
-CREATE TABLE ARTICLE(
+CREATE TABLE ARTICLE (
 ARTID NUMBER(5) PRIMARY KEY,
 IMG1 VARCHAR2 (60),
 LINK1 VARCHAR2(60)
 );
-select * from game;
-select * from article;
-INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
-    VALUES (1, 'art1.png', 'leneagem');
-INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
-    VALUES (2, 'art2.png', 'skiagb');
-INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
-    VALUES (3, 'art3.png', 'genshin');
-INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
-    VALUES (4, 'art4.png', 'fo4m');    
-    commit;
-select * from review;
 
-
-SELECT * FROM REVIEW;
 UPDATE GAME SET GHIT = 1 WHERE GID = 'pixelhero';
-select * from game;
-commit;
+
+
 -- 3) Dummy Data
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER)
     VALUES ('aaa', 'ㄹㅇ인가', '111', 'aa@bb.com', '010-1111-2222', 'unnamed.png', '1', '몰라');
@@ -155,9 +126,16 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER)
     VALUES ('jjj', '우즈벡헤딩슛', '111', '44@naver.com', '010-1131-2424', 'unnamed.png', '3', '뭐라고');                
 UPDATE MEMBER SET MNICKNAME='침대축구', MPW='55535', MEMAIL='tt@ttac.com', MPHONE='010-5535-3535', MPHOTO='noimg.jpg', MQUEST='2', MANSWER='몰라요' where mid = 'ggg';
-SELECT * FROM MEMBER;
-SELECT * FROM GAME;
-SELECT * FROM REVIEW;
+
+INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
+    VALUES (1, 'art1.png', 'leneagem');
+INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
+    VALUES (2, 'art2.png', 'skiagb');
+INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
+    VALUES (3, 'art3.png', 'genshin');
+INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
+    VALUES (4, 'art4.png', 'fo4m');    
+
 INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
 VALUES (REVIEW_SEQ.NEXTVAL, 4, '그럭저럭', 'iii', 'genshin');
 INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
@@ -168,13 +146,11 @@ INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
 VALUES (REVIEW_SEQ.NEXTVAL, 2, '별로인듯...과금심함', 'ddd', 'odin');
 INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
 VALUES (REVIEW_SEQ.NEXTVAL, 1, '이거 저작권 괜찮나요;;', 'eee', 'redline');
-commit;
-select * from review;
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+VALUES (REVIEW_SEQ.NEXTVAL, 2, '글쎄..', 'ddd', 'leneagem');
+
 ALTER TABLE REVIEW ADD RRDATE DATE DEFAULT SYSDATE;
-
-commit;
-SELECT * FROM GAME WHERE GHIT = 1;
-
+alter table member add mrdate date default sysdate;
 ---
 SELECT * FROM GAME;
 INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
@@ -184,18 +160,6 @@ INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
 모든 것이 새로워진 FC 모바일에서, 나만의 팀을 완성하세요!!',1,'스포츠');
 select * from review;
 SELECT AVG(RSCORE) FROM REVIEW WHERE GID='leneagem';
-
---- ★★★★★
-
-SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW WHERE GID=GAME.GID), 0) AVG  FROM GAME ORDER BY AVG DESC;
-
---- ★★★★★
-
-
-select g.*, r.* from game g, review r where g.gid= r.gid order by rscore;
-SELECT G.*, R.* FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE;
-SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID,R.RSCORE,R.RTEXT,R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A;
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID, R.RSCORE, R.RTEXT, R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A) WHERE RN BETWEEN 2 AND 4;
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC,GHIT)
     VALUES ('wos','WOS:화이트 아웃 서바이벌', '시뮬레이션', 'Century Games Pte.Ltd.','2023-09-15','thum3.jpg','화이트 아웃 서바이벌은 빙하 종말 서바이벌 전략 게임입니다. 매혹적인 기계와 복잡한 사안들이 여러분을 기다리고 있습니다.
@@ -462,7 +426,7 @@ VALUES('firenow', '탕탕특공대', '어드벤처', 'Habby', '2022-08-09', 'thu
 -한 번에 1000개 이상의 몬스터들과 맞서서 섬멸하세요!
 -한 손 조작으로 맵 클리어!
 -새로운 로그라이크 스킬 경험! 무한 콤보를 즐겨보세요!
--새로운 스테이지 경험! 다양한 난이도를 도전해보세요!',0);
+-새로운 스테이지 경험! 다양한 난이도를 도전해보세요!',1);
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
 VALUES('pixelhero', '픽셀 히어로', 'RPG', '유조이 게임즈', '2023-06-07', 'thum8.jpg', '● 1,024번의 뽑기를 무료로 증정하는 RPG 원픽!
@@ -492,7 +456,7 @@ VALUES('pixelhero', '픽셀 히어로', 'RPG', '유조이 게임즈', '2023-06-0
 ● 동료들과 같이 즐기는 모험의 재미가 원픽!
 강력한 동료들과 길드 BOSS를 처치하고,
 다른 길드와 전투하는 대규모 GVG까지
-커뮤니티를 통해 든든한 모험을 즐겨보세요!',0);
+커뮤니티를 통해 든든한 모험을 즐겨보세요!',1);
 select * from game;
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
@@ -530,8 +494,20 @@ VALUES ('proseka', '프로젝트 세카이 컬러풀 스테이지! feat.하츠�
 슬라이드업을 도입하여 실제 조작과 캐릭터의 움직임이 일치할 수도!
 EASY부터 MASTER까지 총 5개 난이도 중 자유롭게 선택할 수 있으며, 하츠네 미쿠의 리듬 게임을 좋아하는 초보자부터 자신의 한계에 도전하고 싶은 리듬 게임의 달인까지 모두가 즐길 수 있습니다.
 오토 라이브 기능을 사용하면 자동으로 라이브를 클리어하고 한 번에 보상을 획득할 수 있습니다.
-멀티 라이브 모드로 다른 플레이어와 한 무대에서 라이브를 즐겨보세요! FEVER/SUPER FEVER 타임 완료 시 추가 아이템 보상을 얻을 수 있습니다!',1);
+멀티 라이브 모드로 다른 플레이어와 한 무대에서 라이브를 즐겨보세요! FEVER/SUPER FEVER 타임 완료 시 추가 아이템 보상을 얻을 수 있습니다!',0);
 
 commit;
+SELECT * FROM GAME;
+-- ★★★★★★★
+
+
+--- ★★★★★
+
+SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY GPDATE DESC;
+select * from game order by gpdate desc;
+commit;
+--- ★★★★★
+SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID,R.RSCORE,R.RTEXT,R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A;
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID, R.RSCORE, R.RTEXT, R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A) WHERE RN BETWEEN 2 AND 4;
 
 

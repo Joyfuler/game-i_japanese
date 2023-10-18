@@ -9,7 +9,7 @@ import project.gamei.dao.GameDao;
 public class MainDisplayService implements Service {
 
 	@Override
-	public void execute(HttpServletRequest request, HttpServletResponse response) {
+	public void execute(HttpServletRequest request, HttpServletResponse response) {		
 		// 게시판 상단 18개 리스트를 전달.
 		GameDao gDao = GameDao.getInstance();
 		request.setAttribute("lists", gDao.topGameList());
@@ -23,10 +23,15 @@ public class MainDisplayService implements Service {
 		}
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 5;
-		final int BLOCKSIZE = 3;
+		final int BLOCKSIZE = 5;
 		int startRow = (currentPage-1) * PAGESIZE + 1;
 		int endRow = startRow + PAGESIZE -1;
-		request.setAttribute("listSortbyScore", gDao.gameListSortByScore(startRow, endRow));			
+		String sortBy = request.getParameter("sortBy");
+		if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {			
+			request.setAttribute("listSortby", gDao.gameListSortByScore(startRow, endRow));		
+		} else if (sortBy.equals("new")) {			
+			request.setAttribute("listSortby", gDao.gameListSortByDate(startRow, endRow));	
+		}
 		//view단에서의 출력을 및 페이징 처리를 위한 패러미터도 넘기기.
 		int allGameCnt = gDao.allGameCnt();
 		int pageCnt = (int)Math.ceil((double)allGameCnt/PAGESIZE);
@@ -40,6 +45,9 @@ public class MainDisplayService implements Service {
 		request.setAttribute("startPage", startPage);
 		request.setAttribute("endPage", endPage);
 		request.setAttribute("pageCnt", pageCnt);
-		request.setAttribute("pageNum", currentPage);		
+		request.setAttribute("pageNum", currentPage);			
+		// rightArea의 순위 정보 전달 영역
+		
+		
 	}
 }

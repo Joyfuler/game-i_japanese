@@ -39,6 +39,10 @@ public class FrontController extends HttpServlet {
 			service = new MainDisplayService();
 			service.execute(request, response);
 			viewPage = "main/main3.jsp";
+		} else if (command.equals("/intro.do")) {
+			service = new MainDisplayService();
+			service.execute(request, response);
+			viewPage = "main/intro.jsp";
 		}
 		
 		

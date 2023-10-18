@@ -51,7 +51,7 @@
                     <a class="nav-link" href="#notice">공지사항</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="${conPath }/main/intro.jsp">Game-i소개</a>
+                    <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>
                   </li>      
                      <li class="nav-item">
                       <a class="nav-link" href="#qna">문의게시판</a>

@@ -399,15 +399,11 @@ m-right_favorite td a:hover{
 
 /* footer css */
 
-.footer{
-  position: absolute;	
+.footer{  	
   background-color: black;
   color: ghostwhite;    
   height: 200px;
-  margin: 1800px 0 0 20px;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  margin: 4000px 0 0 20px !important;
   
 }
 .footerImg{

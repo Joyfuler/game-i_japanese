@@ -36,6 +36,6 @@
 		<div class = "bottom_btn"><a href="${conPath }/board/list.jsp?bid=qna"> ▶문의게시판</a>
 		</div>
 	</div>
-<jsp:include page="footer.html"/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

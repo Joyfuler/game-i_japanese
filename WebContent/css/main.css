@@ -13,6 +13,7 @@ body{
   color: #212529;  
   background-color: white;
   margin-left: 5px; 
+  min-height: 100vh;
 
 }
 li {
@@ -348,11 +349,11 @@ div.m-right_gameRank ul li.rank-chagne {
 
 /* footer css */
 
-.footer{
+#main_footer{
   background-color: black;
   color: ghostwhite;    
-  height: 200px;
-  margin: 1800px 0 0 20px;
+  height: 200px;   
+  margin-top : 6000px 0 0 0; 
   
 }
 .footerImg{

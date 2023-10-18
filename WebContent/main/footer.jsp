@@ -9,17 +9,17 @@
 <meta charset="UTF-8">
 <title>Footer</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-<link href="${conPath }/main/css/style2.css" rel = "stylesheet">
+<link href="${conPath }/css/style2.css" rel = "stylesheet">
 </head>
 <body>
 	<footer id = "main_footer">
             <div class="footer bg-dark text-secondary px-1 text-center">
                 <div class="py-2">
                     <a href = "#"><button type="button" class="btn btn-outline-light btn-lg px-1">▲TOP</button></a>
-                    <a href = "#"><button type="button" class="btn btn-outline-light btn-lg px-1" onclick = "location.href='/1st_project/main/intro.jsp'">회사소개</button></a>
-                    <a href = "#privacy"><button type="button" class="btn btn-outline-light btn-lg px-1">개인정보</button></a>
+                    <a href = "#"><button type="button" class="btn btn-outline-light btn-lg px-1" onclick = "location.href='${conPath}/intro.do'">회사소개</button></a>
+                    <a href = "#privacy"><button type="button" class="btn btn-outline-light btn-lg px-1">개인정보방침</button></a>
                     <a href = "#policy"><button type="button" class="btn btn-outline-light btn-lg px-1">운영규약</button></a>
-                    <a href = "#qna"><button type="button" class="btn btn-outline-light btn-lg px-1">문의게시판</button></a>
+                    <a href = "#qna"><button type="button" class="btn btn-outline-light btn-lg px-1">문의<br>게시판</button></a>
                 </div>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
               	   <h1 class="display-5 fw-bold text-white"><img class = "footerImg" src = "${conPath }/main/img/footerlogo.jpg" height = "100">Weekend Company</h1>

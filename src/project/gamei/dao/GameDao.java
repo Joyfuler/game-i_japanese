@@ -147,10 +147,10 @@ public class GameDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW "
-				+ "WHERE GID=GAME.GID), 0) AVG  FROM GAME ORDER BY AVG DESC) A) WHERE RN BETWEEN ? AND ?";		
+				+ "WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY AVG DESC) A) WHERE RN BETWEEN ? AND ?";		
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);			
 			pstmt.setInt(1, startRow);
 			pstmt.setInt(2, endRow);
 			rs = pstmt.executeQuery();
@@ -182,5 +182,47 @@ public class GameDao {
 		}			
 		return lists;
 	}
+	// (4) 게임을 최근 출시 순으로 출력. 한 페이지당 5개씩 출력됨.
 	
+	public ArrayList<GameDto> gameListSortByDate(int startRow, int endRow){
+		ArrayList<GameDto> lists = new ArrayList<GameDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW "
+				+ "WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY GPDATE DESC) A) WHERE RN BETWEEN ? AND ?";		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {			
+				String gid = rs.getString("gid");
+				String gname = rs.getString("gname");
+				String ggenre = rs.getString("ggenre");
+				String gpub = rs.getString("gpub");
+				Date gpdate = rs.getDate("gpdate");
+				String gicon = rs.getString("gicon");
+				String gdesc = rs.getString("gdesc");
+				int ghit = rs.getInt("ghit");				
+				double avg = rs.getDouble("avg");				
+				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}			
+		return lists;
+	}
 }
