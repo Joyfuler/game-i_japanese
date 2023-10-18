@@ -1,0 +1,97 @@
+@charset "UTF-8";
+#contents {	
+	border-radius: 36px; 
+	box-shadow: 0 0 5px #999999;	 
+	background:#FFF; 
+	padding: 50px 40px; 
+	margin:0px 20px 50px; 
+	position:relative;
+}
+
+	#contents .icon { 
+	margin-bottom:40px;	
+	}
+	
+	#contents h2{	
+	position: relative;
+	bottom: 10px;
+    color: ghostwhite;
+    font-size: 28px;
+    padding: 20px 0 15px 25px;    
+    background-color: #212529;
+    line-height: 20px;
+    font-weight: bold;
+    border-radius: 20px;
+	}
+	
+.rd25_right { 
+	height: 75px;	
+	border-radius: 0px 25px 25px 0px;	
+}
+	
+.gray_frame { 
+	border:2px solid #CCC; 
+	padding:10px 20px;	 
+	margin-top:20px; 
+	margin-bottom:30px; 
+	overflow:hidden; 
+	border-radius:10px;	
+}
+
+.check { 
+	height: 40px;
+	line-height: 20px;
+	width: 360px;	 
+	margin: 10px;	 
+	text-align:center;		
+	border: 2px solid aqua;
+	border-radius: 5px;
+	background-color: #212529;		
+}
+	.check .btn{
+	width: 100px;
+	color: ghostwhite;
+	position: relative;	
+	display: inline-block;
+	color:white;	
+	}
+	
+	.check .btn:hover{
+	color: aqua;
+	}
+	
+	.check .btn a {
+	text-decoration:none;
+	color:white;
+	}
+	
+	
+	
+	.check .btn a:hover{
+	color: aqua;
+	}
+
+.rd21 { 
+	border-radius: 21px;
+}	
+
+.table01 tbody tr th{
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;	
+}
+
+.table01 tbody tr td{
+	margin-right: 0;
+}
+
+#identify_answer{
+	margin-left: 3px;
+}
+
+
+	
+/* footer 위치 재정렬 */	
+.footer{
+	margin-top: 250px !important;	
+}	

@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+div.mainTitle{
+	margin-left: 20px;
+}
+
+div.mainTitle h5 {
+	padding: 10px;	
+	font-family: 'Segoe UI';
+}
+div.mainTitle h5 strong{
+	color: red;
+}
+img.rank{
+	display: none;
+}

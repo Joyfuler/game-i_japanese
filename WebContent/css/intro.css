@@ -1,0 +1,56 @@
+@charset "UTF-8";
+
+a{
+	text-decoration: none;
+	color: black;
+	
+}
+
+div.top_title {
+	height: 600px;
+	line-height: 600px;
+	background-image: url(../img/intro.png);
+	background-repeat: no-repeat;	
+	background-size: 1000px 660px;
+	background-position: center;
+	text-align: center;	
+}
+
+body h1{
+	color: white;
+}
+
+.bottom{
+	margin-top : 20px;
+	text-align: center;		
+}
+
+.bottom section h2 {
+	text-align: center;	
+	font-size: 1.5em;	
+	color: #212529;	
+}
+
+.bottom p {
+	color: #212529;
+}
+
+.bottom_btn{
+	height: 50px;
+	line-height: 50px;
+	width: 150px;
+	margin-left: 45%;
+	margin-bottom: 5px;	
+	border: 1px solid aqua;
+	text-align: center;
+	background-color: #212529;	
+}
+.bottom_btn a {
+	color: ghostwhite;
+}
+
+/* footer 위치 재정렬 */
+.footer{
+	margin-top: 200px !important;
+	
+}

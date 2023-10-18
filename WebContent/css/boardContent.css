@@ -1,0 +1,261 @@
+a{
+	text-decoration: none;	
+}
+table.board-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #212529;
+  border: 1px solid gray;
+}
+
+.container {
+	margin-left: 75%;
+	
+}
+
+table.board-table tr{
+	color: ghostwhite;
+}
+
+table.board-table tr:hover {
+	background-color: #425058;
+	color: aqua;
+}
+
+td.profile-cell{
+	text-align: center;
+}
+
+table.board-table td img {
+	margin-left: 10px;
+}
+
+table.board-table tr, table.board-table tr td{	
+	text-align: left;
+	margin-left: 10px;	
+} 
+
+table.board-table tr td:first-child{
+	width: 200px;
+	text-align: center;	
+	font-weight: bold;
+	border-right: 1px solid gray;
+}
+
+table.board-table tr td:nth-child(2){
+	padding-left: 15px;
+	text-align: center;
+		
+}
+
+section.notice {
+  padding: 40px 0;
+}
+
+.page-title {
+  margin-bottom: 60px;
+}
+.page-title h3 {
+  font-size: 28px;
+  color: #333333;
+  font-weight: 400;
+  text-align: center;
+  margin-left: 5%;
+  
+}
+
+.board-list{
+	margin-bottom: 10px;
+}
+
+#board-search .search-window input:focus {
+  border-color: #333;
+  outline: 0;
+  border-width: 1px;
+}
+#board-search .search-window .search-wrap .btn {
+  padding: 0;
+  font-size: 16px;
+}
+
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+.board-table th {
+  text-align: center;
+}
+
+.board-table .th-num {
+  width: 100px;
+  text-align: center;
+}
+
+.board-table .th-date {
+  width: 100px;
+}
+
+span.nickNamespan{
+	font-size : 15px;
+	padding-left: 10px;
+	text-align: center;
+}
+
+.board-table .th-name {
+  width: 200px;
+}
+.board-table .th-hit {
+width:100px;
+}
+
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.board-table tbody td.content-cell{
+	text-align: left !important;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.title-cell:last-child {
+	text-align: center;
+	padding-left: 5px;
+	border-left: 1px solid gray;
+}
+
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+
+.board-table tbody th p{
+  display: none;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0 30px;
+  font-size: 15px;
+  font-weight: 400;
+  background: aqua;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border: 1px solid gray;
+  text-transform: uppercase;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  -ms-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.btn-dark {
+  background: #555;
+  color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+  background: #373737;
+  border-color: #373737;
+  color: #fff;
+}
+
+.btn-dark {
+  background: #555;
+  color: #fff;
+}
+
+.btn-dark:hover, .btn-dark:focus {
+  background: #373737;
+  border-color: #373737;
+  color: #fff;
+}
+
+#comment{
+	margin-left: 10px;
+}
+
+.comment-content-cell{
+	height : 150px;
+	padding-left: 20px;
+	padding-bottom: 15px;	
+}
+
+.comment-cell img{
+	 margin: 10px;
+}
+
+.comment-cell span {
+	font-weight: bold;
+	padding-left: 10px;
+	font-size: 15px;
+}
+
+.comment-cell a{
+	font-size: 12px;
+}
+/* reset */
+
+.button-container{
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.clearfix:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+.board_container {
+  width: 1000px;  
+  margin-left: 88px;
+  border: 1px solid gray;
+  border-bottom: 1px solid gray;
+}
+.blind {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  margin: -1px;
+  width: 1px;
+  height: 1px;
+}
+
+.footer{
+	height: 270px !important;
+	margin-top: 800px !important;
+}

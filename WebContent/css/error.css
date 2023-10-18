@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+.errorTitle {	
+	text-align: center;
+	color: red;	
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+	border-bottom: 2px solid gray;	
+}
+
+.errorContent{
+	text-align: center;	
+}
+
+strong.errorContent{
+	font-weight: 500;
+	text-align: center;
+}
+
+div.linkButton{
+	text-align: center;
+}
+
+button.errorButton{
+	width: 200px;
+	height: 50px;
+	text-align: center;	
+	margin: 0 auto;
+}
+
+a{
+	text-decoration: none;
+	color: violet;
+}
+
+.footer{
+	margin-top: 300px !important;
+}

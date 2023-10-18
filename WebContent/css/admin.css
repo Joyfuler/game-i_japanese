@@ -1,0 +1,54 @@
+@charset "UTF-8";
+
+body {
+	font-size: 9pt;
+}
+
+table {
+	border: 1px solid gray;
+	width: 95%;
+	margin: 10px auto;
+}
+
+table tr {
+	height: 40px;
+}
+
+table tr:hover {
+	background-color: lightgray;
+}
+
+td, th {	
+	padding: 5px;
+}
+
+caption {
+	font-size: 20px;
+	padding: 10px;
+}
+
+h2, b {
+	text-align: center;
+	color: red;
+}
+
+.left {
+	text-align: left;
+}
+
+.paging {
+	text-align: center;
+	font-size: 15px;
+}
+
+input:not(.btn), textarea {
+	width: 90%;
+}
+
+h4 {
+	text-align: center;
+}
+
+#tabs_5 table tr td {
+	width: 20%;
+}
