@@ -1,6 +1,7 @@
 package project.gamei.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 
 public class GameDto {
 	private String gid;
@@ -15,10 +16,22 @@ public class GameDto {
 	private double rscore;
 	private String rtext;
 	private String mid;
+	private int gviewCount;
 	private double avg;
+	private Timestamp maxdate;
+	
 
 	public GameDto() {
 	}
+	
+	public GameDto(String gid, String gname, String gicon, String gpub, Timestamp maxdate) {		
+		this.gid = gid;
+		this.gname = gname;
+		this.gicon = gicon;
+		this.gpub = gpub;
+		this.maxdate = maxdate;
+	}
+	
 
 	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
 			int ghit) {
@@ -61,6 +74,19 @@ public class GameDto {
 		this.gdesc = gdesc;
 		this.ghit = ghit;
 		this.avg = avg;		
+	}
+	
+	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
+			int ghit, int gviewCount) {		
+		this.gid = gid;
+		this.gname = gname;
+		this.ggenre = ggenre;
+		this.gpub = gpub;
+		this.gpdate = gpdate;
+		this.gicon = gicon;
+		this.gdesc = gdesc;
+		this.ghit = ghit;
+		this.gviewCount = gviewCount;		
 	}
 	
 
@@ -166,12 +192,28 @@ public class GameDto {
 
 	public void setAvg(double avg) {
 		this.avg = avg;
+	}	
+
+	public int getGviewCount() {
+		return gviewCount;
+	}
+
+	public void setGviewCount(int gviewCount) {
+		this.gviewCount = gviewCount;
+	}
+	
+	public Timestamp getMaxdate() {
+		return maxdate;
+	}
+
+	public void setMaxdate(Timestamp maxdate) {
+		this.maxdate = maxdate;
 	}
 
 	@Override
 	public String toString() {
 		return "GameDto [gid=" + gid + ", gname=" + gname + ", ggenre=" + ggenre + ", gpub=" + gpub + ", gpdate="
 				+ gpdate + ", gicon=" + gicon + ", gdesc=" + gdesc + ", ghit=" + ghit + ", rid=" + rid + ", rscore="
-				+ rscore + ", rtext=" + rtext + ", mid=" + mid + "]";
-	}
+				+ rscore + ", rtext=" + rtext + ", mid=" + mid + ", gviewCount=" + gviewCount + ", avg=" + avg + "]";
+	}	
 }

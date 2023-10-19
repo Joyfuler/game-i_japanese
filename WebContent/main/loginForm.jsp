@@ -23,47 +23,48 @@
 			</div>			
 			<div class="gray_frame">
 				<p>가입시 입력한 ID와 비밀번호를 입력해주세요</p>
-					<form action = "" method="get">					
-					<div>
-						<table class="table01">
-							<colgroup>
-								<col width="26%" />
-								<col width="74%" />
-							</colgroup>
-							<tbody>
-								<tr>
-									<th>ID: </th>
-									<td><input id="id" name="id" type="text" maxlength="20" tabindex="1" autofocus="autofocus">
-										<a href="" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a>										
-									</td>
-								</tr>
-								<tr>
-									<th>PW: </th>
-									<td><input id="password" name="password" maxlength="20" tabindex="2"
-										type="password">										
-									</td>
-								</tr>
-							</tbody>
-						</table>
-					</div>					
+					<form action = "${conPath }/login.do" method="get">	
+					<input type = "hidden" name = "next" value = "${param.next }">				
+						<div>
+							<table class="table01">
+								<colgroup>
+									<col width="26%" />
+									<col width="74%" />
+								</colgroup>
+								<tbody>
+									<tr>
+										<th>ID: </th>
+										<td><input id="id" name="mid" type="text" maxlength="20" tabindex="1" autofocus="autofocus">
+											<a href="${conPath }/findAccount.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a>										
+										</td>
+									</tr>
+									<tr>
+										<th>PW: </th>
+										<td><input id="password" name="mpw" maxlength="20" tabindex="2"
+											type="password">										
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>					
 					<div class="check">
 					<table>
 						<tr>
 							<td>
-							<button class = "btn" type = "submit"> &nbsp;로그인 </button>							
+							<button class = "btn" type = "submit"> &nbsp;로그인 </button>												
 							</td>							
 							<td>
-							<button class = "btn" type = "button" onclick = "location.href='${conPath}/main/joinForm.jsp'"> &nbsp; 회원가입</button> 
+							<input class = "btn" type = "button" onclick = "location.href='${conPath}/joinView.do'" value = "회원가입"> 
 							</td>
 							<td>
-							<button class = "btn" type = "button" onclick = "location.href='${conPath}/main/main3.jsp'">메인으로</button>
+							<input class = "btn" type = "button" onclick = "location.href='${conPath}/main.do'" value = "메인">
 						</tr>	
-					</table>					
-					</div>
-				</form>					
-			</div>
-		</div>	
-	</div>
-<jsp:include page="footer.html"/>	
+					</table>
+					</div>	
+				</form>				
+			</div>									
+		</div>
+	</div>	
+<jsp:include page="footer.jsp"/>	
 </body>
 </html>

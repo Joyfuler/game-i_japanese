@@ -15,10 +15,10 @@ import javax.sql.DataSource;
 import project.gamei.dto.MemberDto;
 
 public class MemberDao {
-	private final int SUCCESS = 1;
-	private final int FAIL = 0;
-	private final int EXISTENT = 1;
-	private final int NONEXISTENT = 0;
+	public static final int SUCCESS = 1;
+	public static final int FAIL = 0;
+	public static final int EXISTENT = 1;
+	public static final int NONEXISTENT = 0;
 	private DataSource ds;
 	private static MemberDao INSTANCE = new MemberDao();
 

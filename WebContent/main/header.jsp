@@ -29,16 +29,25 @@
 <body>
 	 <div class = "controller">
           <ul>
-          	<li><a class = "control" href = "${conPath }/admin/admin.jsp">관리자모드</a></li>
-			<li><a class = "control" href = "${conPath }/main/modifyChk.jsp">회원정보수정</a></li>          
-            <li><a class = "control" href = "${conPath }/main/loginForm.jsp">로그인</a></li>            
-            <li><a class = "control" href = "${conPath }/main/findAccount.jsp">아이디/비밀번호찾기</a></li>            
-            <li><a class = "control" href = "${conPath }/main/joinForm.jsp">회원가입</a></li>
+          	<c:if test = "${empty member }">			          
+            <li><a class = "control" href = "${conPath }/loginView.do">로그인</a></li>            
+            <li><a class = "control" href = "${conPath }/findAccount.do">아이디/비밀번호찾기</a></li>            
+            <li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
+            </c:if>
+            <c:if test = "${not empty member }">
+            <li><a class = "control" href = "${conPath }/modifyView.do">회원정보수정</a></li>
+            <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
+            <li><a class = "control" href = "${conPath }/modifyView.do">${member.mnickname } 님</a></li>
+            
+            </c:if>
+            <c:if test = "${not empty member and member.mlevel eq 2 }">
+            <li><a class = "control" href = "${conPath }/admin/admin.jsp">관리자모드</a></li>
+            </c:if>
           </ul>
         </div>
         <nav class="navbar navbar-expand-lg navbar-light bg-dark navbar-dark">
             <div class="container-fluid">
-              <a class="navbar-brand" href="${conPath }/index.jsp"><img src = "${conPath }/main/img/logo6.png" height = "35"> &nbsp;Game-i</a>
+              <a class="navbar-brand" href="${conPath }/index.jsp"><img src = "${conPath }/main/img/logo6.png" height = "35"> &nbsp;Game - i</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>

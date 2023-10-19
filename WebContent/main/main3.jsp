@@ -31,6 +31,22 @@
 	 	imageElement.src = "${conPath }/img/noimg.jpg";
 	}
 </script>
+<c:if test = "${not empty loginResult }">	
+	<script>
+		alert('${loginResult}');	
+	</script>
+	</c:if>
+<c:if test = "${not empty loginErrorMsg }">
+	<script>
+		alert('${loginErrorMsg}');
+		history.back();
+	</script>
+</c:if>		
+<c:if test = "${not empty logoutMsg }">
+	<script>
+		alert('${logoutMsg }');		
+	</script>	
+</c:if>	
 <jsp:include page="header.jsp"/>
 <jsp:include page="rightArea.jsp"/>
 
@@ -40,7 +56,7 @@
   		<table>
 	  		<tr>
 	  			<c:forEach var = "articlesDto" items="${articles }">
-	  			<td><a href = "${conPath }/review.do?gname=${articlesDto.link1 }"><img src = "${conPath }/img/${articlesDto.img1 }" width = "248"></a></td>	  			
+	  			<td><a href = "${conPath }/review.do?gid=${articlesDto.link1 }"><img src = "${conPath }/img/${articlesDto.img1 }" width = "248"></a></td>	  			
 	  			</c:forEach>
 	  		</tr>
 	  		<tr>
@@ -54,8 +70,14 @@
   	<form action = "${conPath }/main.do" class = "listSort">    
 	    <select id = "selectBox" name = "sortBy">
       	<option value = "">정렬방식</option>
+      	<c:if test = "${sortBy eq 'new' }">
+      	<option value = "new" selected = "selected"> 출시일순 </option>
+      	<option value = "highScore"> 평점 높은 순</option>
+      	</c:if>      
+      	<c:if test = "${sortBy eq 'highScore' or empty sortBy }">
       	<option value = "new"> 출시일순 </option>
-      	<option value = "highScore"> 평점 높은 순</option>      
+      	<option value = "highScore" selected = "selected"> 평점 높은 순</option>
+      	</c:if>
     	</select>
     	<input class = "sortSubmit" type = "submit" value = "적용">
     </form>    
@@ -71,12 +93,12 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title" style = "color:aqua;">&nbsp;&nbsp;${sortedList.gname }</h5>
+              <h5 class="card-title" style = "color:aqua;">&nbsp;&nbsp;${sortedList.gname }</h5>              
               <h6 style = "color:white;">&nbsp;&nbsp;(평점: <span style = color:red;>${sortedList.avg }</span>점
-              <c:forEach begin="1" end="${sortedList.avg }">
+              <c:forEach begin="1" end="${fn:substringBefore(sortedList.avg, '.')}">
                 <img src = "${conPath }/img/star_on.png" height="15px">
               </c:forEach> 
-              <c:forEach begin="1" end ="${5 - sortedList.avg }">
+              <c:forEach begin="1" end ="${5 - fn:substringBefore(sortedList.avg, '.')}">
 				<img src = "${conPath }/img/star_out.png" height="15px">
 			  </c:forEach>
 				)</h6>
@@ -105,7 +127,7 @@
     	<table>
     		<tr>
     		<c:if test = "${startPage > BLOCKSIZE }">
-    		<td><a href = "${conPath }/main.do?pageNum=${startPage -1 }">[이전]</a></td>
+    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${startPage -1 }">[이전]</a></td>
     		</c:if>
     		<td></td>
     		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
@@ -113,11 +135,11 @@
     				<td><b style = "color: red;">${i }</b></td>
     			</c:if>
     			<c:if test = "${i != pageNum }">
-    				<td><a href = "${conPath }/main.do?pageNum=${i }" style = "color: white;">${i }</a></td>
+    				<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${i }" style = "color: white; padding-left: 10px;">${i }</a></td>
    				</c:if> 				
     		</c:forEach>
     		<c:if test = "${endPage < pageCnt }">
-    		<td><a href = "${conPath }/main.do?pageNum=${endPage +1 }">[다음]</a></td>
+    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${endPage +1 }">[다음]</a></td>
     		</c:if>
     		</tr>
   		</table>  

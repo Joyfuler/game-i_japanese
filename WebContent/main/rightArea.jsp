@@ -38,168 +38,32 @@
         </div>
         
         <!--  방문TOP 목록 -->
-          <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>1</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum1.jpg" alt="" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>세븐나이츠 키우기</strong>
-            <span>Netmarble</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>2</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum2.jpg" alt="" onerror="noImage(this)"/></a></li>
-          <li class="rank-gameName">
-            <strong>Royal Ma..</strong>
-            <span>Dream Games, Ltd.</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b1"  onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>3</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum3333.jpg" alt="" alt="ROBLOX" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>ROBLOX</strong>
-            <span>ROBLOX Corporation</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>4</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum4.jpg" alt="" alt="포트리스 사가" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>포트리스 사가</strong>
-            <span>CookApps.</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>5</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum5.jpg" alt="" alt="피파모바일" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>피파모바일</strong>
-            <span>(주)넥슨코리아</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>6</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum6.jpg" alt="트릭컬 리바이브" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>트릭컬 리바이브</strong>
-            <span>-</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>7</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum7.jpg" alt="" alt="Dragonheir: Silent Gods" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>Dragonhe..</strong>
-            <span>Nuverse Games</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>8</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum8.jpg" alt="" alt="콜 오브 드래곤즈" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>콜 오브 드래곤즈</strong>
-            <span>FARLIGHT</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>9</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum9.jpg" alt="" alt="원신" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>원신</strong>
-            <span>miHoYo</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b1" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>10</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum10.jpg" alt="" alt="브롤스타즈" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>브롤스타즈</strong>
-            <span>Supercell</span>
-          </li>            
-        </ul>
+        <c:set var="idx" value = "1"/>	 	
+        <c:forEach var = "viewTop10" items = "${rightAreaViewTop10 }">	
+          	<ul class ="tab-content" data-tab= "b1" onclick="location.href='${conPath }/review.do?gid=${viewTop10.gid }'">          
+          		<li class="rank-gameNum"><strong>${idx }</strong></li>
+          		<li class="rank-appicon"><a href = "${conPath }/review.do?gid=${viewTop10.gid }"><img src="${conPath }/img/${viewTop10.gicon }" alt="" onerror="noImage(this)" /></a></li>
+          		<li class="rank-gameName">          			
+            		<a href = "${conPath }/review.do?gid=${viewTop10.gid }"><strong>${viewTop10.gname }</strong></a>
+            		<a href = "${conPath }/review.do?gid=${viewTop10.gid }"><span> ${viewTop10.gpub }</span></a>
+          		</li>            
+        	</ul>
+        <c:set var = "idx" value = "${idx +1}"/>	
+        </c:forEach>
+     
         <!--  최근리뷰 목록 -->
-         <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>1</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum1.jpg" alt="" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>세븐나이츠 키우기</strong>
-            <span>Netmarble</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>2</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum2.jpg" alt="" onerror="noImage(this)"/></a></li>
-          <li class="rank-gameName">
-            <strong>Royal Ma..</strong>
-            <span>Dream Games, Ltd.</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b2"  onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>3</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum3333.jpg" alt="" alt="ROBLOX" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>ROBLOX</strong>
-            <span>ROBLOX Corporation</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>4</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum4.jpg" alt="" alt="포트리스 사가" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>포트리스 사가</strong>
-            <span>CookApps.</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>5</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum5.jpg" alt="" alt="피파모바일" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>피파모바일</strong>
-            <span>(주)넥슨코리아</span>
-          </li>            
-        </ul>
-          <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>6</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum6.jpg" alt="트릭컬 리바이브" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>트릭컬 리바이브</strong>
-            <span>-</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>7</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum7.jpg" alt="" alt="Dragonheir: Silent Gods" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>Dragonhe..</strong>
-            <span>Nuverse Games</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>8</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum8.jpg" alt="" alt="콜 오브 드래곤즈" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>콜 오브 드래곤즈</strong>
-            <span>FARLIGHT</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>9</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum9.jpg" alt="" alt="원신" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>원신</strong>
-            <span>miHoYo</span>
-          </li>            
-        </ul>
-           <ul class = "tab-content" data-tab= "b2" onclick="location.href='#'">
-          <li class="rank-gameNum"><strong>10</strong></li>
-          <li class="rank-appicon"><a ><img src="${conPath }/img/thum10.jpg" alt="" alt="브롤스타즈" onerror="noImage(this)" /></a></li>
-          <li class="rank-gameName">
-            <strong>브롤스타즈</strong>
-            <span>Supercell</span>
-          </li>            
-        </ul>                
-                        
+        <c:set var = "idx2" value = "1"/>
+        <c:forEach var = "newReview" items = "${rightAreaNewReview }">
+         	<ul class = "tab-content" data-tab= "b2" onclick="location.href='${conPath}/review.do?gid=${newReview.gid }'">
+          		<li class="rank-gameNum"><strong>${idx2 }</strong></li>
+          		<li class="rank-appicon"><a href = "${conPath }/review.do?gid=${newReview.gid }"><img src="${conPath }/img/${newReview.gicon }" alt="" onerror="noImage(this)" /></a></li>
+          		<li class="rank-gameName">
+            		<a href = "${conPath }/review.do?gid=${newReview.gid }"><strong>${newReview.gname }</strong></a>
+            		<a href = "${conPath }/review.do?gid=${newReview.gid }"><span>${newReview.gpub }</span></a>
+          		</li>            
+        	</ul>
+        <c:set var = "idx2" value = "${idx2 +1 }"/>	
+        </c:forEach>        
     </div>       
   <!-- 우측 즐겨찾기 영역-->  
   <div class="m-right_favorite"  style="z-index:1000">

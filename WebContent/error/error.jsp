@@ -28,7 +28,7 @@ text-align: center;
 	<h5 class = "errorContent">웹 브라우저에서 새로고침하거나, 새로고침 후에도 표시되지 않는 경우
 	URL를 확인해 주세요.</h5> <br>
 	<div class = "linkButton">
-	<button class = "errorButton" onclick = "location.href='../index.jsp'">▶HOME</button>
+	<button class = "errorButton" onclick = "location.href='${conPath }/index.jsp'">▶HOME</button>
 	<button class = "errorButton" onclick = "history.back()">▶뒤로가기</button>
 	</div> 
 	<jsp:include page="../main/footer.jsp"/>

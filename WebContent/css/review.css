@@ -1,15 +1,21 @@
 li{
     list-style: none;
 }
+
+a{
+	text-decoration: none !important;	
+}    
+
 /* 게임 상세정보 영역 */
 div.summary_new {
     width: 1000px;
-    height: 120px;
+    height: 150px;
     padding: 20px;
     background: #212529;
     margin-top:15px;
     margin-left: 150px;
     }    
+
 
 .icon_new {
 	float: left;
@@ -21,20 +27,23 @@ div.summary_new {
 	width: 80px;
 	height: 80px;
 	margin: 0px 0px 0px 10px;
+	padding-top : 10px;
 	}
 
 .game_info {
 	float: left;
 	width: 340px;
 	height: 40px;
-	line-height: 20px;
+	line-height: 15px;
 	margin: 5px 0px 10px 30px;
 	}
 
 p.game_name {	
 	font-size: 18px;
 	font-weight: bold;
-	letter-spacing: -1px;
+	letter-spacing: 0px;
+	height: 40px;
+	line-height: 20px;
 	}
 
 .game_genre {
@@ -222,7 +231,7 @@ p.game_name {
     	font-weight: bold;
     }
     
-    /* footer 위치 재정렬 */
-    div.footer{
-    margin: 500px 0 0 0 !important;
-    }
+    /* footer 재정렬 */
+    .footer {
+    margin-top: 750px !important;
+    }   
