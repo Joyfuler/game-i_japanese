@@ -201,11 +201,7 @@ p.game_name {
         padding-inline-start: 10;        
         width: 1000px;
         background-color: #DDDDDD;        
-    }
-    
-    ul.review li.text {
-    border-bottom: 1px solid black;
-    }
+    }    
     
     .review .star img{
         height: 15px;

@@ -9,17 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import project.gamei.service.MJoinService;
 import project.gamei.service.MLoginService;
 import project.gamei.service.MLogoutService;
 import project.gamei.service.MainDisplayService;
+import project.gamei.service.MidConfirmService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
 import project.gamei.service.reviewDeleteService;
 import project.gamei.service.reviewWriteService;
 
-/**
- * Servlet implementation class FrontController
- */
+
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -48,46 +48,57 @@ public class FrontController extends HttpServlet {
 			service = new MainDisplayService();
 			service.execute(request, response);
 			viewPage = "main/intro.jsp";
-		} else if (command.equals("/review.do")) {
-			service = new MainDisplayService();
-			service.execute(request, response);
-			service = new ReviewListService();
-			service.execute(request, response);
-			viewPage = "main/review.jsp";
 		} else if (command.equals("/reviewWrite.do")) {
 			service = new MainDisplayService();
 			service.execute(request, response);
 			service = new reviewWriteService();
 			service.execute(request, response);
-			viewPage = "review.do";
+			viewPage = "review.do";		
 		} else if (command.equals("/deleteReview.do")) {
 			service = new MainDisplayService();
 			service.execute(request, response);
 			service = new reviewDeleteService();
 			service.execute(request, response);
-			viewPage = "review.do";			
+			viewPage = "review.do";		
+		} else if (command.equals("/review.do")) {
+			service = new MainDisplayService();
+			service.execute(request, response);
+			service = new ReviewListService();
+			service.execute(request, response);
+			viewPage = "main/review.jsp";	
+		} else if (command.equals("/joinView.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			viewPage = "member/joinForm.jsp";
+		} else if (command.equals("/midConfirm.do")) {
+			service = new MidConfirmService();
+			service.execute(request, response);
+			viewPage = "member/midConfirm.jsp";			
+		} else if (command.equals("/join.do")) {			
+			service = new MJoinService();
+			viewPage = "loginView.do";			
 		} else if (command.equals("/loginView.do")) {
 			service = new MainDisplayService();
 			service.execute(request, response);			
-			viewPage = "main/loginForm.jsp";
+			viewPage = "member/loginForm.jsp";
 		} else if (command.equals("/login.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
 			service = new MLoginService();
 			service.execute(request, response);
-			if (!request.getParameter("next").equals("")) {
-				viewPage = request.getParameter("next");
-			} else {				
+			if (request.getParameter("next") == null) {
 				viewPage = "main.do";
-			}	
+			}
+			else if (request.getParameter("next") != null || !request.getParameter("next").equals("")) {
+				viewPage = request.getParameter("next");
+			}				
 		} else if (command.equals("/logout.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
 			service = new MLogoutService();
 			service.execute(request, response);
-			viewPage = "main.do";
-		}
-	
+			viewPage = "main3.jsp";
+		}	
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

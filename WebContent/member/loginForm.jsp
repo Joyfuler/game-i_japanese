@@ -11,7 +11,7 @@
 <link href="${conPath }/css/login.css" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 </head>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../main/header.jsp"/>
 <body>
 	<div id="contents">
 		<div class="article">
@@ -22,8 +22,9 @@
 				</h2>
 			</div>			
 			<div class="gray_frame">
+				<div class = "login_background">
 				<p>가입시 입력한 ID와 비밀번호를 입력해주세요</p>
-					<form action = "${conPath }/login.do" method="get">	
+					<form action = "${conPath }/login.do" method="get" class = "loginForm">	
 					<input type = "hidden" name = "next" value = "${param.next }">				
 						<div>
 							<table class="table01">
@@ -34,8 +35,7 @@
 								<tbody>
 									<tr>
 										<th>ID: </th>
-										<td><input id="id" name="mid" type="text" maxlength="20" tabindex="1" autofocus="autofocus">
-											<a href="${conPath }/findAccount.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a>										
+										<td><input id="id" name="mid" type="text" maxlength="20" tabindex="1" autofocus="autofocus">																					
 										</td>
 									</tr>
 									<tr>
@@ -44,6 +44,8 @@
 											type="password">										
 										</td>
 									</tr>
+									<tr>
+										<td><br><a href="${conPath }/findAccount.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a></td>
 								</tbody>
 							</table>
 						</div>					
@@ -61,10 +63,11 @@
 						</tr>	
 					</table>
 					</div>	
-				</form>				
+				</form>			
+				</div>	
 			</div>									
 		</div>
 	</div>	
-<jsp:include page="footer.jsp"/>	
+<jsp:include page="../main/footer.jsp"/>	
 </body>
 </html>

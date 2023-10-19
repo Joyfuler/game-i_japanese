@@ -11,7 +11,7 @@
 <link href="${conPath }/css/login.css" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 </head>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../main/header.jsp"/>
 <body>
 	<div id="contents">
 		<div class="article">
@@ -63,6 +63,6 @@
 			</div>
 		</div>	
 	</div>
-<jsp:include page="footer.html"/>	
+<jsp:include page="../main/footer.jsp"/>	
 </body>
 </html>

@@ -37,7 +37,7 @@
             <c:if test = "${not empty member }">
             <li><a class = "control" href = "${conPath }/modifyView.do">회원정보수정</a></li>
             <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
-            <li><a class = "control" href = "${conPath }/modifyView.do">${member.mnickname } 님</a></li>
+            <li><a class = "control" href = "${conPath }/modifyView.do"><b>${member.mnickname } </b>님</a></li>
             
             </c:if>
             <c:if test = "${not empty member and member.mlevel eq 2 }">

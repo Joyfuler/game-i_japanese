@@ -153,7 +153,8 @@ VALUES (REVIEW_SEQ.NEXTVAL, 5, '요새 하는사람 있나요?', 'ddd', 'firenow
 
 SELECT * FROM GAME;
 commit;
-
+select * from review;
+alter table game add gviewcount number(5) default 0;
 ALTER TABLE REVIEW ADD RRDATE DATE DEFAULT SYSDATE;
 alter table member add mrdate date default sysdate;
 ---
