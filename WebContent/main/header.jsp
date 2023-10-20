@@ -35,9 +35,9 @@
             <li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
             </c:if>
             <c:if test = "${not empty member }">
-            <li><a class = "control" href = "${conPath }/modifyView.do">회원정보수정</a></li>
+            <li><a class = "control" href = "${conPath }/modifyChk.do?mid=${member.mid }">회원정보수정</a></li>
             <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
-            <li><a class = "control" href = "${conPath }/modifyView.do"><b>${member.mnickname } </b>님</a></li>
+            <li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>님</a></li>
             
             </c:if>
             <c:if test = "${not empty member and member.mlevel eq 2 }">
@@ -54,7 +54,7 @@
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item item1">
-                    <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">메인페이지</a>
+                    <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">평점목록</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="#notice">공지사항</a>

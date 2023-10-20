@@ -53,13 +53,27 @@
 	padding-left: 10px;
 }
 
-.idChk{
+.idChk {
 	margin-left: 10px;
  	margin-top: 10px;
+}
+.emailChk{
+	margin-left: 10px;
 }
 
 input[name="mid"]{
 	margin-top: 10px;
+}
+
+input#mphoto{
+	padding-top: 50px;
+}
+
+span#idConfirmResult, span#pwChkResult, span#emailChkResult{
+	color:red; 
+	font-size: 13px;
+	margin-top: 5px;
+	padding-top: 5px;	
 }
 
 .check { 

@@ -67,8 +67,42 @@ public class MemberDao {
 		}
 		return result;
 	}
+	
+	// (2) 회원 이메일 중복체크 메소드
+	public int memailConfirm(String memail) {
+		int result = EXISTENT; // 이미 있는 경우가 최악의 상황.
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) CNT FROM MEMBER WHERE MEMAIL = ?";
 
-	// (2)회원가입
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, memail);
+			rs = pstmt.executeQuery();
+			rs.next();
+			if (rs.getInt("CNT") == 0) {
+				result = NONEXISTENT;
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
+
+	// (3)회원가입
 	public int joinMember(MemberDto dto) {
 		int result = FAIL;
 		Connection conn = null;

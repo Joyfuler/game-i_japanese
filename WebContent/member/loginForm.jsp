@@ -13,6 +13,17 @@
 </head>
 <jsp:include page="../main/header.jsp"/>
 <body>
+<c:if test="${not empty joinResult  }">
+		<script>
+		alert('${joinResult}');
+		</script>
+	</c:if>
+	<c:if test="${not empty joinErrorMsg }"> <!--  회원가입 실패시. -->
+		<script>
+		alert('${joinErrorMsg}');
+		history.back();
+		</script>
+	</c:if>	
 	<div id="contents">
 		<div class="article">
 			<div class="icon">
@@ -24,7 +35,8 @@
 			<div class="gray_frame">
 				<div class = "login_background">
 				<p>가입시 입력한 ID와 비밀번호를 입력해주세요</p>
-					<form action = "${conPath }/login.do" method="get" class = "loginForm">	
+					<form action = "${conPath }/login.do" method="post" class = "loginForm">
+					<input type = "hidden" name = "gid" value = "${param.gid }">	
 					<input type = "hidden" name = "next" value = "${param.next }">				
 						<div>
 							<table class="table01">

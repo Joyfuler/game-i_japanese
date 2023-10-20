@@ -12,12 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import project.gamei.service.MJoinService;
 import project.gamei.service.MLoginService;
 import project.gamei.service.MLogoutService;
+import project.gamei.service.MModifyCheckService;
+import project.gamei.service.MModifyService;
 import project.gamei.service.MainDisplayService;
+import project.gamei.service.MemailConfirmService;
 import project.gamei.service.MidConfirmService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
+import project.gamei.service.boardListService;
 import project.gamei.service.reviewDeleteService;
 import project.gamei.service.reviewWriteService;
+import project.gamei.service.withdrawalService;
 
 
 @WebServlet("*.do")
@@ -48,15 +53,11 @@ public class FrontController extends HttpServlet {
 			service = new MainDisplayService();
 			service.execute(request, response);
 			viewPage = "main/intro.jsp";
-		} else if (command.equals("/reviewWrite.do")) {
-			service = new MainDisplayService();
-			service.execute(request, response);
+		} else if (command.equals("/reviewWrite.do")) {			
 			service = new reviewWriteService();
 			service.execute(request, response);
 			viewPage = "review.do";		
-		} else if (command.equals("/deleteReview.do")) {
-			service = new MainDisplayService();
-			service.execute(request, response);
+		} else if (command.equals("/deleteReview.do")) {			
 			service = new reviewDeleteService();
 			service.execute(request, response);
 			viewPage = "review.do";		
@@ -73,10 +74,17 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/midConfirm.do")) {
 			service = new MidConfirmService();
 			service.execute(request, response);
-			viewPage = "member/midConfirm.jsp";			
+			viewPage = "member/midConfirm.jsp";		
+		} else if (command.equals("/memailConfirm.do")) {
+			service = new MemailConfirmService();
+			service.execute(request, response);
+			viewPage = "member/memailConfirm.jsp";			
 		} else if (command.equals("/join.do")) {			
+			service = new MainDisplayService();
+			service.execute(request, response);			
 			service = new MJoinService();
-			viewPage = "loginView.do";			
+			service.execute(request, response);
+			viewPage = "member/loginForm.jsp";			
 		} else if (command.equals("/loginView.do")) {
 			service = new MainDisplayService();
 			service.execute(request, response);			
@@ -86,19 +94,41 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			service = new MLoginService();
 			service.execute(request, response);
-			if (request.getParameter("next") == null) {
-				viewPage = "main.do";
-			}
-			else if (request.getParameter("next") != null || !request.getParameter("next").equals("")) {
+			viewPage = "main.do";
+			if (!request.getParameter("next").equals("")) {
 				viewPage = request.getParameter("next");
 			}				
+		} else if (command.equals("/modifyChk.do")) {
+			service = new MainDisplayService();
+			service.execute(request, response);
+			service = new MModifyCheckService();
+			service.execute(request, response);
+			viewPage = "member/modifyChk.jsp"; 
+		} else if (command.equals("/modifyView.do")) {
+			service = new MainDisplayService();
+			service.execute(request, response);		
+			viewPage = "member/modifyForm.jsp";
+		} else if (command.equals("/modify.do")) {
+			service = new MModifyService();
+			service.execute(request, response);		
+			viewPage = "main.do";
 		} else if (command.equals("/logout.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
 			service = new MLogoutService();
 			service.execute(request, response);
-			viewPage = "main3.jsp";
-		}	
+			viewPage = "main.do";
+		} else if (command.equals("/withdrawal.do")) {
+			service = new withdrawalService();
+			service.execute(request, response);
+			viewPage = "main.do";
+		} else if (command.equals("/boardList.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			service = new boardListService();
+			service.execute(request, response);
+			viewPage = "board/list.jsp";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

@@ -49,13 +49,14 @@ p.game_name {
 .game_genre {
 	margin: 10px 0px 5px 0px;
 	color: #bebebe;
+	font-size : 0.9em;
 	}
 
 .game_open {
 	margin: 0 0px 10px 0px;
-	color: #c9c9c9;
-	font-weight: bold;
+	color: #c9c9c9;	
 	letter-spacing: -1px;
+	font-size : 0.9em;
 	}
 
 .user_score {

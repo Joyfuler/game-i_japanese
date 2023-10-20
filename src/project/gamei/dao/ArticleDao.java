@@ -32,7 +32,7 @@ public class ArticleDao {
 		}
 	}
 	
-	// 1. 상단에 기사 리스트 출력
+	// 1. 상단에 기사 리스트 출력 (참고: 기사 이미지는 265 x 400으로 통일할 것.)
 	public ArrayList<ArticleDto> getArticle(){
 		ArrayList<ArticleDto> lists = new ArrayList<ArticleDto>();
 		Connection conn = null;

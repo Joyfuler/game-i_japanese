@@ -26,7 +26,7 @@
 	$(document).ready(function(){
 		$("button.notLogin").click(function(){
 			alert('먼저 로그인해야 합니다.');
-			location.href = "loginView.do?next=review.do";
+			location.href = "loginView.do?gid=${param.gid }&next=review.do";
 			return false;			
 		});		
 		$("button.reviewSubmit").click(function(){		
@@ -51,6 +51,16 @@
 	<script>
 		alert('${reviewDeleteResult }');
 	</script>
+</c:if>	
+<c:if test = "${not empty loginResult }">	
+	<script>
+		alert('${loginResult }');
+	</script>
+	</c:if>
+<c:if test = "${not empty reviewWriteErrorMsg }">
+	<script>
+		alert('${reviewWriteErrorMsg}');
+	</script>	
 </c:if>	
 <body>    	
 	<jsp:include page="header.jsp"/>
@@ -96,7 +106,7 @@
 				<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#.0"/>점</div>					
 					<div class="community_bt">
 						<div class="board_link">
-							<a href="${conPath }/list.do?gid=${gameInfo.gid }" style = "text-decoration: none;">
+							<a href="${conPath }/boardList.do?gid=${gameInfo.gid }" style = "text-decoration: none;">
 							게시판 바로가기
 							</a>
 						</div>
@@ -163,7 +173,7 @@
         		<div class="user_new2">        			
         			<input type = "hidden" name = "mid" value = "${member.mid }">
         			<input type="hidden" name="gid" value="${param.gid }">
-        			<input type="hidden" name="score" value="5">
+        			<input type="hidden" name="rscore" value="5">
         				<div style="float:left;width:120px;height:47px; line-height: 30px; padding:10px 0 0 18px;margin:0;">
         				<img src = "img/star_on.png" starNum="1" starCheck/><img src = "img/star_on.png" starNum="2" starCheck/><img src = "img/star_on.png" starNum="3" starCheck/><img src = "img/star_on.png" starNum="4" starCheck/><img src = "img/star_on.png" starNum="5" starCheck/>   
         				</div>
@@ -192,10 +202,12 @@
 			$("img[starNum=" + s + "]").attr("src", "img/star_on.png");
 		}
 <%-- form과 hidden input창의 value값을 클릭한 값으로 변경. --%>
-		$("#reviewForm input[name=score]").attr("value", sNum);				
+		$("#reviewForm input[name=rscore]").attr("value", sNum);				
 		$("#starNumber").html(sNum + ".0");
 	});
 </script>
+
+	<!-- 유저 리뷰 데이터 영역  -->
 	<div class="review-list">
 		<form action ="${conPath }/review.do" method = "get" class = "sort">
 			<input type="hidden" name = "gid" value = "${param.gid }">
@@ -209,8 +221,8 @@
 총 리뷰 수 : <strong id="totalReviewCnt">${scoreCount.allCount }</strong>개 / 페이지: (<strong>${pageNum }</strong>/ ${pageCnt })
 		<ul class = "review">
 			<c:forEach var="reviewInfo" items="${reviewList }">
-			<li><img src = "img/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
-			<li>평점 <strong>${reviewInfo.rscore }</strong>
+			<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
+			<li style = "font-size:0.75em;">평점 <strong>${reviewInfo.rscore }</strong>
 				<span class = "star">
 				<c:forEach begin="1" end="${reviewInfo.rscore }">
 					<img src = "img/point_star_on.png">
@@ -220,10 +232,10 @@
 				</c:forEach>
 				</span>
 			</li>			
-			<li class = "text"> ${reviewInfo.rtext }&nbsp;&nbsp;
+			<li class = "text" style = "font-size: 0.9em;"> ${reviewInfo.rtext }&nbsp;&nbsp;
 			<c:if test = "${member.mid eq reviewInfo.mid }">
 			<br>
-			<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }" style = "font-size:13px;">[삭제]</a>
+			<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[삭제]</a>
 			</c:if>
 			</li>
 			</c:forEach>		

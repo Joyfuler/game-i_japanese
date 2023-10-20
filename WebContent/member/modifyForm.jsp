@@ -10,6 +10,7 @@
 <title>회원정보수정</title>
 <link href="${conPath }/css/login.css" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 	const autoHyphen2 = (target) => {
 	 target.value = target.value.replace(/[^0-9]/g, '')
@@ -22,24 +23,65 @@ function displayImg(input){
 		var reader = new FileReader();		
 		reader.onload = function(e){
 			$('#preview').attr('src', e.target.result);			
-		};	
-		
+		};			
 		reader.readAsDataURL(input.files[0]);
 	}
 }
 </script>
 <script>
-function withDrawalChk(){
-	var question = confirm ('정말 회원탈퇴 하시겠습니까?');
-	if (question){
-	location.href = '${conPath }/withDrawal.do';
+	function withDrawalChk(){
+		var question = confirm('정말 회원탈퇴 하시겠습니까?');
+			if (question){
+			location.href = '${conPath }/withdrawal.do?mid=${member.mid }';
+			}
+	}
+</script>
+<script>
+	$(document).ready(function(){
+		$('#mpw, #mpwChk').keyup(function(){
+			var pw = $('#mpw').val();
+			var pwChk = $('#mpwChk').val();
+			var patternNum = /[0-9]/;
+	        var patternEng = /[a-zA-Z]/;        
+	        var patternSpc = /[~`!@#$%^&*()_\-+={}\[\]\\|:;<>,.?\/]/;        
+			if(!pw && !pwChk){
+				$('#pwChkResult').text('비밀번호를 입력하세요.');
+			} else if (pw.length <4 || !pw.match(patternNum) || !pw.match(patternEng) || !pw.match(patternSpc)){
+				$('#pwChkResult').text('비밀번호는 4자리 이상, 영문과 숫자·특수문자를 포함하여 입력해야 합니다.');
+			} else if (pw != pwChk) {
+				$('#pwChkResult').text('비밀번호가 일치하지 않습니다.');			
+			} else if(pw == pwChk) {
+				$('#pwChkResult').css('color','#212529');
+				$('#pwChkResult').text('비밀번호가 일치합니다.');
+			}
+		});	
+	});
+</script>
+<script>
+function submitChk(){	
+	var mnickName = $('input#mnickname').val().trim();
+	var pwChkResult = $('#pwChkResult').text().trim();
+	var manswer = $('input#manswer').val().trim();		
+	if (mnickName == ''){
+		alert('닉네임을 입력해주세요');
+		return false;	
+	} else if (pwChkResult != '비밀번호가 일치합니다.'){
+		alert('비밀번호 형식을 체크하세요');
+		return false;
+	} else if (manswer == ''){
+		alert('본인확인 답변을 입력해주세요');
+		return false;		
 	}
 }
 </script>
 </head>
 <jsp:include page="../main/header.jsp"/>
 <body>
-<!-- modifyChk.jsp에서 identifyOk 패러미터가 왔을 때에만 가능하도록, 아니면 location.href으로 메인으로 보낸다 -->	
+	<c:if test = "${empty member }">
+		<script>
+		location.href = '${conPath}/loginView.do?next=modifyView.do';
+		</script>
+	</c:if>	
 	<div id="contents">
 		<div class="article">
 			<div class="icon">
@@ -49,34 +91,42 @@ function withDrawalChk(){
 				</h2>
 			</div>			
 			<div class="gray_frame">				
-					<form action = "modify.do" method="get" class = "modifyForm">					
+					<form action = "${conPath }/modify.do" method="post" class = "modifyForm" enctype = "multipart/form-data">
+					<input type="hidden" name="dbMphoto" value="${member.mphoto }">					
 					<div>
 						<table class="table01">							
 							<tbody>
 								<tr>
 									<th>ID </th>
-									<td><input id="id" name="id" type="text" maxlength="20" tabindex="1" disabled="disabled">																		
+									<td><input id="mid" name="mid" type="text" maxlength="20" tabindex="1" readonly = "readonly" value = "${member.mid }">																		
 									<br><br></td>
 								</tr>
 								<tr>
 									<th>프로필사진 </th>
-									<td><input id="profile" name="profile" type="file" onchange = "displayImg(this)" style = "margin-top: 25px;"><img id = "preview" height = "100">																		
+									<td><input id="mphoto" name="mphoto" type="file" onchange = "displayImg(this)" style = "margin-top: 25px;"><img id = "preview" height="144px" src = "${conPath }/memberPhotoUp/${member.mphoto }">																		
 									<br><br></td>
-								</tr>		
+								</tr>
+								<tr>		
+									<th>닉네임</th>
+									<td><input id = "mnickname" name = "mnickname" maxlength="20" tabindex="3" type = "text" value = "${member.mnickname }">
 								<tr>
-									<th>새비밀번호 </th>
-									<td><input id="pw" name="pw" maxlength="20" tabindex="3"
-										type="password">										
+									<th>새비밀번호 <span style = "color:red;">*</span></th>
+									<td><input id="mpw" name="mpw" maxlength="20" tabindex="4" type="password">										
 									</td>
 								</tr>
 								<tr>
-									<th>새비밀번호확인</th>
-									<td><input id = "pwChk" name = "pwChk" maxlength="20" tabindex="4" type = "password">
+									<th>새비밀번호확인<span style = "color:red;">*</span></th>
+									<td><input id = "mpwChk" name = "mpwChk" maxlength="20" tabindex="5" type = "password"></td>
+								</tr>
+								<tr>
+									<td></td><td><span id = "pwChkResult">&nbsp;&nbsp;&nbsp;</span></td>
+								</tr>	
 								<tr>
 									<th>본인확인질문</th>
 								</tr>
 								<tr>										
-										<td colspan="2"><select name = "identify" style = "width:290px;">
+									<td colspan="2">
+										<select name = "mquest" id = "mquest" style = "width:290px;">
 										<option value = "1"> 어렸을 적 고향은? </option>
 										<option value = "2"> 나온 초등학교 이름은? </option>
 										<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
@@ -84,20 +134,23 @@ function withDrawalChk(){
 									</td>
 								</tr>	
 								<tr>
-									<th>본인확인 답 </th> 
-									<td><input type = "text" name = "identify_answer"></td>
+									<th>본인확인 답<span style = "color:red;">*</span> </th> 
+									<td><input type = "text" name = "manswer" id = "manswer" tabindex = "6"></td>
 								</tr>	
 									
 										
 								<tr>
-									<th>이메일 </th>
-									<td><input id="email" name="email" maxlength="20" tabindex="4"
-										type="text">										
+									<th>이메일 <span style = "color:red;">*</span></th>
+									<td><input id="memail" name="memail" maxlength="20" tabindex="7"
+										type="text" value = "${member.memail }" readonly = "readonly">										
 									</td>									
-								</tr>
+								</tr>								
+								<tr>
+									<td></td><td><span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span> 
+								</tr>										
 								<tr>
 									<th>휴대폰번호 </th>
-									<td><input id="phone" name="email" maxlength="13" tabindex="5" 
+									<td><input id="mphone" name="mphone" maxlength="13" tabindex="8" 
 										oninput="autoHyphen2(this)" type="text">										
 									</td>									
 								</tr>
@@ -108,14 +161,13 @@ function withDrawalChk(){
 					<table>
 						<tr>
 							<td>
-							<input type = "submit" class = "btn" value = "회원정보수정">
+							<input type = "submit" class = "btn" value = "정보수정" onclick = "return submitChk()">
 							</td>
 							<td>
-							<input type = "button" class = "btn" onclick = "location = '../index.jsp'" value = "메인"> 
+							<input type = "button" class = "btn" onclick = "location ='${conPath}/main.do'" value = "메인"> 
 							<td>					
 							<input type = "button" class = "btn" onclick = "withDrawalChk()" value = "회원탈퇴">
-							</td>
-							
+							</td>							
 					</table>											
 					</div>
 				</form>

@@ -228,5 +228,44 @@ public class ReviewDao {
 			}
 		}		
 		return result;
+	}	
+	
+	// (5) 특정 유저가 특정 게임에 남긴 가장 최근 리뷰를 가져옴. 시간을 비교해 DATE가 동일하다면 리뷰를 작성하지 못함.
+	public ReviewDto getUserReviewWriteDate (String mid, String gid){
+		ReviewDto reviewInfo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT ROWNUM, A.* FROM "
+				+ "(SELECT * FROM REVIEW WHERE GID = ? AND MID = ? ORDER BY RRDATE DESC) A"
+				+ " WHERE ROWNUM = 1";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, gid);			
+			pstmt.setString(2, mid);			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {			
+				int rid = rs.getInt("rid");
+				int rscore = rs.getInt("rscore");
+				String rtext = rs.getString("rtext");				
+				Timestamp rrdate = rs.getTimestamp("rrdate");				
+				reviewInfo = new ReviewDto(rid, rscore, rtext, mid, gid, rrdate);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}		
+		return reviewInfo;
 	}
 }

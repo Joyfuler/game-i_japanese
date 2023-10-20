@@ -27,8 +27,7 @@ public class ReviewDto {
 		this.gid = gid;		
 	}
 	
-	public ReviewDto(int rid, int rscore, String rtext, String mid, String mphoto, String mnickname, String gid, Timestamp rrdate) {
-		super();
+	public ReviewDto(int rid, int rscore, String rtext, String mid, String mphoto, String mnickname, String gid, Timestamp rrdate) {		
 		this.rid = rid;
 		this.rscore = rscore;
 		this.rtext = rtext;
@@ -37,6 +36,15 @@ public class ReviewDto {
 		this.mnickname = mnickname;
 		this.gid = gid;
 		this.rrdate = rrdate;
+	}
+	
+	public ReviewDto(int rid, int rscore, String rtext, String mid, String gid, Timestamp rrdate) {
+		this.rid = rid;
+		this.rscore = rscore;
+		this.rtext = rtext;
+		this.mid = mid;
+		this.gid = gid;
+		this.rrdate = rrdate;		
 	}
 	
 	

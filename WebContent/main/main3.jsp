@@ -33,7 +33,7 @@
 </script>
 <c:if test = "${not empty loginResult }">	
 	<script>
-		alert('${loginResult}');	
+		alert('${loginResult }');
 	</script>
 	</c:if>
 <c:if test = "${not empty loginErrorMsg }">
@@ -47,6 +47,32 @@
 		alert('${logoutMsg }');		
 	</script>	
 </c:if>	
+<c:if test="${not empty next }">
+	<script>
+		alert('next= ${next }');
+		location.href = '${conPath}/${next}';
+	</script>
+</c:if>
+<c:if test = "${not empty modifyResult }">
+		<script>
+			alert('${modifyResult }');
+		</script>
+	</c:if>
+	<c:if test = "${not empty modifyErrorMsg }">
+		<script>
+			alert('${modifyErrorMsg}');
+		</script>
+	</c:if>			
+	<c:if test="${not empty withdrawalResult }">
+		<script>
+			alert('${withdrawalResult}');
+		</script>
+	</c:if>
+	<c:if test = "${not empty withdrawalMemberMsg }">
+		<script>
+			alert('${withdrawalMemberMsg}');
+		</script>
+	</c:if>	
 <jsp:include page="header.jsp"/>
 <jsp:include page="rightArea.jsp"/>
 

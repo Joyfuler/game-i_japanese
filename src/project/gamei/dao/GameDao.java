@@ -269,7 +269,7 @@ public class GameDao {
 		return gameInfo;
 	}
 	
-	// (6) 특정 게임 리뷰 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
+	// (6) 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
 	public void gameViewUp(String gid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

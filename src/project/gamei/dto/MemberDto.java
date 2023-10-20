@@ -16,8 +16,7 @@ public class MemberDto {
 	
 	public MemberDto() {}
 	public MemberDto(String mid, String mnickname, String mpw, String memail, String mphone, String mphoto, int mquest,
-			String manswer, int mlevel, Timestamp mrdate) {
-		super();
+			String manswer, int mlevel, Timestamp mrdate) {		
 		this.mid = mid;
 		this.mnickname = mnickname;
 		this.mpw = mpw;
@@ -29,6 +28,19 @@ public class MemberDto {
 		this.mlevel = mlevel;
 		this.mrdate = mrdate;
 	}
+	
+	public MemberDto(String mid, String mnickname, String mpw, String memail, String mphone, String mphoto, int mquest,
+			String manswer) {		
+		this.mid = mid;
+		this.mnickname = mnickname;
+		this.mpw = mpw;
+		this.memail = memail;
+		this.mphone = mphone;
+		this.mphoto = mphoto;
+		this.mquest = mquest;
+		this.manswer = manswer;		
+	}	
+	
 	public String getMid() {
 		return mid;
 	}

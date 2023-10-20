@@ -10,6 +10,19 @@
 <title>회원정보수정</title>
 <link href="${conPath }/css/login.css" rel="stylesheet">
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
+<script>
+	function modifyChk(){
+		var memberpw = '${memberInfo.mpw}';
+		var memberanswer = '${memberInfo.manswer}';
+		if (memberpw != $('#pwConfirm').val()){
+			alert('비밀번호가 일치하지 않습니다.');
+			return false;			
+		} else if (memberanswer != $('#manswerConfirm').val()){
+			alert('본인확인 답변이 틀렸습니다.');
+			return false;
+		}
+	}
+</script>		
 </head>
 <jsp:include page="../main/header.jsp"/>
 <body>
@@ -23,8 +36,8 @@
 			</div>			
 			<div class="gray_frame">
 				<p>현재 ID의 비밀번호 및 본인확인 답변을 다시 한 번 입력해주세요</p>
-					<form action = "" method="post">	
-					<input type = "hidden" name = "identifyOk">				
+					<form action = "${conPath }/modifyView.do" method="post">	
+					<input type = "hidden" name = "mid" value = "${memberInfo.mid }">			
 					<div>
 						<table class="table01">
 							<colgroup>
@@ -33,29 +46,41 @@
 							</colgroup>
 							<tbody>								
 								<tr>
-									<th>PW: </th>
-									<td><input id="pw" name="pw" maxlength="20" tabindex="2"
+									<th>현재 비밀번호 </th>
+									<td><input id="pwConfirm" name="pwConfirm" maxlength="20" tabindex="2"
 										type="password">										
 									</td>
 								</tr>
 								<tr>
 								<th>본인확인 답변 입력 &nbsp; <br>
-								(Q. ???????????????) &nbsp;</th>																		
-									<td><input type = "text" name = "identify" maxlength="20" tabindex="3"> 
-							</tbody>
+								<c:if test = "${memberInfo.mquest eq 1}">
+								(Q. 어렸을 적 고향은?) &nbsp;
+								</c:if>
+								<c:if test = "${memberInfo.mquest eq 2 }">
+								(Q. 나온 초등학교 이름은?) &nbsp;
+								</c:if>
+								<c:if test = "${memberInfo.mquest eq 3 }">
+								(Q. 출신 초등학교 이름은?) &nbsp;
+								</c:if>
+								</th>								
+								</tr>			
+								<tr>															
+									<td><input type = "text" name = "manswerConfirm" id = "manswerConfirm" maxlength="20" tabindex="3"></td>
+								</tr>
+							<tbody>
 						</table>
 					</div>					
 					<div class="check">
 					<table>
 						<tr>
 							<td>
-							<button class = "btn" type = "submit"> &nbsp;본인확인 </button>							
+							<button class = "btn" onclick = "return modifyChk()"> &nbsp;본인확인 </button>							
 							</td>							
 							<td>
-							<button class = "btn" type = "button" onclick = "history.back()'"> &nbsp; 뒤로가기</button> 
+							<button class = "btn" onclick = "history.back()"> &nbsp; 뒤로가기</button> 
 							</td>
 							<td>
-							<button class = "btn" type = "button" onclick = "location.href='${conPath}/main/main3.jsp'">메인으로</button>
+							<button class = "btn" onclick = "location.href='${conPath}/main.do'">메인으로</button>
 						</tr>	
 					</table>					
 					</div>

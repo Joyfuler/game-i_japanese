@@ -13,16 +13,9 @@ public class ReviewListService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		// 게임 데이터 및 해당 평점 데이터. 
-		String gid = request.getParameter("gid");
-		if (gid == null || gid.isEmpty()) {
-			try {
-				response.sendRedirect("index.jsp");
-				return;
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
+		String gid = request.getParameter("gid");		
 		GameDao gDao = GameDao.getInstance();
+		gDao.gameViewUp(gid);
 		request.setAttribute("gameData", gDao.getGameInfo(gid));
 		
 		// 해당 gid의 review를 count하여 뿌린다.
