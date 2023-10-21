@@ -41,13 +41,18 @@ public class MModifyService implements Service {
 				String memail = mRequest.getParameter("memail");
 				String mphone = mRequest.getParameter("mphone");
 				String mquestStr = mRequest.getParameter("mquest");
+				String mlevelStr = mRequest.getParameter("mlevel");
+				int mlevel = 0;
+				if (mlevelStr!=null & !mlevelStr.equals("")) {
+					mlevel = Integer.parseInt(mlevelStr);
+				}				
 				int mquest = 1;
 				if (mquestStr!=null && !mquestStr.equals("")) {
 					mquest = Integer.parseInt(mquestStr);
 				}
 				String manswer = mRequest.getParameter("manswer");
 				MemberDao mDao = MemberDao.getInstance();
-				MemberDto dto = new MemberDto(mid, mnickname, mpw, memail, mphone, mphoto, mquest, manswer);
+				MemberDto dto = new MemberDto(mid, mnickname, mpw, memail, mphone, mphoto, mquest, manswer, mlevel);
 				result = mDao.modifyMember(dto);
 				if (result == MemberDao.SUCCESS) {
 					HttpSession session = request.getSession();

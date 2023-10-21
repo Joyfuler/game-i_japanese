@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>드래곤플라이 게시판</title>
+<title> ${gameInfo.gname } 게시글보기</title>
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 <link href = "${conPath }/css/style2.css" rel = "stylesheet">
 <link href = "${conPath }/css/boardList.css" rel = "stylesheet">
@@ -20,12 +20,19 @@
 <body>
 <jsp:include page="../main/header.jsp"/>
 <jsp:include page="../main/rightArea.jsp"/>
+<c:if test="${not empty boardWriteResult }">
+		<script>
+		alert('${boardWriteResult }');
+		</script>
+</c:if>
 <section class="notice">
   <div class="page-title">
-        <div class="container">
-            <h3 style = "text-align:left; color: #212529;"><img src = "../img/thum10.jpg" height = "44px"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;드래곤플라이 게시판</b></h3>           
-          
-        </div>
+        <div class="board_title">        	
+        			<h2 class="title_bar">
+					<img src = "${conPath }/img/${gameInfo.gicon }" height = "44px" onerror = "noImage(this)">
+					<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 게시판</b>
+					</h2>
+		</div>
     </div>          
     <div id="board-list">
         <div class="board_container">
@@ -40,17 +47,22 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:if test = "${boardList.size() eq 0 }">
                 <tr>
-                    <td>3</td>
+                	<td colspan = "5"> 현재 게시판에 게시글이 없습니다. </td>
+                </tr>	
+                </c:if>                             
+                <c:forEach var="boarditem" items="${boardList }">
+                <tr>
+                    <td>${boarditem.bno }</td>
                     <th>
-                      <a href="#!">[공지사항] 개인정보 처리방침 변경안내처리방침</a>
-                      <p>테스트</p>
+                      <a href="#!">${boarditem.btitle }</a>                      
                     </th>
-                    <td>2017.07.13</td>
-                    <td>아이조아</td>
-                    <td>10</td>
+                    <td><fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                    <td>${boarditem.mnickname }</td>
+                    <td>${boarditem.bhit }</td>
                 </tr>
-
+				</c:forEach>
                 <tr>
                     <td>2</td>
                     <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
@@ -69,8 +81,13 @@
             </table>            
         </div>
         <div class = "button-container">
-        	<button style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>        
-        	<button style = "margin-top: 5px; margin-left:980px; position: absolute;"> 전체글 </button>
+        	<c:if test="${not empty member }">
+        	<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+        	</c:if>
+			<c:if test="${empty member }">
+			<button onclick = "location.href='${conPath}/loginView.do?next=boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+			</c:if>        	        
+        	<button onclick = "location.href='${conPath}/boardList.do?gid=${gid }'" style = "margin-top: 5px; margin-left:980px; position: absolute;"> 전체글 </button>
         </div>
     </div>
 	<div id="board-search">
@@ -91,7 +108,20 @@
     </div>    	
 </section>
 <div id = "paging" style = "padding-left: 100px; display: block;"> 
-		[이전 ] 1 2 3 4 5 [다음]
+		<c:if test="${startPage >BLOCKSIZE }">
+		<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${startPage-1 }">[이전]</a>
+		</c:if>
+		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
+			<c:if test = "${i eq pageNum }">
+			[<b style = "color: red;"> ${i }</b>]
+			</c:if>
+			<c:if test = "${i != pageNum }">
+			<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${i }">[${i }]</a>
+			</c:if>
+		</c:forEach>
+		<c:if test = "${endPage < pageCnt }">
+			<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${endPage+1 }">[다음]</a>
+		</c:if>		
 	</div>
 <jsp:include page="../main/footer.jsp"/>
 </body>

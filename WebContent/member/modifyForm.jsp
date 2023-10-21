@@ -92,7 +92,8 @@ function submitChk(){
 			</div>			
 			<div class="gray_frame">				
 					<form action = "${conPath }/modify.do" method="post" class = "modifyForm" enctype = "multipart/form-data">
-					<input type="hidden" name="dbMphoto" value="${member.mphoto }">					
+					<input type="hidden" name="dbMphoto" value="${member.mphoto }">
+					<input type="hidden" name = "mlevel" value= "${member.mlevel }">					
 					<div>
 						<table class="table01">							
 							<tbody>

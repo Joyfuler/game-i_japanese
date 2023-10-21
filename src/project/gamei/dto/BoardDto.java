@@ -43,10 +43,18 @@ public class BoardDto {
 		this.mnickname = mnickname;
 	}
 	
+	public BoardDto(int bno, String btitle, String bcontent, String bimg, String bip, String gid, String mid) {
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;		
+		this.bimg = bimg;
+		this.bip = bip;		
+	}
+	
+	
 	public BoardDto(int bno, String btitle, String bcontent, Timestamp brdate, String bimg, String bip, int bgroup,
 			int bstep, int bindent, int bhit, String gid, String mid, String mphoto, String mnickname, int mlevel,
-			String memail) {
-		super();
+			String memail) {		
 		this.bno = bno;
 		this.btitle = btitle;
 		this.bcontent = bcontent;

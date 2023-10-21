@@ -25,21 +25,33 @@ public class MainDisplayService implements Service {
 		final int PAGESIZE = 5;
 		final int BLOCKSIZE = 5;
 		int startRow = (currentPage-1) * PAGESIZE + 1;
-		int endRow = startRow + PAGESIZE -1;
+		int endRow = startRow + PAGESIZE -1;		
 		// 메인 페이지의 정렬 방식을 패러미터로 받고, 이를 출력하는 동시에 해당 sortBy 패러미터도 다시 리턴함.
 		String sortBy = request.getParameter("sortBy");
-		if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {			
-			request.setAttribute("listSortby", gDao.gameListSortByScore(startRow, endRow));		
-		} else if (sortBy.equals("new")) {			
-			request.setAttribute("listSortby", gDao.gameListSortByDate(startRow, endRow));	
-		}
+		String query = request.getParameter("query");
+		int allGameCnt = 1;
+		// 검색어를 입력하지 않은 경우에는 모든 게임수를 전달.
+		if (query == null || query.equals("")) {			
+			if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {			
+				request.setAttribute("listSortby", gDao.gameListSortByScore(startRow, endRow));			
+			} else if (sortBy.equals("new")) {			
+				request.setAttribute("listSortby", gDao.gameListSortByDate(startRow, endRow));			
+			}
+		} else {
+			if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {
+				request.setAttribute("listSortby", gDao.searchResultByScore(query, startRow, endRow));				
+			} else if (sortBy.equals("new")) {
+				request.setAttribute("listSortby", gDao.searchResultByDate(query, startRow, endRow));				
+			}
+		}	
+		allGameCnt = gDao.allGameCnt();
 		request.setAttribute("sortBy", sortBy);
 		//view단에서의 출력을 및 페이징 처리를 위한 패러미터도 넘기기.
-		int allGameCnt = gDao.allGameCnt();
+		
 		int pageCnt = (int)Math.ceil((double)allGameCnt/PAGESIZE);
 		int startPage = ((currentPage -1)/BLOCKSIZE)*BLOCKSIZE +1;
 		int endPage = startPage + BLOCKSIZE -1;
-		if (endPage >pageCnt) {
+		if (endPage > pageCnt) {
 			endPage = pageCnt;
 		}		
 		request.setAttribute("PAGESIZE", PAGESIZE);

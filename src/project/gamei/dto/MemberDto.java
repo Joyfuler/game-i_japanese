@@ -30,7 +30,7 @@ public class MemberDto {
 	}
 	
 	public MemberDto(String mid, String mnickname, String mpw, String memail, String mphone, String mphoto, int mquest,
-			String manswer) {		
+			String manswer, int mlevel) {		
 		this.mid = mid;
 		this.mnickname = mnickname;
 		this.mpw = mpw;
@@ -39,6 +39,7 @@ public class MemberDto {
 		this.mphoto = mphoto;
 		this.mquest = mquest;
 		this.manswer = manswer;		
+		this.mlevel = mlevel;
 	}	
 	
 	public String getMid() {

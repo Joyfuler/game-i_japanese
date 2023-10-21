@@ -40,14 +40,16 @@ public class MJoinService implements Service {
 				mphoto = (mphoto == null ? "noimg.png" : mphoto);
 				// 만일 첨부된 것이 없다면 noimg.png로 자동설정.				
 				String mquestStr = mRequest.getParameter("mquest");
-				int mquest = 1;
+				int mquest = 1;				
 				if (!mquestStr.equals("")) {
 					mquest = Integer.parseInt(mquestStr);
-				}
+				}				
+				String mlevelStr = mRequest.getParameter("mlevel");
+				int mlevel = 0;							
 				String manswer = mRequest.getParameter("manswer");
 				String mphone = mRequest.getParameter("mphone");
 				MemberDao mDao = MemberDao.getInstance();
-				MemberDto newMember = new MemberDto(mid, mnickname, mpw, memail, mphone, mphoto, mquest, manswer);
+				MemberDto newMember = new MemberDto(mid, mnickname, mpw, memail, mphone, mphoto, mquest, manswer, mlevel);
 				result = mDao.joinMember(newMember);
 					if (result == MemberDao.SUCCESS) {
 						HttpSession session = request.getSession();

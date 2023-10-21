@@ -19,12 +19,17 @@
             event.preventDefault();
             var searchInput = document.getElementById('searchInput');
             if (searchInput.value.trim() === '') {                
-                searchInput.value = '세나키우기';
+                searchInput.value = '세븐';
             }            
             this.submit();
         });
       }
 </script>
+<script>	
+	function noImage(imageElement) {
+	 	imageElement.src = "${conPath }/img/noimg.jpg";
+	}
+	</script>
 </head>
 <body>
 	 <div class = "controller">
@@ -40,8 +45,8 @@
             <li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>님</a></li>
             
             </c:if>
-            <c:if test = "${not empty member and member.mlevel eq 2 }">
-            <li><a class = "control" href = "${conPath }/admin/admin.jsp">관리자모드</a></li>
+            <c:if test = "${not empty member and member.mlevel eq 1 }">
+            <li><a class = "control" href = "${conPath }/admin/admin.jsp" style = "color: red;">관리자모드</a></li>
             </c:if>
           </ul>
         </div>
@@ -81,8 +86,13 @@
             </div>
           </nav>    
           <div class="search">          
-            <form action ="${conPath }/main/search.jsp" method = "get" id="searchForm">                
-                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="요즘핫한 신작, 세나키우기 평가하러 Go!"/>
+            <form action ="${conPath }/main.do" method = "get" id="searchForm">
+            	<c:if test = "${empty param.query }">                
+                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="요즘핫한 신작, 세나키우기 평가하러 Go!" style = "margin:auto;"/>
+                </c:if>
+                <c:if test = "${not empty param.query }">
+                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${param.query }" style = "margin:auto;"/>
+                </c:if>
                 <button type = "submit" style = "border:0; background: transparent">
                 <img src="${conPath }/main/img/searchbutton.png" width="30" height="30" alt ="submit" class = "searchButton">
                 </button><br><br>
@@ -91,17 +101,17 @@
           <div class="text-center">          	
             <div class="row row1 bg-dark text-white" style = "margin:0 5px 0 5px;">
               <c:forEach var = "dto" items = "${lists }" begin="0" end="5">
-              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum">${dto.gname }</a></div>              
+              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum" onerror="noImage(this)">${dto.gname }</a></div>              
               </c:forEach>
             </div>
             <div class="row row2 bg-dark text-white" style = "margin:0 5px 0 5px;">
               <c:forEach var = "dto" items = "${lists }" begin = "6" end = "11">                            
-              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum">${dto.gname }</a></div>
+              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum" onerror="noImage(this)">${dto.gname }</a></div>
               </c:forEach>                            
             </div>
             <div class="row row3 bg-dark text-white" style = "margin:0 5px 0 5px;">
               <c:forEach var = "dto" items = "${lists }" begin = "12" end = "17">
-              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum">${dto.gname }</a></div>
+              	<div class="col-2"><a href = "${conPath }/review.do?gid=${dto.gid }"><img src = "${conPath }/img/${dto.gicon }" height="25" class = "thum" onerror="noImage(this)">${dto.gname }</a></div>
               </c:forEach> 
             </div>
           </div>    

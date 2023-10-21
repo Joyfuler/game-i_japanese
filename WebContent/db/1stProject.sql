@@ -41,11 +41,11 @@ SELECT * FROM MEMBER;
  CREATE SEQUENCE BOARD_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
  CREATE TABLE BOARD(
      BNO NUMBER(8) PRIMARY KEY,
-     BTITLE VARCHAR2 (120) NOT NULL,
+     BTITLE VARCHAR2(120) NOT NULL,
      BCONTENT CLOB,
      BRDATE DATE DEFAULT SYSDATE,
-     BIMG VARCHAR2 (120),
-     BIP VARCHAR2 (30),
+     BIMG VARCHAR2(120),
+     BIP VARCHAR2(30),
      BGROUP NUMBER(8) NOT NULL,
      BSTEP NUMBER(2) NOT NULL,
      BINDENT NUMBER(2) NOT NULL,
@@ -56,8 +56,9 @@ SELECT * FROM MEMBER;
  );
  insert into board (bno, btitle, bcontent, bimg, bip, bgroup, bstep, bindent, gid, mid)
  values (board_seq.nextval, 'ㅎㅎ', '기분좋다', 'noimg.jpg', '127.1.1.2', board_seq.currval, 0, 0, 'leneagem', 'ddd');
-
+alter table board add bip varchar2(30);
 SELECT * FROM BOARD;
+commit;
 select rownum, a.* from (select * from review where gid = 'leneagem' and mid = 'aaa' order by rrdate desc) a where rownum =1;
 SELECT ROWNUM, A.* FROM (SELECT * FROM REVIEW WHERE GID = 'leneagem' AND MID = 'aaa' ORDER BY RRDATE DESC) A WHERE ROWNUM = 1;
 CREATE SEQUENCE BOARD_COMMENT_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
@@ -367,7 +368,8 @@ VALUES ('gardenscapes', '꿈의 정원(Gardenscapes)', '시뮬레이션', 'PlayR
 * 최신 소식을 접할 수 있는 게임 내 소셜 네트워크
 * 독특한 구조로 만들어진 정원의 여러 구역: 부서진 분수대와 미스터리 미로 등
 * 커뮤니티: Facebook 친구들과 이웃이 되세요!',1);
-
+SELECT * FROM BOARD;
+COMMIT;
 INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
 VALUES ('uparu', '우파루 오딧세이', 'NHN Corp.', '2023-10-04', 'thum_uparu.png', '▦ 강력 추천! 우파루 오딧세이 특징 ▦
 1. 수백 가지 종류의 매력적인 우파루 총집합!
@@ -541,3 +543,55 @@ SELECT COUNT(*) FROM BOARD WHERE GID = 'leneagem';
 SELECT ROWNUM RN, A.* FROM (SELECT M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.* FROM MEMBER M, BOARD B WHERE B.MID=M.MID AND GID = 'leneagem') A;
 SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.* FROM MEMBER M, BOARD B WHERE B.MID=M.MID AND GID = 'leneagem') A) WHERE RN BETWEEN 1 AND 10;
 SELECT * FROM MEMBER;
+select * from board;
+-- 검색어에 맞는 게임을 출력
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW
+				WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY GPDATE DESC) A) WHERE GNAME LIKE '%리%' AND RN BETWEEN 1 AND 5;
+                
+                SELECT * FROM GAME;
+
+
+SELECT * FROM (
+  SELECT ROWNUM RN, A.* FROM (
+    SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW WHERE GID=GAME.GID), 0) AVG
+    FROM GAME
+    WHERE GNAME LIKE '%리%'
+    ORDER BY GPDATE DESC
+  ) A
+) WHERE RN BETWEEN 1 AND 5;
+INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
+VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd');
+INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
+VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd', '127.0.0.1');
+select * from board;
+commit;
+select * from member;
+alter table board add bhit number(5) default 0;
+select * from board;
+SELECT * FROM (SELECT ROWNUM RN, A.*
+				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL,
+				B.* FROM MEMBER M, BOARD B, GAME G
+				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'genshin' ORDER BY BRDATE DESC) A)
+				WHERE RN BETWEEN 1 AND 5;
+                select * from board;
+                select * from game;
+                SELECT * FROM (SELECT ROWNUM RN, A.*
+				 FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE)
+				 FROM REVIEW WHERE GID=GAME.GID), 0) AVG
+				 FROM GAME
+				 WHERE GNAME LIKE '%'||'리'||'%'
+				ORDER BY AVG DESC) A)
+				 WHERE RN BETWEEN 1 AND 5;
+SELECT * FROM  
+			(SELECT ROWNUM RN, A.*
+			FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE)
+            FROM REVIEW WHERE GID=GAME.GID), 0) AVG
+            FROM GAME
+            WHERE GNAME LIKE '%'||'리'||'%'
+            ORDER BY AVG DESC) A)
+            WHERE RN BETWEEN 1 AND 5;
+            
+            SELECT * FROM MEMBER;
+            UPDATE MEMBER SET MLEVEL = 1 WHERE MID = 'trio';
+            commit;
+            select * from member;

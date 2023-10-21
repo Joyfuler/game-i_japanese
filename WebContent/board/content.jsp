@@ -36,18 +36,19 @@
                        <span class = "nickNamespan"><b>호니후</b></span>
                     </td>
                     <td class="title-cell">
-                       	<b>작성일: 2022/03/20 01:00:35</b>
-                       	<b>수정일: 2022/03/21 03:00:00</b>
+                       	<b>작성일: 2022/03/20 01:00:35</b><br>
+                       	<b>IP : 127.1.14.125</b>
                     </td>
                     <td class = "title-cell">
-                    	<b>조회수: 10</b>
+                    	<b>조회수: 10 </b><br>
+                    	<b>댓글  (2) </b>
                 </tr>
                 <tr>
                 	<td>
                 	글제목
                 	</td>
                     <td colspan="2" class="content-cell">                                                
-                        	<span>오늘 날씨가 좋군요...^^</span>
+                        	<b>오늘 날씨가 좋군요...^^</b>
                     </td>
                 </tr>
                 <tr>

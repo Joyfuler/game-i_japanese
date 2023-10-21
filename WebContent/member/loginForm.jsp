@@ -34,7 +34,7 @@
 			</div>			
 			<div class="gray_frame">
 				<div class = "login_background">
-				<p>가입시 입력한 ID와 비밀번호를 입력해주세요</p>
+				<p>가입시 입력한 ID와 비밀번호를 입력해주세요. </p>
 					<form action = "${conPath }/login.do" method="post" class = "loginForm">
 					<input type = "hidden" name = "gid" value = "${param.gid }">	
 					<input type = "hidden" name = "next" value = "${param.next }">				

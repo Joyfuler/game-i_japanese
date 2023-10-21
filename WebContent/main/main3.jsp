@@ -153,7 +153,7 @@
     	<table>
     		<tr>
     		<c:if test = "${startPage > BLOCKSIZE }">
-    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${startPage -1 }">[이전]</a></td>
+    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${startPage -1 }&query=${param.query }">[이전]</a></td>
     		</c:if>
     		<td></td>
     		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
@@ -161,11 +161,11 @@
     				<td><b style = "color: red;">${i }</b></td>
     			</c:if>
     			<c:if test = "${i != pageNum }">
-    				<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${i }" style = "color: white; padding-left: 10px;">${i }</a></td>
+    				<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${i }&query=${param.query }" style = "color: white; padding-left: 10px;">${i }</a></td>
    				</c:if> 				
     		</c:forEach>
     		<c:if test = "${endPage < pageCnt }">
-    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${endPage +1 }">[다음]</a></td>
+    		<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${endPage +1 }&query=${param.query }">[다음]</a></td>
     		</c:if>
     		</tr>
   		</table>  

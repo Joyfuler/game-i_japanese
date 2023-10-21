@@ -103,7 +103,7 @@
 				<img src = "${conPath }/img/point_star_out.png">
 			  </c:forEach>    			
 				</div>
-				<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#.0"/>점</div>					
+				<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#,##0.0;#0"/>점</div>					
 					<div class="community_bt">
 						<div class="board_link">
 							<a href="${conPath }/boardList.do?gid=${gameInfo.gid }" style = "text-decoration: none;">

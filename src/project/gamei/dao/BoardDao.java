@@ -38,11 +38,11 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* "
-				+ "FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, "
-				+ "B.* FROM MEMBER M, BOARD B, GAME G "
-				+ "WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ?) A) "
-				+ "WHERE RN BETWEEN ? AND ?";
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.*" + 
+				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL" + 
+				"				, B.* FROM MEMBER M, BOARD B, GAME G"+ 
+				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A)" + 
+				"				WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -50,19 +50,19 @@ public class BoardDao {
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, endRow);
 			rs = pstmt.executeQuery();
-			while (rs.next()) {
+			while (rs.next()) {				
 				String gname = rs.getString("gname");
 				String gicon = rs.getString("gicon");
 				String mnickname = rs.getString("mnickname");
 				String mphoto = rs.getString("mphoto");
 				int mlevel = rs.getInt("mlevel");
-				String memail = rs.getString("memail");
-				int bno = rs.getInt("bno");
-				String btitle = rs.getString("btitle");
-				String bcontent = rs.getString("bcontent");
-				Timestamp brdate = rs.getTimestamp("brdate");
-				String bimg = rs.getString("bimg");
-				String bip = rs.getString("bip");
+				String memail = rs.getString("memail");				
+				int bno = rs.getInt("bno");				
+				String btitle = rs.getString("btitle");				
+				String bcontent = rs.getString("bcontent");				
+				Timestamp brdate = rs.getTimestamp("brdate");				
+				String bimg = rs.getString("bimg");				
+				String bip = rs.getString("bip");	
 				int bgroup = rs.getInt("bgroup");
 				int bstep = rs.getInt("bstep");
 				int bindent = rs.getInt("bindent");
@@ -97,7 +97,8 @@ public class BoardDao {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			rs = pstmt.executeQuery();
+			pstmt.setString(1, gid);
+			rs = pstmt.executeQuery();			
 			rs.next();
 			boardCnt = rs.getInt("CNT");
 		} catch (SQLException e) {
@@ -117,5 +118,38 @@ public class BoardDao {
 		return boardCnt;
 	}
 	
+	// (2) 특정 게시판에 원글을 작성.
+	public int writeBoard(String gid, String mid, BoardDto dto) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO BOARD "
+				+ "(BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP) " 
+				+ "VALUES (BOARD_SEQ.NEXTVAL, ?, ?, ?, BOARD_SEQ.CURRVAL, 0, 0, ?, ?, ?)";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getBtitle());			
+			pstmt.setString(2, dto.getBcontent());
+			pstmt.setString(3, dto.getBimg());
+			pstmt.setString(4, gid);
+			pstmt.setString(5, mid);
+			pstmt.setString(6, dto.getBip());
+			result = pstmt.executeUpdate();
+			System.out.println(gid + "게시판에 글쓰기 성공");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + gid + "게시판에 글쓰기 실패 - " + dto);
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
 	
 }

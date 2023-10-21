@@ -7,10 +7,29 @@ table.board-table {
   background-color: #212529;
 }
 
-.container {
-	margin-left: 75%;
-	
+.board_title {
+	padding-left: 78px;	
 }
+
+.board_title h2{	
+	margin-left: 10px;	
+	bottom: 10px;
+    color: aqua;
+    font-size: 28px;
+    padding: 20px 0 0 50px;    
+    background-color: #212529;
+    height: 80px;
+    width: 1000px;
+    line-height: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+	}
+		
+.title_bar { 
+	height: 75px;	
+	border-radius: 0px 25px 25px 0px;	
+}
+
 
 table.board-table tr, table.board-table tr a{
 	color: ghostwhite;
@@ -26,7 +45,7 @@ section.notice {
 }
 
 .page-title {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
 }
 .page-title h3 {
   font-size: 28px;
@@ -174,8 +193,7 @@ width:100px;
 
 .board_container {
   width: 1000px;  
-  margin-left: 88px;
-  border: 1px solid gray;
+  margin-left: 88px;  
 }
 
 .blind {
@@ -189,5 +207,5 @@ width:100px;
 
 .footer{
 	height: 270px !important;
-	margin-top: 900px !important;
+	margin-top: 1000px !important;
 }

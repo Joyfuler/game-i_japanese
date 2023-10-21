@@ -100,7 +100,7 @@ public class GameDao {
 	}
 	
 	
-	// 메인화면의 관리자 추천 게임 리스트 출력 -- 차후 편집 기능 추가 필요
+	// (3) 메인화면의 관리자 추천 게임 리스트 출력 -- 차후 편집 기능 추가 필요
 	public ArrayList<GameDto> topGameList(){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -227,7 +227,7 @@ public class GameDao {
 		return lists;
 	}
 	
-	// (5) 특정 게임의 DTO 및 평균 평점을 가져온다.
+	// (6) 특정 게임의 DTO 및 평균 평점을 가져온다.
 	public GameDto getGameInfo(String gid) {
 		GameDto gameInfo = null;
 		Connection conn = null;
@@ -269,7 +269,7 @@ public class GameDao {
 		return gameInfo;
 	}
 	
-	// (6) 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
+	// (7) 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
 	public void gameViewUp(String gid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -295,7 +295,7 @@ public class GameDao {
 		}
 	}
 	
-	// (7) 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
+	// (8) 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
 	public ArrayList<GameDto> rightAreaViewTop10() {
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -315,8 +315,8 @@ public class GameDao {
 				String gicon = rs.getString("gicon");
 				String gdesc = rs.getString("gdesc");
 				int ghit = rs.getInt("ghit");				
-				int gviewCount = rs.getInt("gviewCount");				
-				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, gviewCount));
+				int gviewcount = rs.getInt("gviewcount");				
+				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, gviewcount));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -334,7 +334,7 @@ public class GameDao {
 		}			
 		return lists;
 	}	
-	// 게임을 최근 댓글이 남겨진 순서 top10으로 출력함. (우측 순위 표시용)
+	// (9) 게임을 최근 댓글이 남겨진 순서 top10으로 출력함. (우측 순위 표시용)
 	public ArrayList<GameDto> rightAreaNewReview() {
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -373,5 +373,139 @@ public class GameDao {
 		}			
 		return lists;
 	}	
+	
+	// (10) 검색 실행시 사용할 메소드 1 - 최신날짜순
+	public ArrayList<GameDto> searchResultByDate(String query, int startRow, int endRow){
+		ArrayList<GameDto> list = new ArrayList<GameDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM " + 
+				"  (SELECT ROWNUM RN, A.* " +
+				"  FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) " +
+				"  FROM REVIEW WHERE GID=GAME.GID), 0) AVG " + 
+				"  FROM GAME " +
+				"  WHERE GNAME LIKE '%'||?||'%' " + 
+				"  ORDER BY GPDATE DESC) A) " +				
+				"  WHERE RN BETWEEN ? AND ?";		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, query);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {			
+				String gid = rs.getString("gid");				
+				String gname = rs.getString("gname");								
+				String gpub = rs.getString("gpub");			
+				Date gpdate = rs.getDate("gpdate");		
+				String gicon = rs.getString("gicon");				
+				String gdesc = rs.getString("gdesc");				
+				int ghit = rs.getInt("ghit");	
+				String ggenre = rs.getString("ggenre");
+				String gviewcount = rs.getString("gviewcount");
+				double avg = rs.getDouble("avg");			
+				list.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg));
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}					
+		return list;
+	}
+	// (11) 검색 사용시 사용하는 메소드 - 평점순
+	public ArrayList<GameDto> searchResultByScore(String query, int startRow, int endRow){
+		ArrayList<GameDto> list = new ArrayList<GameDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM " + 
+				"(SELECT ROWNUM RN, A.* " +
+				"FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) " +
+				"FROM REVIEW WHERE GID=GAME.GID), 0) AVG " + 
+				"FROM GAME " +
+				"WHERE GNAME LIKE '%'||?||'%' " + 
+				"ORDER BY AVG DESC) A) " +				
+				"WHERE RN BETWEEN ? AND ?";		
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, query);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {			
+				String gid = rs.getString("gid");				
+				String gname = rs.getString("gname");								
+				String gpub = rs.getString("gpub");			
+				Date gpdate = rs.getDate("gpdate");		
+				String gicon = rs.getString("gicon");				
+				String gdesc = rs.getString("gdesc");				
+				int ghit = rs.getInt("ghit");	
+				String ggenre = rs.getString("ggenre");
+				String gviewcount = rs.getString("gviewcount");
+				double avg = rs.getDouble("avg");				
+				list.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg));			
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}					
+		return list;
+	}
+	
+	// (12) - 검색어가 들어간 게임의 숫자를 출력함.
+	public int getQueryGameCnt(String query) {
+		int queryGameCnt = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) CNT FROM GAME WHERE GNAME LIKE '%'||?||'%'";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			rs = pstmt.executeQuery();
+			rs.next();			
+			queryGameCnt = rs.getInt("CNT");			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}	
+		
+		
+		
+		return queryGameCnt;
+	}
 	
 }
