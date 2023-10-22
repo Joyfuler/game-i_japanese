@@ -30,7 +30,7 @@
         <div class="board_title">        	
         			<h2 class="title_bar">
 					<img src = "${conPath }/img/${gameInfo.gicon }" height = "44px" onerror = "noImage(this)">
-					<b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 게시판</b>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 게시판
 					</h2>
 		</div>
     </div>          
@@ -56,7 +56,7 @@
                 <tr>
                     <td>${boarditem.bno }</td>
                     <th>
-                      <a href="#!">${boarditem.btitle }</a>                      
+                      <a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>                      
                     </th>
                     <td><fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>${boarditem.mnickname }</td>
@@ -92,16 +92,17 @@
     </div>
 	<div id="board-search">
         <div class="container" style = "margin-left: 10%; margin-top: 5px;">               
-                <form action="">        
+                <form action="${conPath }/boardList.do" method= "get">
+                <input type = "hidden" name = "gid" value = "${gid }"> 
                 	<table>
                 		<tr>
-                        	<td><select id = "searchQuery" name = "searchQuery">
-                        <option value = "btitle" selected="selected">제목</option>
-                        <option value = "bcontent">내용</option>
-                        <option value = "bwriter">작성자</option>
+                        	<td><select id = "query" name = "query">
+                        <option value = "btitle" selected="selected">제목</option>                        
+                        <option value = "mname">작성자</option>
                         </select></td>
-                        <td><input type="text" name="searchWord" placeholder="검색어를 입력해주세요." value=""></td>                        
+                        <td><input type="text" name="searchWord" placeholder="검색어를 입력해주세요."></td>                        
                         <td><button>검색</button></td>
+                        </tr>
                 	</table>                            
                 </form>            
         </div>

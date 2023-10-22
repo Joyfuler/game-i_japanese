@@ -118,7 +118,240 @@ public class BoardDao {
 		return boardCnt;
 	}
 	
-	// (2) 특정 게시판에 원글을 작성.
+	// (2) 게시판 검색. 제목 검색 기능.
+	public ArrayList<BoardDto> listBoardBySearchTitle(String searchWord, String gid, int startRow, int endRow) {
+		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* " + 
+				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, " + 
+				"				B.* FROM MEMBER M, BOARD B, GAME G " + 
+				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A) " + 
+				"				WHERE RN BETWEEN ? AND ? AND BTITLE LIKE '%'||?||'%'";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);			
+			pstmt.setString(4, searchWord);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {				
+				String gname = rs.getString("gname");
+				String gicon = rs.getString("gicon");
+				String mnickname = rs.getString("mnickname");
+				String mphoto = rs.getString("mphoto");
+				int mlevel = rs.getInt("mlevel");
+				String memail = rs.getString("memail");				
+				int bno = rs.getInt("bno");				
+				String btitle = rs.getString("btitle");				
+				String bcontent = rs.getString("bcontent");				
+				Timestamp brdate = rs.getTimestamp("brdate");				
+				String bimg = rs.getString("bimg");				
+				String bip = rs.getString("bip");	
+				int bgroup = rs.getInt("bgroup");
+				int bstep = rs.getInt("bstep");
+				int bindent = rs.getInt("bindent");
+				int bhit = rs.getInt("bhit");
+				String mid = rs.getString("mid");								
+				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail));				
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return list;
+	}
+	
+	// (3) 타이틀로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
+	public int boardCntByGidSearchByTitle(String searchWord, String gid) {
+		int boardCnt = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) CNT FROM BOARD WHERE GID = ? AND BTITLE LIKE '%'||?||'%'";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gid);			
+			pstmt.setString(2, searchWord);
+			rs = pstmt.executeQuery();			
+			rs.next();
+			boardCnt = rs.getInt("CNT");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return boardCnt;
+	}
+	
+	
+	// (4) 글 작성자로 검색기능.
+	public ArrayList<BoardDto> listBoardBySearchWriter(String searchWord, String gid, int startRow, int endRow) {
+		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* " + 
+				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, " + 
+				"				B.* FROM MEMBER M, BOARD B, GAME G " + 
+				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A) " + 
+				"				WHERE RN BETWEEN ? AND ? AND MNICKNAME LIKE '%'||?||'%'";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gid);
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);			
+			pstmt.setString(4, searchWord);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {				
+				String gname = rs.getString("gname");
+				String gicon = rs.getString("gicon");
+				String mnickname = rs.getString("mnickname");
+				String mphoto = rs.getString("mphoto");
+				int mlevel = rs.getInt("mlevel");
+				String memail = rs.getString("memail");				
+				int bno = rs.getInt("bno");				
+				String btitle = rs.getString("btitle");				
+				String bcontent = rs.getString("bcontent");				
+				Timestamp brdate = rs.getTimestamp("brdate");				
+				String bimg = rs.getString("bimg");				
+				String bip = rs.getString("bip");	
+				int bgroup = rs.getInt("bgroup");
+				int bstep = rs.getInt("bstep");
+				int bindent = rs.getInt("bindent");
+				int bhit = rs.getInt("bhit");
+				String mid = rs.getString("mid");								
+				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail));				
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return list;
+	}
+	
+	// (5) 글 작성자로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
+		public int boardCntByGidSearchByWriter(String searchWord, String gid) {
+			int boardCnt = 0;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT COUNT(*) CNT FROM BOARD, MEMBER WHERE GID = ? AND BOARD.MID=MEMBER.MID AND MNICKNAME LIKE '%'||?||'%'";
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, gid);			
+				pstmt.setString(2, searchWord);
+				rs = pstmt.executeQuery();			
+				rs.next();
+				boardCnt = rs.getInt("CNT");
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return boardCnt;
+		}
+	
+	// (6-1) 게시글 상세보기시 해당 게시글의 조회수를 +1 up
+		
+		
+	// (6) 게시글 상세보기를 위해, 특정 BNO의 DTO를 가져옴. 게임 정보와 회원 정보를 포함.
+		public BoardDto getBoardContent(String gid, int bno) {
+			BoardDto dto = null;
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			String sql = "SELECT B.*, G.GID, G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MEMAIL, M.MLEVEL "
+					+ "FROM BOARD B,GAME G, MEMBER M WHERE G.GID=B.GID AND M.MID=B.MID "
+					+ "AND G.GID=? AND B.BNO =?";
+			try {
+				conn = ds.getConnection();
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, gid);
+				pstmt.setInt(2, bno);
+				rs = pstmt.executeQuery();
+				if (rs.next()) {					
+					String btitle = rs.getString("btitle");
+					String bcontent = rs.getString("bcontent");
+					Timestamp brdate = rs.getTimestamp("brdate");
+					String bimg = rs.getString("bimg");					
+					int bgroup = rs.getInt("bgroup");
+					int bstep = rs.getInt("bstep");
+					int bindent = rs.getInt("bindent");		
+					String mid = rs.getString("mid");
+					String bip = rs.getString("bip");
+					int bhit = rs.getInt("bhit");
+					String gname = rs.getString("gname");
+					String gicon = rs.getString("gicon");
+					String mnickname = rs.getString("mnickname");
+					String mphoto = rs.getString("mphoto");
+					String memail = rs.getString("memail");
+					int mlevel = rs.getInt("mlevel");
+					dto = new BoardDto(bno, btitle, bcontent, brdate, bimg, bgroup, bstep, bindent, gid, mid, bip, bhit, gname, gicon, mnickname, mphoto, memail, mlevel);
+				}
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			} finally {
+				try {
+					if (rs != null)
+						rs.close();
+					if (pstmt != null)
+						pstmt.close();
+					if (conn != null)
+						conn.close();
+				} catch (SQLException e) {
+					System.out.println(e.getMessage());
+				}
+			}
+			return dto;
+		}	
+	
+	
+	
+	// (7) 특정 게시판에 원글을 작성.
 	public int writeBoard(String gid, String mid, BoardDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -151,5 +384,35 @@ public class BoardDao {
 		}
 		return result;
 	}
-	
+	// (8) 특정 게시글을 수정. gid와 mid가 필요.
+	public int modifyBoard(String gid, String mid, BoardDto dto) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getBtitle());			
+			pstmt.setString(2, dto.getBcontent());
+			pstmt.setString(3, dto.getBimg());
+			pstmt.setString(4, gid);
+			pstmt.setString(5, mid);
+			pstmt.setString(6, dto.getBip());
+			result = pstmt.executeUpdate();
+			System.out.println(gid + "게시판에 글쓰기 성공");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + gid + "게시판에 글쓰기 실패 - " + dto);
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
 }

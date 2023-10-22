@@ -19,10 +19,11 @@ import project.gamei.dao.BoardDao;
 import project.gamei.dto.BoardDto;
 import project.gamei.dto.MemberDto;
 
-public class boardWriteService implements Service {
-
+public class BoardModifyService implements Service {
+	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
+
 		String path = request.getRealPath("memberPhotoUp");
 		int maxSize = 1024*1024*10; // 사진 최대업로드 사이즈는 10M
 		MultipartRequest mRequest = null;
@@ -38,17 +39,30 @@ public class boardWriteService implements Service {
 			HttpSession httpSession = request.getSession();
 			MemberDto member = (MemberDto)httpSession.getAttribute("member");
 			if(member!=null) {
+				//bno, pageNum, next
 				String mid = member.getMid(); // 로그인 한 사람의 mid
-				String gid = mRequest.getParameter("gid"); // 글을 작성할 게시판 gid
 				String btitle = mRequest.getParameter("btitle");
 				String bcontent = mRequest.getParameter("bcontent");				
 				String bip = request.getRemoteAddr();
-				BoardDao boardDao = BoardDao.getInstance();
-				BoardDto boardDto = new BoardDto(0, btitle, bcontent, bimg, bip, gid, mid);
-				result = boardDao.writeBoard(gid, mid, boardDto);
+				String bnoStr = mRequest.getParameter("bno");
+				String pageNumStr = mRequest.getParameter("pageNum");
+				int bno = 0;
+				int pageNum = 1;				
+				if (bnoStr != null) {
+					bno = Integer.parseInt(bnoStr);
+				}				
+				if (pageNumStr != null) {
+					pageNum = Integer.parseInt(pageNumStr);	
+				}				
+				BoardDao boardDao = BoardDao.getInstance();				
+				String gid = mRequest.getParameter("gid"); // 글을 작성할 게시판 gid
+				BoardDto boardDto = new BoardDto(btitle, bcontent, bimg, bip, gid, mid);
+				result = boardDao.modiFyBoard(gid, mid, boardDto);
 				// 글작성에 성공하든, 실패하든 gid 패러미터를 넘겨 viewPage에서 이동할 수 있도록 한다.
+				String next = mRequest.getParameter("next");
+				request.setAttribute("next", next);
 				request.setAttribute("gid", gid);
-
+				
 				if(result == BoardDao.SUCCESS) {
 					request.setAttribute("boardWriteResult", "글쓰기 성공");
 					
@@ -62,8 +76,8 @@ public class boardWriteService implements Service {
 			System.out.println(e.getMessage());
 			request.setAttribute("boardWriteResult", "글쓰기 실패");
 		}
-		// 서버에 올라간 fileboardUp 파일을 소스폴더에 filecopy
-		if(!bimg.equals("") && result== BoardDao.SUCCESS) {
+		// 서버에 올라간 파일을 소스폴더에 filecopy
+		if (bimg != null && result == BoardDao.SUCCESS) {
 			InputStream  is = null;
 			OutputStream os = null;
 			try {
@@ -75,6 +89,7 @@ public class boardWriteService implements Service {
 					int ByteCnt = is.read(bs);
 					if(ByteCnt==-1) break;
 					os.write(bs, 0, ByteCnt);
+					System.out.println(serverFile + "복사 완료");
 				}
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
@@ -87,5 +102,6 @@ public class boardWriteService implements Service {
 				}
 			}
 		}
+		
 	}
 }

@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import project.gamei.dao.GameDao;
 
-public class boardWriteFormDisplayService implements Service {
+public class BoardWriteFormDisplayService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

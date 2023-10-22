@@ -7,7 +7,7 @@ import javax.servlet.http.HttpSession;
 import project.gamei.dao.MemberDao;
 import project.gamei.dto.MemberDto;
 
-public class withdrawalService implements Service {
+public class WithdrawalService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

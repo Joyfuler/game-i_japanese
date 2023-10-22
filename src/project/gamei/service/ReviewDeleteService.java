@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import project.gamei.dao.ReviewDao;
 
-public class reviewDeleteService implements Service {
+public class ReviewDeleteService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {

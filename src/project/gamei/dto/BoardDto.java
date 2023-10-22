@@ -43,6 +43,40 @@ public class BoardDto {
 		this.mnickname = mnickname;
 	}
 	
+	public BoardDto(int bno, String btitle, String bcontent, Timestamp brdate, String bimg, int bgroup,
+			int bstep, int bindent, String gid, String mid, String bip, int bhit, String gname, 
+			String gicon, String mnickname, String mphoto, String memail, int mlevel) {
+		
+		this.bno = bno;
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.brdate = brdate;
+		this.bimg = bimg;
+		this.bip = bip;
+		this.bgroup = bgroup;
+		this.bstep = bstep;
+		this.bindent = bindent;
+		this.gid = gid;
+		this.mid = mid;
+		this.bip = bip;
+		this.bhit = bhit;
+		this.gname = gname;
+		this.gicon = gicon;
+		this.mnickname = mnickname;
+		this.mphoto = mphoto;
+		this.memail = memail;
+		this.mlevel = mlevel;
+		
+	}
+	
+	public BoardDto(String btitle, String bcontent, String bimg, String bip, String gid, String mid) {	
+		this.btitle = btitle;
+		this.bcontent = bcontent;		
+		this.bimg = bimg;
+		this.bip = bip;		
+	}
+	
+	
 	public BoardDto(int bno, String btitle, String bcontent, String bimg, String bip, String gid, String mid) {
 		this.bno = bno;
 		this.btitle = btitle;

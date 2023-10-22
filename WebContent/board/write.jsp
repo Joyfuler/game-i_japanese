@@ -34,7 +34,7 @@
       });
       
       var inputFile = $("input[name='bimg']");
-      var image = $("#uploadedimg"); 
+      var image = $("#uploadedImg"); 
       inputFile.change(function(){
     	 var file = inputFile[0].files[0];
     	 if (file){
@@ -62,7 +62,8 @@
 			<div class="gray_frame">				
 				<form action = "${conPath }/boardWrite.do" method="post" id = "writeForm" enctype = "multipart/form-data">
 				<input type = "hidden" name = "mid" value = "${member.mid }">
-				<input type = "hidden" name = "gid" value = "${param.gid }">			
+				<input type = "hidden" name = "gid" value = "${param.gid }">
+				<input type = "hidden" name = "next" value = "boardList.do?gid=${param.gid }">			
 					<div class = "writeForm">
 						<table class="board-table">							
 							<tbody>
@@ -86,7 +87,7 @@
 									<th>사진추가</th>
 									<td>
 									<input type = "file" name = "bimg" onchange = "checkFileType(this)">									
-									<img id = "uploadedimg" height = "44px">
+									<img id = "uploadedImg" height = "44px">
 									</td>
 								</tr>
 								<tr>

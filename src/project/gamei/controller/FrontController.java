@@ -19,12 +19,14 @@ import project.gamei.service.MemailConfirmService;
 import project.gamei.service.MidConfirmService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
-import project.gamei.service.boardListService;
-import project.gamei.service.boardWriteFormDisplayService;
-import project.gamei.service.boardWriteService;
-import project.gamei.service.reviewDeleteService;
-import project.gamei.service.reviewWriteService;
-import project.gamei.service.withdrawalService;
+import project.gamei.service.BoardContentService;
+import project.gamei.service.BoardListService;
+import project.gamei.service.BoardModifyFormDisplayService;
+import project.gamei.service.BoardWriteFormDisplayService;
+import project.gamei.service.BoardWriteService;
+import project.gamei.service.ReviewDeleteService;
+import project.gamei.service.ReviewWriteService;
+import project.gamei.service.WithdrawalService;
 
 
 @WebServlet("*.do")
@@ -58,11 +60,11 @@ public class FrontController extends HttpServlet {
 			viewPage = "main/intro.jsp";
 		// 리뷰페이지 영역.	
 		} else if (command.equals("/reviewWrite.do")) {			
-			service = new reviewWriteService();
+			service = new ReviewWriteService();
 			service.execute(request, response);
 			viewPage = "review.do";		
 		} else if (command.equals("/deleteReview.do")) {			
-			service = new reviewDeleteService();
+			service = new ReviewDeleteService();
 			service.execute(request, response);
 			viewPage = "review.do";		
 		} else if (command.equals("/review.do")) {
@@ -124,7 +126,7 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "main.do";
 		} else if (command.equals("/withdrawal.do")) {
-			service = new withdrawalService();
+			service = new WithdrawalService();
 			service.execute(request, response);
 			viewPage = "main.do";
 			
@@ -132,30 +134,38 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/boardList.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
-			service = new boardListService();
+			service = new BoardListService();
 			service.execute(request, response);
 			viewPage = "board/list.jsp";
 		} else if (command.equals("/boardWriteView.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
-			service = new boardWriteFormDisplayService();
+			service = new BoardWriteFormDisplayService();
 			service.execute(request, response);			
-			viewPage = "board/write.jsp";
-			writeMode = 1;
+			viewPage = "board/write.jsp";			
 		} else if (command.equals("/boardWrite.do")) {
-			if (writeMode == 1) {				
-				service = new boardWriteService();
-				service.execute(request, response);
-				writeMode = 0;				
-			}				
-				service = new MainDisplayService();
-				service.execute(request, response);
-				if (request.getParameter("gid")!= null) {
-					viewPage= "boardList.do?gid="+request.getParameter("gid");
-				} else {
-					viewPage = "main.do";
-			}								
+			service = new BoardWriteService();
+			service.execute(request, response);
+			if (request.getParameter("next") != null && !request.getParameter("next").equals("")) {
+				viewPage = request.getParameter("next");
+			} else {
+				viewPage = "main.do";
+			}
+		} else if (command.equals("/boardContent.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			service = new BoardContentService();
+			service.execute(request, response);
+			viewPage = "board/content.jsp";
+		} else if (command.equals("/boardModifyView.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			service = new BoardModifyFormDisplayService();
+			service.execute(request, response);			
+			viewPage = "board/modify.jsp";			
 		}
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

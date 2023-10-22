@@ -4,20 +4,46 @@ a{
 table.board-table {
   border-collapse: collapse;
   border-spacing: 0;
-  background-color: #E0ECF8;
+  background-color: #212529;
   border: 1px solid gray;
+  color: ghostwhite;
+  font-size: 1.05em;
 }
 
 .container {
 	margin-left: 75%;
 }
 
+.board_title {
+	padding-left: 78px;	
+}
+
+.board_title h2{	
+	margin-left: 10px;	
+	bottom: 10px;
+    color: aqua;
+    font-size: 28px;
+    padding: 20px 0 0 50px;    
+    background-color: #212529;
+    height: 80px;
+    width: 1000px;
+    line-height: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+	}
+		
+.title_bar { 
+	height: 75px;	
+	border-radius: 0px 25px 25px 0px;	
+}
+
+
 table.board-table tr{
-	color: #212529;
+	color: #ghostwhite;
 }
 
 table.board-table tr:hover {
-	background-color: #CEE3F6;	
+	background-color: #425058;	
 }
 
 td.profile-cell{
