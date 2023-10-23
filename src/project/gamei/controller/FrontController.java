@@ -20,10 +20,17 @@ import project.gamei.service.MidConfirmService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
 import project.gamei.service.BoardContentService;
+import project.gamei.service.BoardDeleteService;
 import project.gamei.service.BoardListService;
 import project.gamei.service.BoardModifyFormDisplayService;
+import project.gamei.service.BoardModifyService;
+import project.gamei.service.BoardReplyFormdisplayService;
+import project.gamei.service.BoardReplyService;
 import project.gamei.service.BoardWriteFormDisplayService;
 import project.gamei.service.BoardWriteService;
+import project.gamei.service.CommentDeleteService;
+import project.gamei.service.CommentReplyService;
+import project.gamei.service.CommentWriteService;
 import project.gamei.service.ReviewDeleteService;
 import project.gamei.service.ReviewWriteService;
 import project.gamei.service.WithdrawalService;
@@ -31,8 +38,7 @@ import project.gamei.service.WithdrawalService;
 
 @WebServlet("*.do")
 public class FrontController extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-    private int writeMode = 0;
+	private static final long serialVersionUID = 1L;    
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		actionDo(request, response);
@@ -128,8 +134,7 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/withdrawal.do")) {
 			service = new WithdrawalService();
 			service.execute(request, response);
-			viewPage = "main.do";
-			
+			viewPage = "main.do";			
 		// 게시판 관련 영역	
 		} else if (command.equals("/boardList.do")) {
 			service = new MainDisplayService(); 
@@ -145,12 +150,8 @@ public class FrontController extends HttpServlet {
 			viewPage = "board/write.jsp";			
 		} else if (command.equals("/boardWrite.do")) {
 			service = new BoardWriteService();
-			service.execute(request, response);
-			if (request.getParameter("next") != null && !request.getParameter("next").equals("")) {
-				viewPage = request.getParameter("next");
-			} else {
-				viewPage = "main.do";
-			}
+			service.execute(request, response);			
+			viewPage = "boardList.do";			
 		} else if (command.equals("/boardContent.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
@@ -163,9 +164,37 @@ public class FrontController extends HttpServlet {
 			service = new BoardModifyFormDisplayService();
 			service.execute(request, response);			
 			viewPage = "board/modify.jsp";			
+		} else if (command.equals("/boardModify.do")) {			
+			service = new BoardModifyService();
+			service.execute(request, response);
+			viewPage = "boardContent.do";
+		} else if (command.equals("/boardDelete.do")) {
+			service = new BoardDeleteService();
+			service.execute(request, response);
+			viewPage = "boardList.do";
+		} else if (command.equals("/boardReplyView.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			service = new BoardReplyFormdisplayService();
+			service.execute(request, response);
+			viewPage = "board/reply.jsp";
+		} else if (command.equals("/boardReply.do")) {
+			service = new BoardReplyService();
+			service.execute(request, response);
+			viewPage = "boardList.do";
+		} else if (command.equals("/commentWrite.do")) {
+			service = new CommentWriteService();
+			service.execute(request, response);
+			viewPage = "boardContent.do";
+		} else if (command.equals("/commentDelete.do")) {
+			service = new CommentDeleteService();
+			service.execute(request, response);
+			viewPage = "boardContent.do";
+		} else if (command.equals("/commentReply.do")) {
+			service = new CommentReplyService();
+			service.execute(request, response);
+			viewPage = "comment_reply.jsp";
 		}
-		
-		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

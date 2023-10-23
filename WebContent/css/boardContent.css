@@ -39,7 +39,7 @@ table.board-table {
 
 
 table.board-table tr{
-	color: #ghostwhite;
+	color: ghostwhite;
 }
 
 table.board-table tr:hover {
@@ -235,9 +235,13 @@ width:100px;
 .comment-content-cell{
 	height : 150px;
 	padding-left: 20px;
-	padding-bottom: 15px;	
+	padding-bottom: 15px;
+	width: 500px;	
 }
 
+.comment-cell {
+	width: 200px;
+}
 .comment-cell img{
 	 margin: 10px;
 }

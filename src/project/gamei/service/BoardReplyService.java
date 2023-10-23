@@ -19,7 +19,7 @@ import project.gamei.dao.BoardDao;
 import project.gamei.dto.BoardDto;
 import project.gamei.dto.MemberDto;
 
-public class BoardModifyService implements Service {
+public class BoardReplyService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
@@ -36,10 +36,14 @@ public class BoardModifyService implements Service {
 			// 멤버 정보와 게시글 정보를 받는 작업. 로그인이 아닐 경우에만 db와 상호작용
 			HttpSession httpSession = request.getSession();
 			MemberDto member = (MemberDto) httpSession.getAttribute("member");
-			if (member != null) {				
+			if (member != null) {		
+				String mid = member.getMid();
 				String btitle = mRequest.getParameter("btitle");
 				String bcontent = mRequest.getParameter("bcontent");
 				String bip = request.getRemoteAddr();
+				int bgroup = Integer.parseInt(mRequest.getParameter("bgroup"));
+				int bstep = Integer.parseInt(mRequest.getParameter("bstep"));
+				int bindent = Integer.parseInt(mRequest.getParameter("bindent"));
 				String bnoStr = mRequest.getParameter("bno");
 				String pageNumStr = mRequest.getParameter("pageNum");
 				int bno = 0;
@@ -52,23 +56,22 @@ public class BoardModifyService implements Service {
 				}
 				BoardDao boardDao = BoardDao.getInstance();
 				String gid = mRequest.getParameter("gid"); // 글을 작성할 게시판 gid
-				BoardDto boardDto = new BoardDto(btitle, bcontent, bimg, bip);
-				result = boardDao.modifyBoard(bno, boardDto);
-				// 글수정에 성공하든, 실패하든 gid 패러미터를 넘겨 viewPage에서 해당 게시판 + 게시글로 이동하도록 함.
-				request.setAttribute("pageNum", pageNum);
-				request.setAttribute("bno", bno);
+				BoardDto boardDto = new BoardDto(btitle, bcontent, bimg, bgroup, bstep, bindent, bip);
+				result = boardDao.replyBoard(gid, mid, boardDto);
+				// gid, pageNum 패러미터를 넘겨 viewPage에서 해당 게시판 + 페이지로 이동하도록 함.
+				request.setAttribute("pageNum", pageNum);				
 				request.setAttribute("gid", gid);
 				if (result == BoardDao.SUCCESS) {
-					request.setAttribute("boardModifyResult", "글수정 성공");
+					request.setAttribute("boardReplyResult", "답변글 작성 성공");
 				} else {
-					request.setAttribute("boardModifyResult", "글수정 실패");
+					request.setAttribute("boardReplyResult", "답변글 작성 실패");
 				}
 			} else {
-				request.setAttribute("boardModifyResult", "로그인을 해야 글 수정이 가능합니다.");
+				request.setAttribute("boardReplyResult", "로그인을 해야 글 답변이 가능합니다.");
 			}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
-			request.setAttribute("boardModifyResult", "글수정 실패");
+			request.setAttribute("boardReplyResult", "답변글 작성 실패");
 		}
 		// 서버에 올라간 파일을 소스폴더에 filecopy
 		if (bimg != null && result == BoardDao.SUCCESS) {
@@ -101,4 +104,7 @@ public class BoardModifyService implements Service {
 			}
 		}
 	}
-}
+
+	}
+
+

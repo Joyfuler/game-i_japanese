@@ -85,6 +85,24 @@ public class BoardDto {
 		this.bip = bip;		
 	}
 	
+	public BoardDto(String btitle, String bcontent, String bimg, String bip) {
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bimg = bimg;
+		this.bip = bip;
+	}
+	
+	public BoardDto(String btitle, String bcontent, String bimg, int bgroup, int bstep, int bindent, String bip) {
+		this.btitle = btitle;
+		this.bcontent = bcontent;
+		this.bimg = bimg;
+		this.bgroup = bgroup;
+		this.bstep = bstep;
+		this.bindent = bindent;
+		this.bip = bip;		
+	}
+	
+	
 	
 	public BoardDto(int bno, String btitle, String bcontent, Timestamp brdate, String bimg, String bip, int bgroup,
 			int bstep, int bindent, int bhit, String gid, String mid, String mphoto, String mnickname, int mlevel,

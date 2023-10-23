@@ -47,8 +47,6 @@ public class BoardWriteService implements Service {
 				BoardDto boardDto = new BoardDto(0, btitle, bcontent, bimg, bip, gid, mid);
 				result = boardDao.writeBoard(gid, mid, boardDto);
 				// 글작성에 성공하든, 실패하든 gid 패러미터를 넘겨 viewPage에서 이동할 수 있도록 한다.
-				String next = mRequest.getParameter("next");
-				request.setAttribute("next", next);
 				request.setAttribute("gid", gid);
 				
 				if(result == BoardDao.SUCCESS) {
@@ -71,7 +69,7 @@ public class BoardWriteService implements Service {
 			try {
 				File serverFile = new File(path+"/"+bimg);
 				is = new FileInputStream(serverFile);
-				os = new FileOutputStream("C:\\Users\\user_20230926\\Desktop\\webpro\\game_i\\WebContent\\memberPhotoUp\\" + bimg);
+				os = new FileOutputStream("D:\\webPro\\source\\08_1stProject\\game-i_1stProject\\WebContent\\memberPhotoUp\\" + bimg);
 				byte[] bs = new byte[(int)serverFile.length()];
 				while(true) {
 					int ByteCnt = is.read(bs);

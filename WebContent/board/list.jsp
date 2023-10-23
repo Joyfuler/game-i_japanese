@@ -21,10 +21,21 @@
 <jsp:include page="../main/header.jsp"/>
 <jsp:include page="../main/rightArea.jsp"/>
 <c:if test="${not empty boardWriteResult }">
-		<script>
-		alert('${boardWriteResult }');
-		</script>
+	<script>
+	alert('${boardWriteResult }');
+	</script>
 </c:if>
+<c:if test="${not empty boardDeleteResult }">
+	<script>
+	alert('${boardDeleteResult}');
+	</script>
+</c:if>
+<c:if test = "${not empty boardReplyResult }">
+	<script>
+	alert('${boardReplyResult }');
+	</script>
+</c:if>	
+</body>		
 <section class="notice">
   <div class="page-title">
         <div class="board_title">        	
@@ -55,8 +66,22 @@
                 <c:forEach var="boarditem" items="${boardList }">
                 <tr>
                     <td>${boarditem.bno }</td>
-                    <th>
-                      <a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>                      
+                    <th>                    	
+                    		<c:forEach var="i" begin="1" end="${boarditem.bindent }">
+									<c:if test="${i eq boarditem.bindent }">
+									└─
+									</c:if>
+									<c:if test="${i!=boarditem.bindent }"> 
+									&nbsp; &nbsp; 
+									</c:if>
+							</c:forEach>
+							<c:if test = "${boarditem.bhit >=10 }">                    		
+                    		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
+                    		<img src = "${conPath }/img/hot.png">
+                    		</c:if>
+                    		<c:if test = "${boarditem.bhit <10 }">
+                    		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
+                    		</c:if>	                                            
                     </th>
                     <td><fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
                     <td>${boarditem.mnickname }</td>

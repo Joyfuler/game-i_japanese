@@ -12,6 +12,9 @@ public class BoardListService implements Service {
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		String pageNum = request.getParameter("pageNum");
 		String gid = request.getParameter("gid");
+		if(gid==null) {
+			gid = (String)request.getAttribute("gid");
+		}
 		if (pageNum == null) {
 //			if (request.getAttribute("pageNum") != null ) {
 //				pageNum = (String) request.getAttribute("pageNum");

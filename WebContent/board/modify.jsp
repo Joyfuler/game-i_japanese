@@ -56,10 +56,10 @@
   <div id="contents">
 		<div class="article">						
 			<div class="gray_frame">				
-				<form action = "${conPath }/modify.do" method="post" enctype = "multipart/form-data">
+				<form action = "${conPath }/boardModify.do" method="post" enctype = "multipart/form-data">
 				<input type = "hidden" name = "gid" value = "${param.gid }">
 				<input type = "hidden" name = "mid" value = "${member.mid }">
-				<input type = "hidden" name = "bno" value = "${boardContent.bno }">
+				<input type = "hidden" name = "bno" value = "${param.bno }">
 				<input type = "hidden" name = "pageNum" value = "${param.pageNum }">
 				<input type = "hidden" name = "next" value = "boardContent.do?gid=${param.gid }&bno=${param.bno }&pageNum=${param.pageNum }">					
 					<div class = "writeForm">
@@ -78,7 +78,7 @@
 								</tr>
 								<tr>
 									<th>글내용 </th>
-									<td><textarea cols="30" rows="15" maxlength="4000">${originInfo.bcontent }</textarea>										
+									<td><textarea cols="30" rows="15" maxlength="4000" name = "bcontent">${originInfo.bcontent }</textarea>										
 									</td>
 								</tr>								
 								<tr>
@@ -95,7 +95,7 @@
 								</tr>
 								<tr>
 									<td colspan= "3">
-									<input type = "submit" name = "writeButton" value = "글작성" style = "margin-left: 400px;"> 
+									<input type = "submit" name = "writeButton" value = "글수정" style = "margin-left: 400px;"> 
 									<input type = "button" value = "뒤로가기" onclick = "history.back()" style = "margin-left: 10px;"> 
 									<input type = "button" value = "글목록" onclick = "location.href='${conPath}/boardList.do?gid=${param.gid }&pageNum=${param.pageNum }'" style = "margin-left: 10px;"> 
 									</td>

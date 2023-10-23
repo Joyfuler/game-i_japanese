@@ -63,7 +63,7 @@
 				<form action = "${conPath }/boardWrite.do" method="post" id = "writeForm" enctype = "multipart/form-data">
 				<input type = "hidden" name = "mid" value = "${member.mid }">
 				<input type = "hidden" name = "gid" value = "${param.gid }">
-				<input type = "hidden" name = "next" value = "boardList.do?gid=${param.gid }">			
+<%-- 				<input type = "hidden" name = "next" value = "boardList.do?gid=${param.gid }">	 --%>		
 					<div class = "writeForm">
 						<table class="board-table">							
 							<tbody>
