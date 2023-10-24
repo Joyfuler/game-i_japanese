@@ -57,7 +57,8 @@ public class MJoinService implements Service {
 						request.setAttribute("joinResult", "회원가입이 완료되었습니다.");						
 					} else {
 						request.setAttribute("joinErrorMsg", "가입시 입력한 정보의 길이를 확인해주세요");
-					}			}
+					}			
+				}
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 			request.setAttribute("joinErrorMsg", "첨부파일의 용량 제한은 5MB 이하입니다");

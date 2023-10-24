@@ -45,6 +45,16 @@ public class GameDto {
 		this.gdesc = gdesc;
 		this.ghit = ghit;
 	}
+	
+	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc) {		
+		this.gid = gid;
+		this.gname = gname;
+		this.ggenre = ggenre;
+		this.gpub = gpub;
+		this.gpdate = gpdate;
+		this.gicon = gicon;
+		this.gdesc = gdesc;		
+	}
 
 	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
 			int ghit, int rid, double rscore, String rtext, String mid) {

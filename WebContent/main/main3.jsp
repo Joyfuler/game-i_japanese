@@ -95,15 +95,15 @@
   	</div>
   	<form action = "${conPath }/main.do" class = "listSort">    
 	    <select id = "selectBox" name = "sortBy">
-      	<option value = "">정렬방식</option>
-      	<c:if test = "${sortBy eq 'new' }">
-      	<option value = "new" selected = "selected"> 출시일순 </option>
-      	<option value = "highScore"> 평점 높은 순</option>
-      	</c:if>      
-      	<c:if test = "${sortBy eq 'highScore' or empty sortBy }">
-      	<option value = "new"> 출시일순 </option>
-      	<option value = "highScore" selected = "selected"> 평점 높은 순</option>
-      	</c:if>
+	      	<option value = "">정렬방식</option>
+	      	<c:if test = "${sortBy eq 'new' }">
+	      	<option value = "new" selected = "selected"> 출시일순 </option>
+	      	<option value = "highScore"> 평점 높은 순</option>
+	      	</c:if>      
+	      	<c:if test = "${sortBy eq 'highScore' }">
+	      	<option value = "new"> 출시일순 </option>
+	      	<option value = "highScore" selected = "selected"> 평점 높은 순</option>
+	      	</c:if>
     	</select>
     	<input class = "sortSubmit" type = "submit" value = "적용">
     </form>    
@@ -112,7 +112,7 @@
     <div class="card mb-1 bg-dark container card1 card-container" style="max-width: 1000px;">
         <div class="row g-0">
           <div class="col-md-3">          	
-          	<c:if test = "${empty pageNum or pageNum eq 1}">
+          	<c:if test = "${empty pageNum or pageNum eq 1 and empty param.query}">
             <img class = "rank" src = "${conPath }/img/rank${idx }.png" alt = "rank">
             </c:if>
             <img src="${conPath }/img/${sortedList.gicon }" class="img-fluid rounded-start" alt="thumnail" onerror="noImage(this)">

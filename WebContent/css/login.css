@@ -92,6 +92,7 @@ span#idConfirmResult, span#pwChkResult, span#emailChkResult{
 	position: relative;	
 	display: inline-block;
 	color:white;	
+	padding: 7px 10px 0 30px;
 	}
 	
 	.check .btn:hover{
@@ -125,6 +126,15 @@ span#idConfirmResult, span#pwChkResult, span#emailChkResult{
 
 #identify_answer{
 	margin-left: 3px;
+}
+
+.rule{
+	height: 90px;
+	width: 600px;
+	border: 2px solid #212529;
+	padding: 10px;
+	overflow-y : auto;
+	
 }
 
 

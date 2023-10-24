@@ -39,7 +39,7 @@ public class BoardContentService implements Service {
 		
 		// 댓글을 확인하기 위해 bno를 받아 댓글도 출력이 필요.
 		String commentPageNum = request.getParameter("commentPageNum");
-		if (commentPageNum == null) {
+		if (commentPageNum == null || commentPageNum.equals("")) {
 			commentPageNum = "1";
 		}
 		

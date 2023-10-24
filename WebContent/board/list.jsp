@@ -35,6 +35,11 @@
 	alert('${boardReplyResult }');
 	</script>
 </c:if>	
+	<script>
+	function blockUserAlert(){
+		alert('차단된 유저는 게시글을 작성할 수 없습니다.');
+	}
+	</script>
 </body>		
 <section class="notice">
   <div class="page-title">
@@ -59,58 +64,63 @@
                 </thead>
                 <tbody>
                 <c:if test = "${boardList.size() eq 0 }">
-                <tr>
-                	<td colspan = "5"> 현재 게시판에 게시글이 없습니다. </td>
-                </tr>	
+                	<tr>
+                		<td colspan = "5"> 현재 게시판에 게시글이 없습니다. </td>
+                	</tr>	
                 </c:if>                             
                 <c:forEach var="boarditem" items="${boardList }">
-                <tr>
-                    <td>${boarditem.bno }</td>
+                	<tr>
+                    	<td>${boarditem.bno }</td>
                     <th>                    	
-                    		<c:forEach var="i" begin="1" end="${boarditem.bindent }">
-									<c:if test="${i eq boarditem.bindent }">
-									└─
-									</c:if>
-									<c:if test="${i!=boarditem.bindent }"> 
-									&nbsp; &nbsp; 
-									</c:if>
-							</c:forEach>
-							<c:if test = "${boarditem.bhit >=10 }">                    		
+                    	<c:forEach var="i" begin="1" end="${boarditem.bindent }">
+							<c:if test="${i eq boarditem.bindent }">
+								<b>└─</b>
+							</c:if>
+							<c:if test="${i!=boarditem.bindent }"> 
+							&nbsp; &nbsp; 
+							</c:if>
+						</c:forEach>
+						<c:if test = "${boarditem.bhit >=10 }">                    		
                     		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
                     		<img src = "${conPath }/img/hot.png">
-                    		</c:if>
-                    		<c:if test = "${boarditem.bhit <10 }">
+                    	</c:if>
+                    	<c:if test = "${boarditem.bhit <10 }">
                     		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
-                    		</c:if>	                                            
-                    </th>
-                    <td><fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                    <td>${boarditem.mnickname }</td>
-                    <td>${boarditem.bhit }</td>
-                </tr>
+                    	</c:if>	                                            
+                    	</th>
+                    	<td>
+                    		<fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    	</td>
+                    	<td>${boarditem.mnickname }</td>
+                    	<td>${boarditem.bhit }</td>
+                	</tr>
 				</c:forEach>
-                <tr>
-                    <td>2</td>
-                    <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                    <td>2017.06.15</td>
-                     <td>아이조아</td>
-                    <td>10</td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
-                    <td>2017.06.15</td>
-                     <td>아이조아</td>
-                    <td>10</td>
-                </tr>
+                	<tr>
+                    	<td>2</td>
+                    	<th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
+                    	<td>2017.06.15</td>
+                     	<td>아이조아</td>
+                    	<td>10</td>
+                	</tr>
+                	<tr>
+                    	<td>1</td>
+                    	<th><a href="#!">공지사항 안내입니다. 이용해주셔서 감사합니다</a></th>
+                    	<td>2017.06.15</td>
+                     	<td>아이조아</td>
+                    	<td>10</td>
+                	</tr>
                 </tbody>
             </table>            
         </div>
         <div class = "button-container">
+        	<c:if test = "${not empty member and member.mlevel eq -2 }">
+        		<button onclick = "blockUserAlert()" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성</button>
+        	</c:if>
         	<c:if test="${not empty member }">
-        	<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+        		<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
         	</c:if>
 			<c:if test="${empty member }">
-			<button onclick = "location.href='${conPath}/loginView.do?next=boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+				<button onclick = "location.href='${conPath}/loginView.do?next=boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
 			</c:if>        	        
         	<button onclick = "location.href='${conPath}/boardList.do?gid=${gid }'" style = "margin-top: 5px; margin-left:980px; position: absolute;"> 전체글 </button>
         </div>
@@ -122,11 +132,11 @@
                 	<table>
                 		<tr>
                         	<td><select id = "query" name = "query">
-                        <option value = "btitle" selected="selected">제목</option>                        
-                        <option value = "mname">작성자</option>
-                        </select></td>
-                        <td><input type="text" name="searchWord" placeholder="검색어를 입력해주세요."></td>                        
-                        <td><button>검색</button></td>
+             		            <option value = "btitle" selected="selected">제목</option>                        
+                     		    <option value = "mname">작성자</option>
+                        		</select></td>
+                        	<td><input type="text" name="searchWord" placeholder="검색어를 입력해주세요."></td>                        
+                        	<td><button>검색</button></td>
                         </tr>
                 	</table>                            
                 </form>            
@@ -135,14 +145,14 @@
 </section>
 <div id = "paging" style = "padding-left: 100px; display: block;"> 
 		<c:if test="${startPage >BLOCKSIZE }">
-		<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${startPage-1 }">[이전]</a>
+			<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${startPage-1 }">[이전]</a>
 		</c:if>
 		<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
 			<c:if test = "${i eq pageNum }">
 			[<b style = "color: red;"> ${i }</b>]
 			</c:if>
 			<c:if test = "${i != pageNum }">
-			<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${i }">[${i }]</a>
+				<a href = "${conPath }/boardList.do?gid=${gid }&pageNum=${i }">[${i }]</a>
 			</c:if>
 		</c:forEach>
 		<c:if test = "${endPage < pageCnt }">

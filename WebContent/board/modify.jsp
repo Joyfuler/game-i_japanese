@@ -67,10 +67,10 @@
 							<tbody>
 								<tr>
 									<td rowspan="2" style = "text-align: center;"> <img src = "${conPath }/img/${originInfo.mphoto }" height = "45px">																																									
-									<b>&nbsp;&nbsp;글제목 &nbsp;</b>
+										<b>&nbsp;&nbsp;글제목 &nbsp;</b>
 									</td>
 									<td rowspan="2">
-									<input id="btitle" name="btitle" class = "writeInput" maxlength="100" tabindex="2"
+										<input id="btitle" name="btitle" class = "writeInput" maxlength="100" tabindex="2"
 										type="text" value = "${originInfo.btitle }">										
 									</td>
 								</tr>
@@ -84,20 +84,20 @@
 								<tr>
 									<th>사진변경</th>
 									<td>
-									<input type = "file" name = "bimg" accept=".jpg, .jpeg, .png, .gif" onchange = "checkFileType(this)">
+										<input type = "file" name = "bimg" accept=".jpg, .jpeg, .png, .gif" onchange = "checkFileType(this)">
 									<c:if test = "${not empty originInfo.bimg }">
-									<img id = "uploadedImg" height = "44px" src = "${conPath }/memberPhotoUp/${originInfo.bimg }">
+										<img id = "uploadedImg" height = "44px" src = "${conPath }/memberPhotoUp/${originInfo.bimg }">
 									</c:if>
-									<c:if test = "${empty originInfo.bimg }">
+										<c:if test = "${empty originInfo.bimg }">
 									<img id = "uploadedImg" height = "44px">
 									</c:if>
 									</td>
 								</tr>
 								<tr>
 									<td colspan= "3">
-									<input type = "submit" name = "writeButton" value = "글수정" style = "margin-left: 400px;"> 
-									<input type = "button" value = "뒤로가기" onclick = "history.back()" style = "margin-left: 10px;"> 
-									<input type = "button" value = "글목록" onclick = "location.href='${conPath}/boardList.do?gid=${param.gid }&pageNum=${param.pageNum }'" style = "margin-left: 10px;"> 
+										<input type = "submit" name = "writeButton" value = "글수정" style = "margin-left: 400px;"> 
+										<input type = "button" value = "뒤로가기" onclick = "history.back()" style = "margin-left: 10px;"> 
+										<input type = "button" value = "글목록" onclick = "location.href='${conPath}/boardList.do?gid=${param.gid }&pageNum=${param.pageNum }'" style = "margin-left: 10px;"> 
 									</td>
 							</tbody>
 						</table>

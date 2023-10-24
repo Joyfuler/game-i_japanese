@@ -15,21 +15,11 @@
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
 	<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-	<script>
-	$(document).ready(function(){
-		$("#tabs").tabs();		
-		$('input.gameSearch').click(function(){
-			$.ajax({				
-			});			
-		});
-	});	
-	</script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>	
 	<script>
 	function displayImg(input){
 		if (input.files && input.files[0]){
-			var reader = new FileReader();
-			
+			var reader = new FileReader();			
 			reader.onload = function(e){
 				$('#preview').attr('src', e.target.result);
 				$('#preview').css('display', 'inline');
@@ -38,91 +28,129 @@
 		}
 	}
 	</script>
+	<script>
+		$(function() {
+			var idx = Number('${param.idx}');
+		  $( "#tabs" ).tabs({active: idx});
+		});
+	</script>
+	<script>
+	 $(function() {
+		    $( "#datepicker" ).datepicker({
+		    	dateFormat: "yy-mm-dd",
+		    	monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+		    	monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
+		    	showMonthAfterYear: true, 
+		    	yearSuffix: "년", 
+		    	changeMonth: true, 
+		    	changeYear: true, 
+		    	yearRange: "c-100:c+10", 
+		    });
+		  });
+	</script>	
+	<c:if test = "${not empty result }">	
+	<script>
+		alert('${result}');
+	</script>	
+	</c:if>
 </head>
-<body>
-<div class = "controller">
-          <ul>
-            <li><a class = "control" href = "${conPath }/main/main3.jsp">메인페이지</a></li>
-          	<li><a class = "control" href = "${conPath }/main/admin.jsp">관리자모드</a></li>
-			<li><a class = "control" href = "${conPath }/main/modifyChk.jsp">회원정보수정</a></li>          
-            <li><a class = "control" href = "${conPath }/main/loginForm.jsp">로그인</a></li>            
-            <li><a class = "control" href = "${conPath }/main/findAccount.jsp">아이디/비밀번호찾기</a></li>            
-            <li><a class = "control" href = "${conPath }/main/joinForm.jsp">회원가입</a></li>
+<body>	
+	<div class = "controller">
+          <ul>          	
+            <li><a class = "control" href = "${conPath }/main.do">메인페이지</a></li>
+          	<li><a class = "control" href = "${conPath }/admin.do?idx=0">관리자모드</a></li>			          
+            <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>            
           </ul>
-        </div>
-<div id="tabs">
-	  <ul>
-	    <li><a href="#tabs-1">신규 게임 추가</a></li>
-	    <li><a href="#tabs-2">회원 리스트 출력</a></li>
-	    <li><a href="#tabs-3">게임정보 변경</a></li>
-	    <li><a href="#tabs-4">관리자 추가/제거</a>
-	    <li><a href="#tabs-5">상단메뉴 관리</a>
+    </div>
+	<div id="tabs">
+		<ul>
+	    	<li><a href="#tabs-1">회원 리스트 출력</a></li>
+	    	<li><a href="#tabs-2">신규 게임 추가</a></li>
+	    	<li><a href="#tabs-3">게임정보 변경</a></li>
+	    	<li><a href="#tabs-4">관리자 추가/제거</a></li>
+	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>
 	  </ul>
 	  <div id="tabs-1">
-	     <form action = "${conPath }/addGame.do">
+	    <p>
+			회원리스트 (총 <b style = "color:red;">${totCnt }</b>명)
+		</p>	
+			<table>
+			<tr style = "border-bottom: 1px solid gray;">
+				<th> ID </th><th> 닉네임 </th><th>이메일</th><th>휴대폰번호</th><th>프로필사진</th><th>멤버등급</th><th>차단</th>
+			</tr>
+			<c:forEach var = "list" items = "${memberList }">
+			<tr>
+				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${list.mphone }</td>
+				<td><img src = "${conPath}/memberPhotoUp/${list.mphoto }" height= "25px"></td>
+				<td>${list.mlevel }</td>
+				<c:if test = "${list.mlevel eq 0 }">
+				<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 차단</button></td>
+				</c:if>
+				<c:if test = "${list.mlevel eq -2 }">
+				<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'"> 차단해제</button></td>
+				</c:if>
+				<c:if test = "${list.mlevel eq -1 }">
+				<td>(탈퇴유저)</td>
+				</c:if>
+			</tr>	
+			</c:forEach>
+			</table>
+			<div class = "paging" style = "padding-left: 100px;"> 
+				<c:if test="${startPage >BLOCKSIZE }">
+					<a href = "${conPath }/admin.do?idx=0&pageNum=${startPage-1 }">[이전]</a>
+				</c:if>
+				<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
+					<c:if test = "${i eq pageNum }">
+						[<b style = "color: red;"> ${i }</b>]
+					</c:if>
+					<c:if test = "${i != pageNum }">
+						<a href = "${conPath }/admin.do?idx=0&pageNum=${i }">[${i }]</a>
+					</c:if>
+				</c:forEach>
+				<c:if test = "${endPage < pageCnt }">
+					<a href = "${conPath }/admin.do?&idx=0&pageNum=${endPage+1 }">[다음]</a>
+				</c:if>		
+			</div>	
+	  </div>
+	  
+	  <!--  두번째 탭 영역 -->
+	  <div id="tabs-2">
+	     <form action = "${conPath }/adminAddGame.do" method = "post" enctype = "multipart/form-data">
 	    	<table>	   
 	    		<tr>
 	    			<th>게시판아이디</th>
-	    			<td><input type = "text" id = "gid"></td> 	
+	    			<td><input type = "text" name = "gid"></td>
 	    		<tr>
 	    			<th>게임명</th>
-	    			<td><input type = "text" id = "gname"></td>
+	    			<td><input type = "text" name = "gname"></td>
 	    		</tr>
 	    		<tr>
+	    			<th>장르</th>
+	    			<td><input type = "text" name = "ggenre"></td>
+	    		<tr>
 	    			<th>개발사</th> 
-	    			<td><input type = "text" id = "gpub"></td>
+	    			<td><input type = "text" name = "gpub"></td>
 	    		</tr>
 	    		<tr>	
 	    			<th>출시일</th>
-	    			<td><input type = "text" id = "grel"></td>
+	    			<td><input type = "text" name = "gpdate" id = "datepicker" placeholder = "클릭해 달력 열기"></td>
 	    		</tr>
 	    		<tr>	
-	    			<th>게임아이콘</th>
-	    			<td><input type = "file" id ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "100"></td>
+	    			<th>게임아이콘 <br>(1:1 비율, 100x100 권장)</th>
+	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "100"></td>
 	    			
 	    		</tr>
 	    		<tr>	    			
 	    			<th>게임설명 </th>
 	    			<td>
-	    			<textarea cols="20" rows="3" id = "gdes"></textarea>
+	    			<textarea cols="20" rows="3" name = "gdesc"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td><input type = "submit" value = "게임추가">	
+	    			<td><input type = "submit" value = "게임추가" style = "width: 200px;">	
 	    	</table>
-	    </form>	    
-	    <hr>
-	    	<table>	    		
-	    		<tr>
-	    			<th>등록된 게임 목록 </th>
-	    		</tr>
-	    		<tr>	
-	    			<th> 게임아이디 </th><th>게임명</th><th>개발사</th><th>출시일</th><th>상단등록</th><th>조회수</th>
-	    		</tr>
-	    		<tr>
-	    			<td> sevenknights</td><td>세나키우기</td><td>넷마블</td><td>2022.12.12</td><td>1</td><th>10</th>
-	    	</table>
-	    	<div class = "paging">
-			[이전] <a href = "#tabs-2?pageNum=1">1</a> <a href = "#tabs-2?pageNum=2">2</a> 3 [다음]
-			</div>			
-	  </div>
-	  
-	  <div id="tabs-2">
-	    <p>
-			회원리스트 (총 ${cnt }명)
-		</p>	
-			<table>
-			<tr>
-				<th> ID </th><th> 이름 </th><th>이메일</th><th>휴대폰번호</th><th>차단</th>
-			</tr>
-			<tr>
-				<td> aaaaa</td><td>있겠지뭐</td><td>itgetg@naver.com</td><td>010-3333-5555</td><td><input type = "button" value = "차단"></td>
-			</tr>	
-			</table>
-			<div class = "paging">
-			[이전] 1 2 3 [다음]
-			</div>			
-	  </div>
+	    </form>	    	    	    		
+	  </div>  
 	  <div id="tabs-3">
 	   	<form action = "${conPath }/modifyGame.do">
 	   	<input type = "hidden" id = "gid">

@@ -67,7 +67,7 @@ public class MemberDao {
 		}
 		return result;
 	}
-	
+
 	// (2) 회원 이메일 중복체크 메소드
 	public int memailConfirm(String memail) {
 		int result = EXISTENT; // 이미 있는 경우가 최악의 상황.
@@ -102,7 +102,7 @@ public class MemberDao {
 		return result;
 	}
 
-	// (3)회원가입
+	// (3) 회원가입
 	public int joinMember(MemberDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -137,7 +137,7 @@ public class MemberDao {
 		return result;
 	}
 
-	// 3. 로그인
+	// (4) 로그인
 	public int loginCheck(String mid, String mpw) {
 		int result = FAIL;
 		Connection conn = null;
@@ -170,7 +170,7 @@ public class MemberDao {
 		return result;
 	}
 
-	// (4) mid로 dto 가져오기
+	// (5) mid로 dto 가져오기
 	public MemberDto getMember(String mid) {
 		MemberDto member = null;
 		Connection conn = null;
@@ -211,7 +211,7 @@ public class MemberDao {
 		return member;
 	}
 
-	// 5. 회원정보수정
+	// (6) 회원정보수정
 	public int modifyMember(MemberDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -246,7 +246,7 @@ public class MemberDao {
 		return result;
 	}
 
-	// (6) 회원 리스트 출력 (관리자모드 출력용)
+	// (7) 회원 리스트 출력 (관리자모드 출력용)
 	public ArrayList<MemberDto> getMemberList(int startRow, int endRow) {
 		ArrayList<MemberDto> members = new ArrayList<MemberDto>();
 		Connection conn = null;
@@ -291,7 +291,7 @@ public class MemberDao {
 		return members;
 	}
 
-	// (7) 회원수 (관리자모드 회원리스트 출력용)
+	// (8) 회원수 (관리자모드 회원리스트 출력용)
 	public int getMemberTotCnt() {
 		int totCnt = 0;
 		Connection conn = null;
@@ -321,21 +321,27 @@ public class MemberDao {
 		return totCnt;
 	}
 	
-	public int withdrawalMember(String mid) {
+	// (9) 회원 차단 기능. mlevel이 -2가 된 유저는 게시글 / 댓글 작성이 불가능함.
+	public int setMemberBlock(int mlevel, String mid) {
 		int result = FAIL;
 		Connection conn = null;
-		PreparedStatement pstmt = null;		
-		String sql = "UPDATE MEMBER SET MLEVEL=-1 WHERE MID=?";
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if (mlevel == 0) {
+		sql = "UPDATE MEMBER SET MLEVEL = -2 WHERE MID = ?";
+		} else if (mlevel == -2) {
+		sql = "UPDATE MEMBER SET MLEVEL = 0 WHERE MID = ?";	
+		}
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);			
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);			
 			result = pstmt.executeUpdate();
-			System.out.println(mid + "회원을 탈퇴회원 등급으로 변경");
+			System.out.println(mid + "회원 차단레벨 조정됨");
 		} catch (SQLException e) {
-			System.out.println(e.getMessage() + mid);			
+			System.out.println(e.getMessage());
 		} finally {
-			try {			
+			try {
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)
@@ -345,5 +351,130 @@ public class MemberDao {
 			}
 		}		
 		return result;
-	}		
+	}
+	
+//	// (10) 회원차단해제
+//	public int unBlockMember(String mid) {
+//		int result = FAIL;
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		String sql = "UPDATE MEMBER SET MLEVEL = 0 WHERE MID = ?";
+//		try {
+//			conn = ds.getConnection();
+//			pstmt = conn.prepareStatement(sql);
+//			pstmt.setString(1, mid);			
+//			result = pstmt.executeUpdate();
+//			System.out.println(mid + "회원 게시글 차단 해제");
+//		} catch (SQLException e) {
+//			System.out.println(e.getMessage());
+//		} finally {
+//			try {
+//				if (pstmt != null)
+//					pstmt.close();
+//				if (conn != null)
+//					conn.close();
+//			} catch (SQLException e) {
+//				System.out.println(e.getMessage());
+//			}
+//		}		
+//		return result;
+//	}
+	// (11) 아이디 찾기. mquest / manswer / memail 3개의 값이 필요.
+
+	public String findAccount(int mquest, String manswer, String memail) {
+		String accountInfo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM MEMBER WHERE MQUEST = ? " + "AND MANSWER = ? AND MEMAIL = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, mquest);
+			pstmt.setString(2, manswer);
+			pstmt.setString(3, memail);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				accountInfo = rs.getString("mid");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return accountInfo;
+	}
+	
+	// (12) 비밀번호 찾기. mid / mquest / manswer / memail 4개의 값이 필요.
+	public String findPassword(String mid, int mquest, String manswer, String memail) {
+		String accountInfo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM MEMBER WHERE MID = ? AND MQUEST = ? " + 
+		"AND MANSWER = ? AND MEMAIL = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			pstmt.setInt(2, mquest);
+			pstmt.setString(3, manswer);
+			pstmt.setString(4, memail);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				accountInfo = rs.getString("mpw");
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return accountInfo;
+	}
+	
+
+	// (13) 회원탈퇴
+	public int withdrawalMember(String mid) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "UPDATE MEMBER SET MLEVEL=-1 WHERE MID=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			result = pstmt.executeUpdate();
+			System.out.println(mid + "회원을 탈퇴회원 등급으로 변경");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + mid);
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return result;
+	}
 }

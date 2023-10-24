@@ -30,21 +30,14 @@ public class MainDisplayService implements Service {
 		String sortBy = request.getParameter("sortBy");
 		String query = request.getParameter("query");
 		int allGameCnt = 1;
-		// 검색어를 입력하지 않은 경우에는 모든 게임수를 전달.
-		if (query == null || query.equals("")) {			
-			if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {			
-				request.setAttribute("listSortby", gDao.gameListSortByScore(startRow, endRow));			
-			} else if (sortBy.equals("new")) {			
-				request.setAttribute("listSortby", gDao.gameListSortByDate(startRow, endRow));			
-			}
-		} else {
-			if (sortBy == null ||sortBy.isEmpty()||sortBy.equals("highScore")) {
-				request.setAttribute("listSortby", gDao.searchResultByScore(query, startRow, endRow));				
-			} else if (sortBy.equals("new")) {
-				request.setAttribute("listSortby", gDao.searchResultByDate(query, startRow, endRow));				
-			}
-		}	
-		allGameCnt = gDao.allGameCnt();
+		// 검색어 입력시의 게임 숫자를 전달. (페이징 처리 위함) - 검색어에 아무것도 들어가지 않는 경우는 전체 숫자가 출력됨.
+		if (sortBy==null || sortBy.equals("")||sortBy.equals("highScore")) {
+			request.setAttribute("listSortby", gDao.searchResultByScore(query, startRow, endRow));
+			allGameCnt = gDao.getQueryGameCnt(query);
+		} else if (sortBy.equals("new")) {
+			request.setAttribute("listSortby", gDao.searchResultByDate(query, startRow, endRow));
+			allGameCnt = gDao.getQueryGameCnt(query);
+		}
 		request.setAttribute("sortBy", sortBy);
 		//view단에서의 출력을 및 페이징 처리를 위한 패러미터도 넘기기.
 		

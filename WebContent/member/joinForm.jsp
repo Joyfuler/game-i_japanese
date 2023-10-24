@@ -107,7 +107,8 @@ function submitChk(){
 	var mnickName = $('input#mnickname').val().trim();
 	var pwChkResult = $('#pwChkResult').text().trim();
 	var manswer = $('input#manswer').val().trim();
-	var memailChkResult = $('span#emailChkResult').text().trim();	
+	var memailChkResult = $('span#emailChkResult').text().trim();
+	var agreeChecked = $('#ruleAgree').is(':checked');
 	if (idConfirmResult != '사용 가능한 ID입니다.'){
 		alert('아이디 중복체크를 해 주세요');
 		return false;
@@ -122,6 +123,9 @@ function submitChk(){
 		return false;	
 	} else if (memailChkResult != '사용 가능한 이메일입니다.'){
 		alert('메일 형식을 체크하세요.');
+		return false;
+	} else if (!agreeChecked){
+		alert('약관에 동의해야 가입할 수 있습니다.');
 		return false;
 	}
 }
@@ -202,9 +206,12 @@ function submitChk(){
 									<td><input id="mphone" name="mphone" maxlength="13" tabindex="7" 
 										oninput="autoHyphen2(this)" type="text">										
 									</td>									
-								</tr>
+								</tr>																	 
 							</tbody>
 						</table>
+						<b>&nbsp;약관동의</b>
+						<jsp:include page="terms.jsp"/>
+						<input type = "checkbox" id = "ruleAgree" style = "margin-top: 5px;"> <label for = "ruleAgree">약관에 동의합니다.</label>
 					</div>					
 					<div class="check">
 					<table>

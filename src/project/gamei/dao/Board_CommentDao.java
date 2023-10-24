@@ -195,7 +195,48 @@ public class Board_CommentDao {
 			} 
 		}	
 	}
+	// (5) 댓글의 group, step, indent를 알기 위해, 원본 댓글의 정보를 가져온다. 원본 댓글의 bcno가 필요.
+	public Board_CommentDto getOriginReplyInfo(int bcno) {
+		Board_CommentDto dto = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT * FROM BOARD_COMMENT WHERE BCNO = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bcno);			
+			rs = pstmt.executeQuery();
+			if (rs.next()) {														
+				String bctext = rs.getString("bctext");
+				String bcip = rs.getString("bcip");
+				int bcgroup = rs.getInt("bcgroup");
+				int bcstep = rs.getInt("bcstep");
+				int bcindent = rs.getInt("bcindent");
+				int bno = rs.getInt("bno");
+				String mid = rs.getString("mid");	
+				Timestamp bcrdate = rs.getTimestamp("bcrdate");
+				dto = new Board_CommentDto(bctext, bcip, bcgroup, bcstep, bcindent, bno, mid, bcrdate);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}		
+		return dto;
+	}
 	
+	
+	// (6) 댓글 작성
 	public int replyComment(int bno, Board_CommentDto dto) {
 		int result = FAIL;
 		preReplyCommentStep(dto.getBcgroup(), dto.getBcstep());

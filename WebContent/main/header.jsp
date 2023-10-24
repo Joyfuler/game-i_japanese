@@ -36,7 +36,7 @@
           <ul>
           	<c:if test = "${empty member }">			          
             <li><a class = "control" href = "${conPath }/loginView.do">로그인</a></li>            
-            <li><a class = "control" href = "${conPath }/findAccount.do">아이디/비밀번호찾기</a></li>            
+            <li><a class = "control" href = "${conPath }/findAccountView.do">아이디/비밀번호찾기</a></li>            
             <li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
             </c:if>
             <c:if test = "${not empty member }">
@@ -46,7 +46,7 @@
             
             </c:if>
             <c:if test = "${not empty member and member.mlevel eq 1 }">
-            <li><a class = "control" href = "${conPath }/admin/admin.jsp" style = "color: red;">관리자모드</a></li>
+            <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color: red;">관리자모드</a></li>
             </c:if>
           </ul>
         </div>

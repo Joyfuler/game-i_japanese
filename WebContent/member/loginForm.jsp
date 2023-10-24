@@ -57,7 +57,7 @@
 										</td>
 									</tr>
 									<tr>
-										<td><br><a href="${conPath }/findAccount.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a></td>
+										<td><br><a href="${conPath }/findAccountView.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a></td>
 								</tbody>
 							</table>
 						</div>					
@@ -65,7 +65,7 @@
 					<table>
 						<tr>
 							<td>
-							<button class = "btn" type = "submit"> &nbsp;로그인 </button>												
+							<input type = "submit" class = "btn" type = "submit" value = "로그인">												
 							</td>							
 							<td>
 							<input class = "btn" type = "button" onclick = "location.href='${conPath}/joinView.do'" value = "회원가입"> 

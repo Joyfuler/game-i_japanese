@@ -67,6 +67,17 @@ public class Board_CommentDto {
 	
 	
 	
+	public Board_CommentDto(String bctext, String bcip, int bcgroup, int bcstep, int bcindent, int bno, String mid, Timestamp bcrdate) {
+		this.bctext = bctext;
+		this.bcip = bcip;
+		this.bcgroup = bcgroup;
+		this.bcstep = bcstep;
+		this.bcindent = bcindent;
+		this.bno = bno;
+		this.mid = mid;
+		this.bcrdate = bcrdate;
+	}
+
 	public int getBcno() {
 		return bcno;
 	}

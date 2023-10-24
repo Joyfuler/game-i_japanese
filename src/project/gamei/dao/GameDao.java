@@ -35,10 +35,8 @@ public class GameDao {
 		} catch (NamingException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
-	// (1) 현재 GHIT에 등록된 수가 18개인지를 확인하기 위한 메소드. 관리자 페이지에서 상단 리스트 추가할 때 18개 이상이면 등록 제한.
-	
+	}	
+	// (1) 현재 GHIT에 등록된 수가 18개인지를 확인하기 위한 메소드. 관리자 페이지에서 상단 리스트 추가할 때 18개 이상이면 등록 제한.	
 	public int ghitCountChk() {
 		int ghitCount = 0;
 		Connection conn = null;
@@ -67,27 +65,31 @@ public class GameDao {
 		}	
 		
 		return ghitCount;
-	}
+	}	
 	
-	// (2) 게임의 총 숫자를 셈. 페이징 처리를 위함
-	public int allGameCnt() {
-		int allGameCnt = 0;
+	// (2) 신규 게임 추가 - 관리자모드
+	public int addNewGame(GameDto dto) {
+		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) CNT FROM GAME";
+		String sql = "INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC) " + 
+				"VALUES (?, ?, ?, ?, ?, ?, ?)";
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);			
-			rs = pstmt.executeQuery();
-			rs.next();			
-			allGameCnt = rs.getInt("CNT");			
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getGid());
+			pstmt.setString(2, dto.getGname());
+			pstmt.setString(3, dto.getGgenre());
+			pstmt.setString(4, dto.getGpub());
+			pstmt.setDate(5, dto.getGpdate());
+			pstmt.setString(6, dto.getGicon());
+			pstmt.setString(7, dto.getGdesc());
+			pstmt.executeUpdate();
+			System.out.println(dto.getGname() + "생성 완료");
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
+			System.out.println(e.getMessage() + dto.getGname() + "생성 실패");			
 		} finally {
 			try {
-				if (rs != null)
-					rs.close();
 				if (pstmt != null)
 					pstmt.close();
 				if (conn != null)
@@ -95,12 +97,12 @@ public class GameDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}		
-		return allGameCnt;
+		}
+		return result;
 	}
 	
 	
-	// (3) 메인화면의 관리자 추천 게임 리스트 출력 -- 차후 편집 기능 추가 필요
+	//  메인화면의 관리자 추천 게임 리스트 출력 -- 차후 편집 기능 추가 필요
 	public ArrayList<GameDto> topGameList(){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -141,7 +143,10 @@ public class GameDao {
 		return lists;
 	}
 	
-	// (4) 게임을 평점이 높은 순서대로 출력. 한 페이지당 5개씩 출력됨.
+	// 관리자 페이지에서 게임 편집 메소드. 
+	
+	
+	// 게임을 평점이 높은 순서대로 출력. 한 페이지당 5개씩 출력됨.
 	public ArrayList<GameDto> gameListSortByScore(int startRow, int endRow){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -184,7 +189,7 @@ public class GameDao {
 		return lists;
 	}
 
-	// (5) 게임을 최근 출시 순으로 출력. 한 페이지당 5개씩 출력됨.	
+	//  게임을 최근 출시 순으로 출력. 한 페이지당 5개씩 출력됨.	
 	public ArrayList<GameDto> gameListSortByDate(int startRow, int endRow){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -227,7 +232,7 @@ public class GameDao {
 		return lists;
 	}
 	
-	// (6) 특정 게임의 DTO 및 평균 평점을 가져온다.
+	// 특정 게임의 DTO 및 평균 평점을 가져온다.
 	public GameDto getGameInfo(String gid) {
 		GameDto gameInfo = null;
 		Connection conn = null;
@@ -269,7 +274,7 @@ public class GameDao {
 		return gameInfo;
 	}
 	
-	// (7) 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
+	// 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
 	public void gameViewUp(String gid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -295,7 +300,7 @@ public class GameDao {
 		}
 	}
 	
-	// (8) 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
+	// 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
 	public ArrayList<GameDto> rightAreaViewTop10() {
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -374,7 +379,7 @@ public class GameDao {
 		return lists;
 	}	
 	
-	// (10) 검색 실행시 사용할 메소드 1 - 최신날짜순
+	// 검색 실행시 사용할 메소드 1 - 최신날짜순
 	public ArrayList<GameDto> searchResultByDate(String query, int startRow, int endRow){
 		ArrayList<GameDto> list = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -424,7 +429,7 @@ public class GameDao {
 		}					
 		return list;
 	}
-	// (11) 검색 사용시 사용하는 메소드 - 평점순
+	// 검색 사용시 사용하는 메소드 - 평점순
 	public ArrayList<GameDto> searchResultByScore(String query, int startRow, int endRow){
 		ArrayList<GameDto> list = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -475,7 +480,7 @@ public class GameDao {
 		return list;
 	}
 	
-	// (12) - 검색어가 들어간 게임의 숫자를 출력함.
+	// 검색어가 들어간 게임의 숫자를 출력함.
 	public int getQueryGameCnt(String query) {
 		int queryGameCnt = 0;
 		Connection conn = null;
@@ -484,7 +489,8 @@ public class GameDao {
 		String sql = "SELECT COUNT(*) CNT FROM GAME WHERE GNAME LIKE '%'||?||'%'";
 		try {
 			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);			
+			pstmt = conn.prepareStatement(sql);		
+			pstmt.setString(1,query );
 			rs = pstmt.executeQuery();
 			rs.next();			
 			queryGameCnt = rs.getInt("CNT");			
@@ -501,10 +507,7 @@ public class GameDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}	
-		
-		
-		
+		}		
 		return queryGameCnt;
 	}
 	

@@ -606,3 +606,31 @@ SELECT * FROM
 SELECT * FROM BOARD WHERE GID   = 'genshin';            
 SELECT COUNT(*) CNT FROM BOARD,MEMBER WHERE GID = 'genshin' AND BOARD.MID=MEMBER.MID AND MNICKNAME LIKE '%전%';
 SELECT B.*, G.GID, G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MEMAIL, M.MLEVEL FROM BOARD B,GAME G, MEMBER M WHERE G.GID=B.GID AND M.MID=B.MID AND G.GID='genshin' AND B.BNO = '10';
+SELECT * FROM MEMBER WHERE MID = 'aaa' AND MQUEST = 1 AND MANSWER = '봉래' AND MEMAIL = 'aa@bb.com';
+SELECT * FROM BOARD_COMMENT;
+SELECT * FROM GAME;
+INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC)
+VALUES ('monsterstrike', '몬스터 스트라이크', 'RPG', 'MIXI', '2012-09-08', 'thum_monst.png', '【게임 소개】
+스마트폰이나 태블릿에서 최대 4명 동시에 즐길 수 있는 「히파리 사냥 RPG!」
+몬스터 마스터가 되어 다양한 능력을 가진 몬스터를 많이 모으자!
+1000종류를 넘는 개성 풍부한 몬스터가 널 기다리고 있어!
+
+▼ 규칙은 간단
+몬스터를 당겨 적에게 닿을 뿐!
+아군 몬스터에게 맞으면 우정 콤보가 발동!
+언뜻 공격력이 약한 몬스터도 콤보가 발동하면 의외의 힘을 발휘할지도?!
+
+▼결정 스트라이크 샷!
+배틀의 턴이 경과하면 필살기 「스트라이크 샷」을 사용할 수 있어!
+몬스터에 따라 기술은 다양하고, 너는 바로 사용하는 파? 보스까지 기다리는 파?
+사용하는 타이밍이 생사를 나눈다!?
+
+▼ 모아 기르고 강해져라!
+배틀이나 뽑기로 Get한 몬스터를 합성해 기르자!
+강하게 진화시키기 위해서는 몬스터 이외에 진화소재가 필요하게 된다.
+강한 몬스터를 키우고 너만의 최강 팀을 만들자!
+
+▼천공보다 춤추고, 이계의 몬스터!
+보스가 스테이지의 끝에 나오는 것은 아니다!
+어떤 때도 만전의 태세로 싸움에 도전할 수 있어!');
+rollback

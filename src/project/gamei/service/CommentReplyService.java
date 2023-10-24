@@ -11,27 +11,22 @@ public class CommentReplyService implements Service {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		int bno = Integer.parseInt(request.getParameter("bno"));
+		// 원본의 댓글 정보를 가져온다.
 		int bcno = Integer.parseInt(request.getParameter("bcno"));		
-		String bctext = request.getParameter("bctext");
-		String bcip = request.getRemoteAddr();
-		String bcgroupStr = request.getParameter("bcgroup");
-		int bcgroup =0; int bcstep = 0; int bcindent = 0;
-		if (bcgroupStr != null) {
-			bcgroup = Integer.parseInt(bcgroupStr);
-		}
-		String bcstepStr = request.getParameter("bcindent");
-		if (bcstepStr != null) {
-			bcstep = Integer.parseInt(bcstepStr);
-		}
-		String bcindentStr = request.getParameter("bcindent");
-		if (bcindentStr != null) {
-			bcindent = Integer.parseInt(bcindentStr);
-		}
-		
+		Board_CommentDao bcDao = Board_CommentDao.getInstance();
+		int bcgroup = bcDao.getOriginReplyInfo(bcno).getBcgroup();
+		int bcstep = bcDao.getOriginReplyInfo(bcno).getBcstep();
+		int bcindent = bcDao.getOriginReplyInfo(bcno).getBcindent();
+		// 이하 댓글을 작성한 회원 정보 및 댓글 정보.
 		String mid = request.getParameter("mid");
-		Board_CommentDao bcDao = new Board_CommentDao();
+		String bctext = request.getParameter("bctext");
+		String bcip = request.getRemoteAddr();		
 		Board_CommentDto dto = new Board_CommentDto(bctext, bcip, bcgroup, bcstep, bcindent, mid);
 		int result = bcDao.replyComment(bno, dto);
+		if (result == Board_CommentDao.SUCCESS) {
+			request.setAttribute("commentReplyResult", "댓글 작성이 완료되었습니다");
+		} else {
+			request.setAttribute("commentReplyResult", "댓글 작성 실패");
+		}
 	}
-
 }

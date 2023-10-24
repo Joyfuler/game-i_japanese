@@ -30,7 +30,13 @@ import project.gamei.service.BoardWriteFormDisplayService;
 import project.gamei.service.BoardWriteService;
 import project.gamei.service.CommentDeleteService;
 import project.gamei.service.CommentReplyService;
+import project.gamei.service.CommentReplyViewService;
 import project.gamei.service.CommentWriteService;
+import project.gamei.service.AdminAddGameService;
+import project.gamei.service.AdminBlockControlService;
+import project.gamei.service.AdminCustomerListService;
+import project.gamei.service.MFindAccountService;
+import project.gamei.service.MFindPasswordService;
 import project.gamei.service.ReviewDeleteService;
 import project.gamei.service.ReviewWriteService;
 import project.gamei.service.WithdrawalService;
@@ -130,7 +136,23 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			service = new MLogoutService();
 			service.execute(request, response);
-			viewPage = "main.do";
+			viewPage = "main.do";			
+		} else if (command.equals("/findAccountView.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			viewPage = "member/findAccount.jsp";	
+		} else if (command.equals("/findAccount.do")) {
+			service = new MainDisplayService(); 
+			service.execute(request, response);
+			service = new MFindAccountService();
+			service.execute(request, response);
+			viewPage = "member/findAccountResult.jsp";
+		} else if (command.equals("/findPassword.do")) {
+			service = new MainDisplayService();
+			service.execute(request, response);
+			service = new MFindPasswordService();
+			service.execute(request, response);
+			viewPage = "member/findAccountResult.jsp";
 		} else if (command.equals("/withdrawal.do")) {
 			service = new WithdrawalService();
 			service.execute(request, response);
@@ -190,10 +212,28 @@ public class FrontController extends HttpServlet {
 			service = new CommentDeleteService();
 			service.execute(request, response);
 			viewPage = "boardContent.do";
+		} else if (command.equals("/commentReplyView.do")) {
+			//service = new CommentReplyService();
+			service = new CommentReplyViewService();
+			service.execute(request, response);
+			viewPage = "board/commentReplyView.jsp";	
 		} else if (command.equals("/commentReply.do")) {
 			service = new CommentReplyService();
 			service.execute(request, response);
-			viewPage = "comment_reply.jsp";
+			viewPage = "boardContent.do";
+			// 관리자모드 관련 영역
+		} else if (command.equals("/admin.do")){
+			service = new AdminCustomerListService();
+			service.execute(request, response);
+			viewPage = "admin/admin.jsp";
+		} else if (command.equals("/adminBlockUser.do")) {
+			service = new AdminBlockControlService();
+			service.execute(request, response);
+			viewPage = "admin.do?idx=0";
+		} else if (command.equals("/adminAddGame.do")) {
+			service = new AdminAddGameService();
+			service.execute(request, response);
+			viewPage = "admin.do?idx=1";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
