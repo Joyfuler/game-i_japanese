@@ -34,5 +34,4 @@ public class AdminCustomerListService implements Service {
 		request.setAttribute("pageNum", currentPage);
 		request.setAttribute("pageCnt", pageCnt);
 	}
-
 }

@@ -32,8 +32,7 @@ public class Board_CommentDao {
 		} catch (NamingException e) {
 			System.out.println(e.getMessage());
 		}
-	}
-	
+	}	
 	// (1) 특정 게시글에 있는 댓글 내용을 출력. 원글의 bno가 필요.
 	public ArrayList<Board_CommentDto> listComment(int bno, int startRow, int endRow) {
 		ArrayList<Board_CommentDto> list = new ArrayList<Board_CommentDto>();
@@ -112,9 +111,7 @@ public class Board_CommentDao {
 			}
 		}
 		return commentCnt;
-	}
-	
-	
+	}	
 	// (2) 댓글 작성
 	public int writeComment(int bno, Board_CommentDto dto) {
 		int result = FAIL;
@@ -269,6 +266,5 @@ public class Board_CommentDao {
 			}
 		}
 		return result;
-	}
-	
+	}	
 }

@@ -53,6 +53,23 @@
 		alert('${result}');
 	</script>	
 	</c:if>
+	<script>
+	$(document).ready(function(){
+		$('input[name="gid"]').keyup(function(){
+			var gid = $(this).val();
+			$.ajax({
+				url: '${conPath}/gameExistCheck.do',
+				type : 'post',
+				data: {gid : gid },
+				dataType : 'html',
+				success : function(data){
+					$('.existChk').html(data);
+				},				
+			});
+		});
+	});
+	
+	</script>
 </head>
 <body>	
 	<div class = "controller">
@@ -74,7 +91,7 @@
 	    <p>
 			회원리스트 (총 <b style = "color:red;">${totCnt }</b>명)
 		</p>	
-			<table>
+		<table>
 			<tr style = "border-bottom: 1px solid gray;">
 				<th> ID </th><th> 닉네임 </th><th>이메일</th><th>휴대폰번호</th><th>프로필사진</th><th>멤버등급</th><th>차단</th>
 			</tr>
@@ -94,7 +111,7 @@
 				</c:if>
 			</tr>	
 			</c:forEach>
-			</table>
+		</table>
 			<div class = "paging" style = "padding-left: 100px;"> 
 				<c:if test="${startPage >BLOCKSIZE }">
 					<a href = "${conPath }/admin.do?idx=0&pageNum=${startPage-1 }">[이전]</a>
@@ -119,7 +136,10 @@
 	    	<table>	   
 	    		<tr>
 	    			<th>게시판아이디</th>
-	    			<td><input type = "text" name = "gid"></td>
+	    			<td><input type = "text" name = "gid"><br><br>
+	    			<p style = "color: red; font-size: 0.9em;" class = "existChk">&nbsp; &nbsp; &nbsp;</p>
+	    			</td>
+	    		</tr>		
 	    		<tr>
 	    			<th>게임명</th>
 	    			<td><input type = "text" name = "gname"></td>
@@ -137,7 +157,7 @@
 	    		</tr>
 	    		<tr>	
 	    			<th>게임아이콘 <br>(1:1 비율, 100x100 권장)</th>
-	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "100"></td>
+	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "45px"></td>
 	    			
 	    		</tr>
 	    		<tr>	    			

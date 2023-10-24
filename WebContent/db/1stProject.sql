@@ -57,7 +57,12 @@ SELECT * FROM MEMBER;
  
     -- 게시판 구분을 위한 BLEVEL 컬럼 추가. 기본 0 시작. 관리자 전용 게시판은 1로 변경.
  ALTER TABLE BOARD ADD BLEVEL NUMBER(1) DEFAULT 0; 
-SELECT * FROM BOARD;
+ ALTER TABLE BOARD_COMMENT ADD BCIP VARCHAR2 (30);
+ SELECT * FROM BOARD_COMMENT;
+ COMMENT;
+SELECT * FROM MEMBER;
+UPDATE MEMBER SET MPW = '111' WHERE MID = 'trio';
+commit;
 
     -- 게시판 댓글 작성을 위한 시퀀스 및 데이터 생성
 
@@ -571,7 +576,7 @@ INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID
 VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd');
 INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
 VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd', '127.0.0.1');
-select * from board;
+ALTER TABLE 
 commit;
 select * from member;
 alter table board add bhit number(5) default 0;

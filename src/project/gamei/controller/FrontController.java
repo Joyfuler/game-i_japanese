@@ -32,6 +32,7 @@ import project.gamei.service.CommentDeleteService;
 import project.gamei.service.CommentReplyService;
 import project.gamei.service.CommentReplyViewService;
 import project.gamei.service.CommentWriteService;
+import project.gamei.service.GameExistCheckService;
 import project.gamei.service.AdminAddGameService;
 import project.gamei.service.AdminBlockControlService;
 import project.gamei.service.AdminCustomerListService;
@@ -213,7 +214,6 @@ public class FrontController extends HttpServlet {
 			service.execute(request, response);
 			viewPage = "boardContent.do";
 		} else if (command.equals("/commentReplyView.do")) {
-			//service = new CommentReplyService();
 			service = new CommentReplyViewService();
 			service.execute(request, response);
 			viewPage = "board/commentReplyView.jsp";	
@@ -230,11 +230,15 @@ public class FrontController extends HttpServlet {
 			service = new AdminBlockControlService();
 			service.execute(request, response);
 			viewPage = "admin.do?idx=0";
+		} else if (command.equals("/gameExistCheck.do")) {			
+			service = new GameExistCheckService();
+			service.execute(request, response);
+			viewPage = "admin/gameExistCheck.jsp";			
 		} else if (command.equals("/adminAddGame.do")) {
 			service = new AdminAddGameService();
 			service.execute(request, response);
 			viewPage = "admin.do?idx=1";
-		}
+		}	
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

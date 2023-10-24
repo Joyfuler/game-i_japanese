@@ -16,8 +16,8 @@ import javax.sql.DataSource;
 import project.gamei.dto.GameDto;
 
 public class GameDao {
-	public static final int EXISTENT = 0;
-	public static final int NONEXISTENT = 1;
+	public static final int EXISTENT = 1;
+	public static final int NONEXISTENT = 0;
 	public static final int SUCCESS = 1;
 	public static final int FAIL = 0;
 	private DataSource ds;
@@ -141,6 +141,38 @@ public class GameDao {
 		
 		
 		return lists;
+	}
+	
+	// 관리자 페이지에서 신규 게임을 만들 때의 중복 검사.
+	public int existCheck(String gid) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) CNT FROM GAME WHERE GID = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, gid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			result = rs.getInt("CNT");			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}	
+		
+		return result;
 	}
 	
 	// 관리자 페이지에서 게임 편집 메소드. 
