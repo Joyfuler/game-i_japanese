@@ -116,6 +116,19 @@
 			$('#removeMenuGname').val(gname);
 			$('#removeMenuGid').val(gid);
 		});		
+		
+		$('.searchGname').click(function(){
+			var gid = $('#addMenu').val();
+			$.ajax({
+				url: '${conPath }/getModifyGameInfo.do',
+				type : 'get',
+				data: 'gid='+gid,
+				dataType : 'json',
+				success : function(data){					
+					$('.gidSearchResult').text( '게임명:' + data[0].gname + ' / ' + '개발사:' + data[0].gpub);
+				},	
+			});
+		});
 	});
 	
 	</script>
@@ -280,10 +293,37 @@
 	    		</tr>		
 	    	</table>
 	    </form>	    
+	    <hr>
+	    <table>
+			<tr style = "border-bottom: 1px solid gray;">
+				<th> 게시판ID </th><th> 게임명 </th><th>장르</th><th>개발사</th><th>아이콘</th><th>출시일</th><th>조회수</th>
+			</tr>
+			<c:forEach var = "gameLists" items = "${gameList }">
+			<tr>
+				<td> ${gameLists.gid }</td><td>${gameLists.gname }</td><td>${gameLists.ggenre }</td><td>${gameLists.gpub }</td>
+				<td><img src = "${conPath}/img/${gameLists.gicon }" height= "25px"></td><td>${gameLists.gpdate }</td><td>${gameLists.gviewCount }</td>
+			</tr>
+			</c:forEach>
+		</table>		
+			<div class = "paging" style = "padding-left: 100px;"> 
+				<c:if test="${startPage >BLOCKSIZE }">
+					<a href = "${conPath }/admin.do?idx=2&pageNum=${startPage-1 }">[이전]</a>
+				</c:if>
+				<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
+					<c:if test = "${i eq pageNum }">
+						[<b style = "color: red;"> ${i }</b>]
+					</c:if>
+					<c:if test = "${i != pageNum }">
+						<a href = "${conPath }/admin.do?idx=2&pageNum=${i }">[${i }]</a>
+					</c:if>
+				</c:forEach>
+				<c:if test = "${endPage < gamePageCnt }">
+					<a href = "${conPath }/admin.do?&idx=2&pageNum=${endPage+1 }">[다음]</a>
+				</c:if>		
+			</div>	
 	  </div>
 	  <!--  네 번째 영역. 관리자 추가 / 제거 -->
-	   <div id="tabs-4">
-	   	   		
+	   <div id="tabs-4">	   	   		
 	    	<table>	   
 	    		<tr>
 	    			<th>아이디 검색</th>
@@ -335,43 +375,48 @@
 	    			</td>
 	    		<c:set var = "idx" value = "${idx +1 }"/>	
 	    		</c:forEach>
-	    		</tr>
-	    		
+	    		</tr>	    		
 	    		<tr>
 	    			<th> 클릭해 내릴 게임을 선택</th>
 	    		</tr>	
 	    		<tr>	
 	    			<td>
-	    				<form action = "${conPath }/topMenuSetup.do?method=remove">
+	    				<form action = "${conPath }/topMenuSetup.do">
+	    				<input type = "hidden" name = "method" value = "remove">
 	    				<input type = "text" id= "removeMenuGname">
-	    				<input type = "text" id = "removeMenuGid" name = "gid"><input type = "submit" value = "목록에서 삭제">
+	    				<input type = "text" id = "removeMenuGid" name = "gid"><input type = "submit" value = "내리기">	    				
 	    				</form>
 	    			</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<th> 올릴 게임을 선택 (선택한 것은 제출시 ghit를 1로 변경)</th>
+	    			<th> 올릴 게임을 선택</th>
 	    		</tr>
 	    		<tr>	    			
 	    			<td>
-	    				<form action = "${conPath }/topMenuSetup.do?method=add">
-	    				<input type = "text" id = "addMenu" name = "gid"><br><button class = "searchGname">검색</button><br>
+	    				<form action = "${conPath }/topMenuSetup.do">
+	    				<input type = "text" id = "addMenu" name = "gid"><input type = "button" class = "searchGname" value = "ID검색">
+	    				<input type = "hidden" name = "method" value = "add">
+	    			</td>
+	    			<td>	
 	    				<span class = "gidSearchResult">&nbsp; &nbsp; </span><br>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td>		
 	    				<c:if test = "${topGameList.size() >= 18 }">
-	    				<input type = "button" value = "목록에 추가"><br><br>
+	    				<input type = "button" value = "올리기"><br><br>
 	    				<b style = "color: red;">(상단 게임 목록은  <br>
-	    				최대 18개까지 등록 가능) </b>
+	    				최대 18개까지만 등록됩니다) </b>
 	    				</c:if>
 	    				<c:if test = "${topGameList.size() < 18 }">
-	    				<input type = "submit" value = "목록에 추가">
+	    				<input type = "submit" value = "올리기">
 	    				</c:if>
 	    				</form>	    				
 	    			</td>
 	    		</tr>
-	    		<tr>
-	    			
+	    		<tr>	    			
 	    		<tr>	
-	    	</table>	
-	    </form>    
+	    	</table>	       
 	    <form action = "">
 	    	<table>
 	    		<tr>

@@ -37,6 +37,7 @@ import project.gamei.service.GameExistCheckService;
 import project.gamei.service.AdminAddGameService;
 import project.gamei.service.AdminBlockControlService;
 import project.gamei.service.AdminCustomerListService;
+import project.gamei.service.AdminGameListService;
 import project.gamei.service.AdminModifyGameService;
 import project.gamei.service.AdminSetupService;
 import project.gamei.service.AdminTopGameMenuSetupService;
@@ -232,6 +233,8 @@ public class FrontController extends HttpServlet {
 			service = new AdminTopGameMenuSetupService();
 			service.execute(request, response);
 			service = new AdminCustomerListService();
+			service.execute(request, response);
+			service = new AdminGameListService();
 			service.execute(request, response);
 			viewPage = "admin/admin.jsp";
 		} else if (command.equals("/adminBlockUser.do")) {

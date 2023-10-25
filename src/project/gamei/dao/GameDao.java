@@ -36,38 +36,8 @@ public class GameDao {
 			System.out.println(e.getMessage());
 		}
 	}	
-	// (1) 현재 GHIT에 등록된 수가 18개인지를 확인하기 위한 메소드. 관리자 페이지에서 상단 리스트 추가할 때 18개 이상이면 등록 제한.	
-	public int ghitCountChk() {
-		int ghitCount = 0;
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String sql = "SELECT COUNT(*) CNT FROM GAME WHERE GHIT = 1";
-		try {
-			conn = ds.getConnection();
-			pstmt = conn.prepareStatement(sql);			
-			rs = pstmt.executeQuery();
-			rs.next();			
-			ghitCount = rs.getInt("CNT");			
-		} catch (SQLException e) {
-			System.out.println(e.getMessage());
-		} finally {
-			try {
-				if (rs != null)
-					rs.close();
-				if (pstmt != null)
-					pstmt.close();
-				if (conn != null)
-					conn.close();
-			} catch (SQLException e) {
-				System.out.println(e.getMessage());
-			}
-		}	
-		
-		return ghitCount;
-	}	
 	
-	// (2) 신규 게임 추가 - 관리자모드
+	// (1) 신규 게임 추가 - 관리자모드
 	public int addNewGame(GameDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -102,7 +72,7 @@ public class GameDao {
 	}
 	
 	
-	//  메인화면의 관리자 추천 게임 리스트 출력 
+	// (2) 메인화면의 관리자 추천 게임 리스트 출력 
 	public ArrayList<GameDto> topGameList(){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -141,7 +111,7 @@ public class GameDao {
 		return lists;
 	}
 	
-	// 관리자 추천 리스트 페이지 수정. method에 따라 ghit를 1 혹은 0으로 변경.	
+	// (3) 관리자 추천 리스트 페이지 수정. method에 따라 ghit를 1 혹은 0으로 변경.	
 	public int topMenuSetUp(String method, String gid) {
 		int result = FAIL;
 		Connection conn = null;
@@ -172,9 +142,7 @@ public class GameDao {
 		return result;
 	}
 	
-	
-	
-	// 관리자 페이지에서 신규 게임을 만들 때의 중복 검사.
+	// (4) 관리자 페이지에서 신규 게임을 만들 때의 중복 검사.
 	public int existCheck(String gid) {
 		int result = FAIL;
 		Connection conn = null;
@@ -201,12 +169,11 @@ public class GameDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}	
-		
+		}			
 		return result;
 	}
 	
-	// 관리자 페이지에서 게임 정보 수정 메소드.
+	// (5) 관리자 페이지에서 게임 정보 수정 메소드.
 	public int adminModifyGameInfo(String method, String gid, GameDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -250,7 +217,7 @@ public class GameDao {
 		return result;
 	}	
 	
-	// 게임을 평점이 높은 순서대로 출력. 한 페이지당 5개씩 출력됨.
+	// (6) 게임을 평점이 높은 순서대로 출력. 한 페이지당 5개씩 출력됨.
 	public ArrayList<GameDto> gameListSortByScore(int startRow, int endRow){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -272,9 +239,10 @@ public class GameDao {
 				Date gpdate = rs.getDate("gpdate");
 				String gicon = rs.getString("gicon");
 				String gdesc = rs.getString("gdesc");
+				int gviewCount = rs.getInt("gviewcount");
 				int ghit = rs.getInt("ghit");				
 				double avg = rs.getDouble("avg");				
-				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg));
+				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, gviewCount, ghit, avg));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -293,7 +261,7 @@ public class GameDao {
 		return lists;
 	}
 
-	//  게임을 최근 출시 순으로 출력. 한 페이지당 5개씩 출력됨.	
+	// (7) 게임을 최근 출시 순으로 출력. 한 페이지당 5개씩 출력됨.	
 	public ArrayList<GameDto> gameListSortByDate(int startRow, int endRow){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -315,9 +283,10 @@ public class GameDao {
 				Date gpdate = rs.getDate("gpdate");
 				String gicon = rs.getString("gicon");
 				String gdesc = rs.getString("gdesc");
+				int gviewCount = rs.getInt("gviewcount");
 				int ghit = rs.getInt("ghit");				
 				double avg = rs.getDouble("avg");				
-				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg));
+				lists.add(new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, gviewCount, ghit, avg));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

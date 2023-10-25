@@ -4,14 +4,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import project.gamei.dao.GameDao;
-import project.gamei.dao.MemberDao;
 
-public class AdminCustomerListService implements Service {
+public class AdminGameListService implements Service {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
-		 
-		MemberDao mDao = MemberDao.getInstance();			
+		// 회원 리스트 서비스에서도 totCnt, pageCnt를 전달하니 setAttribute시 주의할 것
+		GameDao gDao = GameDao.getInstance();
 		String pageNum = request.getParameter("pageNum");		
 		if (pageNum == null) {			
 				pageNum = "1";			
@@ -21,19 +20,17 @@ public class AdminCustomerListService implements Service {
 		final int BLOCKSIZE = 5;
 		int startRow = (currentPage - 1) * PAGESIZE + 1;
 		int endRow = startRow + PAGESIZE - 1;		
-		request.setAttribute("memberList", mDao.getMemberList(startRow, endRow));		
-		int totCnt = mDao.getMemberTotCnt();		
-		int pageCnt = (int) Math.ceil((double) totCnt / PAGESIZE);		
+		request.setAttribute("gameList", gDao.gameListSortByDate(startRow, endRow));
+		int gameTotCnt = gDao.getQueryGameCnt("");
+		int gamePageCnt = (int) Math.ceil((double) gameTotCnt / PAGESIZE);
+		
+		request.setAttribute("gamePageCnt", gamePageCnt);
 		int startPage = ((currentPage -1) / BLOCKSIZE) * BLOCKSIZE + 1;
 		int endPage = startPage + BLOCKSIZE - 1;
-		if (endPage > pageCnt) {
-			endPage = pageCnt;
-		}
-		request.setAttribute("totCnt", totCnt);		
-		request.setAttribute("BLOCKSIZE", BLOCKSIZE);
-		request.setAttribute("startPage", startPage);
-		request.setAttribute("endPage", endPage);
-		request.setAttribute("pageNum", currentPage);
-		request.setAttribute("pageCnt", pageCnt);		
+		if (endPage > gamePageCnt) {
+			endPage = gamePageCnt;
+		}		
+		request.setAttribute("gameTotCnt", gameTotCnt);		
+		request.setAttribute("gamePageCnt", gamePageCnt);			
 	}
 }

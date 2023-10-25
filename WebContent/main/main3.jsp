@@ -120,7 +120,7 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title" style = "color:aqua;">&nbsp;&nbsp;${sortedList.gname }</h5>              
-              <h6 style = "color:white;">&nbsp;&nbsp;(평점: <span style = color:red;>${sortedList.avg }</span>점
+              <h6 style = "color:white;">&nbsp;&nbsp;(평점: <span style = color:red;><fmt:formatNumber value = "${sortedList.avg }" pattern = "#,##0.0;#0"/></span>점
               <c:forEach begin="1" end="${fn:substringBefore(sortedList.avg, '.')}">
                 <img src = "${conPath }/img/star_on.png" height="15px">
               </c:forEach> 

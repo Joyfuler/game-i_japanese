@@ -73,7 +73,7 @@ public class GameDto {
 		this.mid = mid;
 	}
 	
-	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
+	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc, int gviewCount,
 			int ghit, double avg) {		
 		this.gid = gid;
 		this.gname = gname;
@@ -82,9 +82,24 @@ public class GameDto {
 		this.gpdate = gpdate;
 		this.gicon = gicon;
 		this.gdesc = gdesc;
+		this.gviewCount = gviewCount;
 		this.ghit = ghit;
 		this.avg = avg;		
 	}
+	
+	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
+			int ghit, double avg) {		
+		this.gid = gid;
+		this.gname = gname;
+		this.ggenre = ggenre;
+		this.gpub = gpub;
+		this.gpdate = gpdate;
+		this.gicon = gicon;
+		this.gdesc = gdesc;		
+		this.ghit = ghit;
+		this.avg = avg;		
+	}
+	
 	
 	public GameDto(String gid, String gname, String ggenre, String gpub, Date gpdate, String gicon, String gdesc,
 			int ghit, int gviewCount) {		
