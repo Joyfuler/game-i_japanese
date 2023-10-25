@@ -62,7 +62,7 @@
                     <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">평점목록</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#notice">공지사항</a>
+                    <a class="nav-link" href="${conPath }/boardList.do?gid=notice">공지사항</a>
                   </li>
                   <li class="nav-item">
                     <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>

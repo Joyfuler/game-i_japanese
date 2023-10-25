@@ -84,7 +84,7 @@ public class GameDao {
 			pstmt.setDate(5, dto.getGpdate());
 			pstmt.setString(6, dto.getGicon());
 			pstmt.setString(7, dto.getGdesc());
-			pstmt.executeUpdate();
+			result = pstmt.executeUpdate();
 			System.out.println(dto.getGname() + "생성 완료");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage() + dto.getGname() + "생성 실패");			
@@ -102,7 +102,7 @@ public class GameDao {
 	}
 	
 	
-	//  메인화면의 관리자 추천 게임 리스트 출력 -- 차후 편집 기능 추가 필요
+	//  메인화면의 관리자 추천 게임 리스트 출력 
 	public ArrayList<GameDto> topGameList(){
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -137,11 +137,42 @@ public class GameDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}	
-		
-		
+		}			
 		return lists;
 	}
+	
+	// 관리자 추천 리스트 페이지 수정. method에 따라 ghit를 1 혹은 0으로 변경.	
+	public int topMenuSetUp(String method, String gid) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if (method.equals("remove")) {
+			sql = "UPDATE GAME SET GHIT = 0 WHERE GID = ?";
+		} else {
+			sql = "UPDATE GAME SET GHIT = 1 WHERE GID = ?";
+		}
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gid);			
+			result = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());			
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}			
+		return result;
+	}
+	
+	
 	
 	// 관리자 페이지에서 신규 게임을 만들 때의 중복 검사.
 	public int existCheck(String gid) {
@@ -175,8 +206,49 @@ public class GameDao {
 		return result;
 	}
 	
-	// 관리자 페이지에서 게임 편집 메소드. 
-	
+	// 관리자 페이지에서 게임 정보 수정 메소드.
+	public int adminModifyGameInfo(String method, String gid, GameDto dto) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if (method.equals("noDesc")) {
+			sql = "UPDATE GAME SET GNAME = ?, GGENRE= ?, GPUB= ?, GPDATE = ?, "
+				+ "GICON = ? WHERE GID = ?";
+		} else {
+			sql = "UPDATE GAME SET GNAME = ?, GGENRE= ?, GPUB= ?, GPDATE = ?, "
+					+ "GICON = ?, GDESC = ? WHERE GID = ?";
+		}
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, dto.getGname());
+			pstmt.setString(2, dto.getGgenre());
+			pstmt.setString(3, dto.getGpub());
+			pstmt.setDate(4, dto.getGpdate());
+			pstmt.setString(5, dto.getGicon());			
+			if (method.equals("noDesc")) {
+				pstmt.setString(6, gid);
+			} else {
+				pstmt.setString(6, dto.getGdesc());
+				pstmt.setString(7, gid);
+			}	
+			result = pstmt.executeUpdate();
+			System.out.println(dto.getGname() + "수정 완료");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage() + dto.getGname() + "수정 실패");			
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}		
+		return result;
+	}	
 	
 	// 게임을 평점이 높은 순서대로 출력. 한 페이지당 5개씩 출력됨.
 	public ArrayList<GameDto> gameListSortByScore(int startRow, int endRow){

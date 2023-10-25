@@ -17,6 +17,7 @@ import project.gamei.service.MModifyService;
 import project.gamei.service.MainDisplayService;
 import project.gamei.service.MemailConfirmService;
 import project.gamei.service.MidConfirmService;
+import project.gamei.service.TopMenuSetupService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
 import project.gamei.service.BoardContentService;
@@ -36,11 +37,16 @@ import project.gamei.service.GameExistCheckService;
 import project.gamei.service.AdminAddGameService;
 import project.gamei.service.AdminBlockControlService;
 import project.gamei.service.AdminCustomerListService;
+import project.gamei.service.AdminModifyGameService;
+import project.gamei.service.AdminSetupService;
+import project.gamei.service.AdminTopGameMenuSetupService;
 import project.gamei.service.MFindAccountService;
 import project.gamei.service.MFindPasswordService;
 import project.gamei.service.ReviewDeleteService;
 import project.gamei.service.ReviewWriteService;
 import project.gamei.service.WithdrawalService;
+import project.gamei.service.GetAccountInfoService;
+import project.gamei.service.GetModifyGameInfoService;
 
 
 @WebServlet("*.do")
@@ -223,6 +229,8 @@ public class FrontController extends HttpServlet {
 			viewPage = "boardContent.do";
 			// 관리자모드 관련 영역
 		} else if (command.equals("/admin.do")){
+			service = new AdminTopGameMenuSetupService();
+			service.execute(request, response);
 			service = new AdminCustomerListService();
 			service.execute(request, response);
 			viewPage = "admin/admin.jsp";
@@ -238,7 +246,27 @@ public class FrontController extends HttpServlet {
 			service = new AdminAddGameService();
 			service.execute(request, response);
 			viewPage = "admin.do?idx=1";
-		}	
+		} else if (command.equals("/getModifyGameInfo.do")) {
+			service = new GetModifyGameInfoService();
+			service.execute(request, response);
+			viewPage = "admin/modifyGameSearch.jsp";
+		} else if (command.equals("/adminModifyGame.do")) {
+			service = new AdminModifyGameService();
+			service.execute(request, response);
+			viewPage = "admin.do?idx=2";
+		} else if (command.equals("/getAccountInfo.do")) {
+			service = new GetAccountInfoService();
+			service.execute(request, response);
+			viewPage = "admin/getAccountInfo.jsp";
+		} else if (command.equals("/adminSetup.do")) {
+			service = new AdminSetupService();
+			service.execute(request, response);
+			viewPage = "admin.do?idx=3";
+		} else if (command.equals("/topMenuSetup.do")) {
+			service = new TopMenuSetupService();
+			service.execute(request, response);		
+			viewPage = "admin.do?idx=4";
+		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);
 	}

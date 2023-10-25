@@ -68,31 +68,32 @@
                 		<td colspan = "5"> 현재 게시판에 게시글이 없습니다. </td>
                 	</tr>	
                 </c:if>                             
-                <c:forEach var="boarditem" items="${boardList }">
+                <c:forEach var="boardItem" items="${boardList }">
                 	<tr>
-                    	<td>${boarditem.bno }</td>
+                    	<td>${boardItem.bno }</td>
                     <th>                    	
-                    	<c:forEach var="i" begin="1" end="${boarditem.bindent }">
-							<c:if test="${i eq boarditem.bindent }">
+                    	<c:forEach var="i" begin="1" end="${boardItem.bindent }">
+							<c:if test="${i eq boardItem.bindent }">
 								<b>└─</b>
 							</c:if>
-							<c:if test="${i!=boarditem.bindent }"> 
+							<c:if test="${i!=boardItem.bindent }"> 
 							&nbsp; &nbsp; 
 							</c:if>
-						</c:forEach>
-						<c:if test = "${boarditem.bhit >=10 }">                    		
-                    		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
+						</c:forEach>						                    		
+                    		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boardItem.bno }&pageNum=${param.pageNum }">${boardItem.btitle } 
+                    		<c:if test = "${boardItem.cnt >0 }">
+                    		<span style = "color: aqua;">[${boardItem.cnt }]</span>
+                    		</c:if>
+                    		</a>
+                    		<c:if test = "${boardItem.bhit >=10 }">
                     		<img src = "${conPath }/img/hot.png">
-                    	</c:if>
-                    	<c:if test = "${boarditem.bhit <10 }">
-                    		<a href="${conPath }/boardContent.do?gid=${gid }&bno=${boarditem.bno }&pageNum=${param.pageNum }">${boarditem.btitle }</a>
-                    	</c:if>	                                            
+                    		</c:if>
                     	</th>
                     	<td>
-                    		<fmt:formatDate value= "${boarditem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
+                    		<fmt:formatDate value= "${boardItem.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/>
                     	</td>
-                    	<td>${boarditem.mnickname }</td>
-                    	<td>${boarditem.bhit }</td>
+                    	<td>${boardItem.mnickname }</td>
+                    	<td>${boardItem.bhit }</td>
                 	</tr>
 				</c:forEach>
                 	<tr>

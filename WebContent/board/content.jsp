@@ -92,7 +92,7 @@
                 <tbody>
            		     <tr>                   
                 	    <td class = "profile-cell" width = "250px">
-                    	  	<img src = "${conPath }/img/${boardContent.mphoto }" height="75" alt="${boardContent.mnickname }프로필사진" onerror="noImage(this)"><br>
+                    	  	<img src = "${conPath }/memberPhotoUp/${boardContent.mphoto }" height="75" alt="${boardContent.mnickname }프로필사진" onerror="noImage(this)"><br>
                        	  	<span class = "nickNamespan"><b>${boardContent.mnickname }</b></span>
                     	</td>
                     	<td class="title-cell">
@@ -146,7 +146,7 @@
 								</c:forEach>	
 	                        	<span>${boardComments.mnickname }</span><br>
 	                        	<c:if test = "${empty member }">
-    	                    	<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px; cursor: pointer;">답글</a>
+    	                    	<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">답글</a>
     	                    	</c:if>
     	                    	<c:if test = "${not empty member and member.mlevel eq -2 }">
     	                    	<a style = "padding-left: 25px;" onclick = "blockUserAlert()" >답글</a>

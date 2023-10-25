@@ -19,8 +19,8 @@ table tr:hover {
 	background-color: lightgray;
 }
 
-table tr td:first-child{
-	width: 400px;
+table tr td{
+	width: 10%;
 }
 
 td, th {	
@@ -48,6 +48,13 @@ h2, b {
 
 input:not(.btn), textarea {
 	width: 90%;
+}
+
+input[type="submit"], input[type="button"]{
+	width: 50%;
+}
+button {
+	width: 50%;
 }
 
 h4 {

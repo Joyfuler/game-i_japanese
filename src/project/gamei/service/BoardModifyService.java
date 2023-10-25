@@ -33,6 +33,8 @@ public class BoardModifyService implements Service {
 			Enumeration<String> params = mRequest.getFileNames();
 			String param = params.nextElement();
 			bimg = mRequest.getFilesystemName(param);
+			String dbBimg = mRequest.getParameter("dbBimg");
+			bimg = (bimg == null ? dbBimg : bimg);
 			// 멤버 정보와 게시글 정보를 받는 작업. 로그인이 아닐 경우에만 db와 상호작용
 			HttpSession httpSession = request.getSession();
 			MemberDto member = (MemberDto) httpSession.getAttribute("member");

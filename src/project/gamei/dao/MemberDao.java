@@ -332,12 +332,12 @@ public class MemberDao {
 		} else if (mlevel == -2) {
 		sql = "UPDATE MEMBER SET MLEVEL = 0 WHERE MID = ?";	
 		}
+		
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);			
-			result = pstmt.executeUpdate();
-			System.out.println(mid + "회원 차단레벨 조정됨");
+			result = pstmt.executeUpdate();			
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -352,33 +352,38 @@ public class MemberDao {
 		}		
 		return result;
 	}
-	
-//	// (10) 회원차단해제
-//	public int unBlockMember(String mid) {
-//		int result = FAIL;
-//		Connection conn = null;
-//		PreparedStatement pstmt = null;
-//		String sql = "UPDATE MEMBER SET MLEVEL = 0 WHERE MID = ?";
-//		try {
-//			conn = ds.getConnection();
-//			pstmt = conn.prepareStatement(sql);
-//			pstmt.setString(1, mid);			
-//			result = pstmt.executeUpdate();
-//			System.out.println(mid + "회원 게시글 차단 해제");
-//		} catch (SQLException e) {
-//			System.out.println(e.getMessage());
-//		} finally {
-//			try {
-//				if (pstmt != null)
-//					pstmt.close();
-//				if (conn != null)
-//					conn.close();
-//			} catch (SQLException e) {
-//				System.out.println(e.getMessage());
-//			}
-//		}		
-//		return result;
-//	}
+
+	// (10) 관리자 등록 / 해제 기능. 들어온 method가 add라면 관리자로, remove라면 일반유저로.
+	public int adminSetup(String method, String mid) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "";
+		if (method.equals("add")) {
+			sql = "UPDATE MEMBER SET MLEVEL = 1 WHERE MID = ?";
+		} else {
+			sql = "UPDATE MEMBER SET MLEVEL = 0 WHERE MID = ?";
+		}
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);			
+			result = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}		
+		return result;
+	}	
+
 	// (11) 아이디 찾기. mquest / manswer / memail 3개의 값이 필요.
 
 	public String findAccount(int mquest, String manswer, String memail) {

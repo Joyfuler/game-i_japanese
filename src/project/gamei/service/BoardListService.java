@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import project.gamei.dao.BoardDao;
+import project.gamei.dao.Board_CommentDao;
 import project.gamei.dao.GameDao;
 
 public class BoardListService implements Service {
@@ -45,7 +46,7 @@ public class BoardListService implements Service {
 		} else {		
 			request.setAttribute("boardList", bDao.listBoard(gid, startRow, endRow));		
 			totCnt = bDao.boardCntByGid(gid);
-		}
+		}		
 			int pageCnt = (int) Math.ceil((double) totCnt / PAGESIZE);
 			int startPage = ((currentPage -1) / BLOCKSIZE) * BLOCKSIZE + 1;
 			int endPage = startPage + BLOCKSIZE - 1;

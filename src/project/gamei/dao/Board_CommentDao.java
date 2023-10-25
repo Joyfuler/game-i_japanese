@@ -12,7 +12,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import project.gamei.dto.BoardDto;
 import project.gamei.dto.Board_CommentDto;
 
 public class Board_CommentDao {

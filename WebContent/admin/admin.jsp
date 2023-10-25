@@ -21,8 +21,8 @@
 		if (input.files && input.files[0]){
 			var reader = new FileReader();			
 			reader.onload = function(e){
-				$('#preview').attr('src', e.target.result);
-				$('#preview').css('display', 'inline');
+				$('.preview').attr('src', e.target.result);
+				$('.preview').css('display', 'inline');
 			};				
 			reader.readAsDataURL(input.files[0]);
 		}
@@ -36,7 +36,7 @@
 	</script>
 	<script>
 	 $(function() {
-		    $( "#datepicker" ).datepicker({
+		    $( ".datepicker" ).datepicker({
 		    	dateFormat: "yy-mm-dd",
 		    	monthNames: [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
 		    	monthNamesShort : [ "1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월" ],
@@ -56,7 +56,7 @@
 	<script>
 	$(document).ready(function(){
 		$('input[name="gid"]').keyup(function(){
-			var gid = $(this).val();
+			let gid = $(this).val();
 			$.ajax({
 				url: '${conPath}/gameExistCheck.do',
 				type : 'post',
@@ -67,15 +67,67 @@
 				},				
 			});
 		});
+		
+		$('.gidSearch').click(function(){
+			let gid = $('.modifyGid').val();			
+			$.ajax({
+				url: '${conPath }/getModifyGameInfo.do',
+				type : 'get',
+				data: 'gid='+gid,
+				dataType : 'json',
+				success : function(data){					
+					$('.modifyGid').val(data[0].gid);
+					$('.modifyGname').val(data[0].gname);
+					$('.modifyGgenre').val(data[0].ggenre);
+					$('.modifyGpub').val(data[0].gpub);
+					$('.modifyGpdate').val(data[0].gpdate);
+					$('input[name="dbGicon"]').val(data[0].gicon);
+					$('img.preview').attr('src','${conPath }/img/'+data[0].gicon);
+				},				
+			});
+		});	
+		
+		$('.midSearch').click(function(){
+			let mid = $('.midInput').val();
+			$.ajax({
+				url : '${conPath }/getAccountInfo.do',
+				type : 'get',
+				data : 'mid='+mid,
+				dataType : 'html',
+				success : function(data){					
+					$('.midSearchResult').html(data);
+				},
+			})
+		});
+		
+		$('#addAdmin').click(function(){
+			var mid = $('.midInput').val();
+			location.href = '${conPath}/adminSetup.do?method=add&mid='+mid;
+		});
+		
+		$('#removeAdmin').click(function(){
+			var mid = $('.midInput').val();
+			location.href = '${conPath}/adminSetup.do?method=remove&mid='+mid;
+		});
+		
+		$('td.topGameList').click(function(){
+			var gname = $(this).text().trim();
+			var gid = $(this).data('id');			
+			$('#removeMenuGname').val(gname);
+			$('#removeMenuGid').val(gid);
+		});		
 	});
 	
 	</script>
 </head>
 <body>	
+<c:if test = "${empty member and member.mlevel != 1}">
+	<jsp:forward page="${conpath }/main.do"/>
+</c:if>
 	<div class = "controller">
-          <ul>          	
-            <li><a class = "control" href = "${conPath }/main.do">메인페이지</a></li>
-          	<li><a class = "control" href = "${conPath }/admin.do?idx=0">관리자모드</a></li>			          
+          <ul>
+            <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color:red;">관리자모드</a></li>          	
+            <li><a class = "control" href = "${conPath }/main.do">메인페이지</a></li>          				          
             <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>            
           </ul>
     </div>
@@ -99,15 +151,15 @@
 			<tr>
 				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${list.mphone }</td>
 				<td><img src = "${conPath}/memberPhotoUp/${list.mphoto }" height= "25px"></td>
-				<td>${list.mlevel }</td>
+				<td>${list.mlevel eq 1 ? "관리자" : (list.mlevel eq 0? "일반회원": "탈퇴회원")}</td>
 				<c:if test = "${list.mlevel eq 0 }">
-				<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 차단</button></td>
+					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 차단</button></td>
 				</c:if>
 				<c:if test = "${list.mlevel eq -2 }">
-				<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'"> 차단해제</button></td>
+					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'"> 차단해제</button></td>
 				</c:if>
 				<c:if test = "${list.mlevel eq -1 }">
-				<td>(탈퇴유저)</td>
+					<td>(탈퇴회원)</td>
 				</c:if>
 			</tr>	
 			</c:forEach>
@@ -130,19 +182,20 @@
 			</div>	
 	  </div>
 	  
-	  <!--  두번째 탭 영역 -->
+	  <!--  두번째 탭 영역. 신규 게임 추가 -->
 	  <div id="tabs-2">
+	  <span> 새로 추가할 게임 정보를 입력해 주세요. 게임 추가시 게시판이 함께 추가됩니다 </span>
 	     <form action = "${conPath }/adminAddGame.do" method = "post" enctype = "multipart/form-data">
 	    	<table>	   
 	    		<tr>
 	    			<th>게시판아이디</th>
 	    			<td><input type = "text" name = "gid"><br><br>
-	    			<p style = "color: red; font-size: 0.9em;" class = "existChk">&nbsp; &nbsp; &nbsp;</p>
+	    				<p style = "color: red; font-size: 0.9em;" class = "existChk">&nbsp; &nbsp; &nbsp;</p>
 	    			</td>
 	    		</tr>		
 	    		<tr>
 	    			<th>게임명</th>
-	    			<td><input type = "text" name = "gname"></td>
+	    			<td><input type = "text" name = "gname"></td><td></td>
 	    		</tr>
 	    		<tr>
 	    			<th>장르</th>
@@ -153,108 +206,169 @@
 	    		</tr>
 	    		<tr>	
 	    			<th>출시일</th>
-	    			<td><input type = "text" name = "gpdate" id = "datepicker" placeholder = "클릭해 달력 열기"></td>
+	    			<td><input type = "text" name = "gpdate" class = "datepicker" placeholder = "클릭해 달력 열기"></td>
 	    		</tr>
 	    		<tr>	
 	    			<th>게임아이콘 <br>(1:1 비율, 100x100 권장)</th>
-	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "45px"></td>
+	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img class = "preview" height = "45px"></td>
 	    			
 	    		</tr>
 	    		<tr>	    			
 	    			<th>게임설명 </th>
 	    			<td>
-	    			<textarea cols="20" rows="3" name = "gdesc"></textarea>
+	    				<textarea cols="20" rows="3" name = "gdesc"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td><input type = "submit" value = "게임추가" style = "width: 200px;">	
+	    			<td>
+	    			<input type = "submit" value = "게임추가" style = "width: 200px; padding: 5px;">
+	    			</td>
+	    		</tr>		
 	    	</table>
 	    </form>	    	    	    		
 	  </div>  
+	  
+	  <!--  세 번째 탭 영역. 게임 정보 변경 -->
 	  <div id="tabs-3">
-	   	<form action = "${conPath }/modifyGame.do">
-	   	<input type = "hidden" id = "gid">
+	  게시판 아이디를 검색해 주세요.
+	   	<form action = "${conPath }/adminModifyGame.do" method = "post" enctype = "multipart/form-data">	   
+	   		<input type = "hidden" name = "dbGicon">	
 	    	<table>	   
 	    		<tr>
 	    			<th>게시판아이디</th>
-	    			<td><input type = "text" id = "gidSearch"></td><td><input type = "button" value = "검색" class = "gameSearch"></td> 	
+	    			<td>
+	    				<input type = "text" id = "gid" name = "gid" class = "modifyGid"></td><td><input type = "button" value = "검색" class = "gidSearch">
+	    			</td> 	
 	    		<tr>
 	    			<th>게임명</th>
-	    			<td><input type = "text" id = "gname"></td>
+	    			<td>
+	    				<input type = "text" id = "gname" name = "gname" class = "modifyGname"></td><td></td><td></td><td>
+	    			</td>	
 	    		</tr>
 	    		<tr>
+	    			<th>장르</th>
+	    			<td>
+	    				<input type = "text" id = "ggenre" name = "ggenre" class = "modifyGgenre">
+	    			</td>
+	    		</tr>	
+	    		<tr>
 	    			<th>개발사</th> 
-	    			<td><input type = "text" id = "gpub"></td>
+	    			<td>
+	    				<input type = "text" id = "gpub" name = "gpub" class = "modifyGpub">
+	    			</td>
 	    		</tr>
 	    		<tr>	
 	    			<th>출시일</th>
-	    			<td><input type = "text" id = "grel"></td>
+	    			<td>
+	    				<input type = "text" name = "gpdate" class = "modifyGpdate datepicker">
+	    			</td>
 	    		</tr>
 	    		<tr>	
 	    			<th>게임아이콘</th>
-	    			<td><input type = "file" id ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height = "100"></td>
-	    			
-	    		</tr>
-	    		<tr>	    			
-	    			<th>게임설명 </th>
 	    			<td>
-	    			<textarea cols="20" rows="3" id = "gdes"></textarea>
+	    				<input type = "file" id ="gicon" name = "gicon" class = "modifyGicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img class = "preview" height = "100">
 	    			</td>
 	    		</tr>
+	    		<tr>	
+	    			<th>게임설명 </th>
+	    			<td>
+	    				<textarea name = "gdesc" rows="3" cols="20" placeholder="입력하지 않으시면 기존 게임 설명으로 반영됩니다"></textarea>
+	    			</td>
+	    		</tr>	    		
 	    		<tr>
-	    			<td><input type = "submit" value = "정보변경">	
+	    			<td><input type = "submit" value = "정보변경"></td>
+	    		</tr>		
 	    	</table>
 	    </form>	    
 	  </div>
-	   <div id="tabs-4">	   		
+	  <!--  네 번째 영역. 관리자 추가 / 제거 -->
+	   <div id="tabs-4">
+	   	   		
 	    	<table>	   
 	    		<tr>
 	    			<th>아이디 검색</th>
-	    			<td><input type = "text" id = "gid"></td><td><input type = "button" value = "검색" class = "gameSearch"></td>	    				    			
-	    		</tr>	    		
+	    			<td>
+	    				<input type = "text" name = "mid" class = "midInput"></td><td><input type = "button" value = "검색" class = "midSearch">
+	    			</td>
+	    		</tr>
+	    		<tr>	
+	    			<td></td>
+	    			<td>
+	    				<span class = "midSearchResult" style = "color: red;"></span>
+	    			</td>	    				    				    			
+	    		</tr>
 	    		<tr>
-	    			<td><!-- 각 버튼마다 location.href = ~do 로 보냄. -->
-	    			<input type = "button" value = "관리자추가" id = "addAdmin" style = "width:150px;">
-	    			&nbsp;	    					    			
-	    			<input type = "button" value = "관리자삭제" id = "removeAdmin" style = "width:150px;">
-	    			</td>	    		
-	    			<td><span class = "searchResult"></span></td>	
+	    			<td>
+	    				<input type = "button" value = "관리자추가" id = "addAdmin" style = "width:150px;" onclick = "location.href='${conPath}/adminSetup.do?method=add"> &nbsp; &nbsp; 
+	    				<input type = "button" value = "관리자삭제" id = "removeAdmin" style = "width:150px;" onclick = "location.href='${conPath}/adminSetup.do?method=delete'">
+	    			</td>
 	    		</tr>			    			
-	    	</table>	    
+	    </table>	    
 	  </div>
 	   <div id="tabs-5">
-	   	<form action = "">	   		
+	   <!--  다섯번째 영역. 게시판 상단 메뉴 관리 -->	   		   		
 	    	<table>	   
 	    		<tr>
 	    			<th>상단메뉴 관리</th>
 	    		</tr>
 	    		<tr>
-	    			<td> 1. ㅇㅇㅇ</td> <td> 2. ㄴㄴㄴ </td><td> 3. ㅋㅋㅋ </td> <td> 4. ㄹㅇㄴㅁㄹㅇㄴㅁ</td> <td> 5. gfdaggg</td>
-	    		</tr>					    			
-	    		<tr>
-	    			<td> 1. ㅇㅇㅇ</td> <td> 2. ㄴㄴㄴ </td><td> 3. ㅋㅋㅋ </td> <td> 4. ㄹㅇㄴㅁㄹㅇㄴㅁ</td> <td> 5. gfdaggg</td>
+	    		<c:set var="idx" value="1"/>
+	    		<c:forEach var = "dto" items = "${topGameList }" begin="0" end="5">	    		
+	    			<td class = "topGameList" data-id = "${dto.gid }" style = "cursor:pointer;">
+	    				${idx }) ${dto.gname }
+	    			</td>
+	    		<c:set var = "idx" value = "${idx +1 }"/>	
+	    		</c:forEach>
 	    		</tr>
 	    		<tr>
-	    			<td> 1. ㅇㅇㅇ</td> <td> 2. ㄴㄴㄴ </td><td> 3. ㅋㅋㅋ </td> <td> 4. ㄹㅇㄴㅁㄹㅇㄴㅁ</td> <td> 5. gfdaggg</td>
+	    		<c:forEach var = "dto" items = "${topGameList }" begin="6" end="11">	    		
+	    			<td class = "topGameList" data-id= "${dto.gid }" style = "cursor:pointer;">
+	    				${idx }) ${dto.gname }
+	    			</td>	    		
+	    		<c:set var = "idx" value = "${idx +1 }"/>
+	    		</c:forEach>
 	    		</tr>
+	    		<tr>	    		
+	    		<c:forEach var = "dto" items = "${topGameList }" begin="12" end="17">	    		
+	    			<td class = "topGameList" data-id="${dto.gid }" style = "cursor:pointer;">
+	    				${idx }) ${dto.gname }
+	    			</td>
+	    		<c:set var = "idx" value = "${idx +1 }"/>	
+	    		</c:forEach>
+	    		</tr>
+	    		
 	    		<tr>
-	    			<th> 내릴 게임을 선택 (선택한 것은 제출시 ghit을 0으로 만듦)</th>
+	    			<th> 클릭해 내릴 게임을 선택</th>
 	    		</tr>	
 	    		<tr>	
 	    			<td>
-	    				<input type = "text" id= "removeMenu">
+	    				<form action = "${conPath }/topMenuSetup.do?method=remove">
+	    				<input type = "text" id= "removeMenuGname">
+	    				<input type = "text" id = "removeMenuGid" name = "gid"><input type = "submit" value = "목록에서 삭제">
+	    				</form>
 	    			</td>
-	    		</tr>	
+	    		</tr>	    		
 	    		<tr>
 	    			<th> 올릴 게임을 선택 (선택한 것은 제출시 ghit를 1로 변경)</th>
 	    		</tr>
 	    		<tr>	    			
 	    			<td>
-	    				<input type = "text" id = "addMenu">
+	    				<form action = "${conPath }/topMenuSetup.do?method=add">
+	    				<input type = "text" id = "addMenu" name = "gid"><br><button class = "searchGname">검색</button><br>
+	    				<span class = "gidSearchResult">&nbsp; &nbsp; </span><br>
+	    				<c:if test = "${topGameList.size() >= 18 }">
+	    				<input type = "button" value = "목록에 추가"><br><br>
+	    				<b style = "color: red;">(상단 게임 목록은  <br>
+	    				최대 18개까지 등록 가능) </b>
+	    				</c:if>
+	    				<c:if test = "${topGameList.size() < 18 }">
+	    				<input type = "submit" value = "목록에 추가">
+	    				</c:if>
+	    				</form>	    				
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<td><input type = "submit">
+	    			
 	    		<tr>	
 	    	</table>	
 	    </form>    

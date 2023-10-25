@@ -21,6 +21,7 @@ public class BoardDto {
 	private String gid;
 	private String gname;
 	private String gicon;
+	private int cnt;
 	
 	public BoardDto() {}
 	
@@ -127,7 +128,7 @@ public class BoardDto {
 	
 	public BoardDto(String gname, String gicon, int bno, String btitle, String bcontent, Timestamp brdate, String bimg, String bip, int bgroup,
 			int bstep, int bindent, int bhit, String gid, String mid, String mphoto, String mnickname, int mlevel,
-			String memail) {
+			String memail, int cnt) {
 		this.gname = gname;
 		this.gicon = gicon;
 		this.bno = bno;
@@ -146,7 +147,9 @@ public class BoardDto {
 		this.mnickname = mnickname;
 		this.mlevel = mlevel;
 		this.memail = memail;
+		this.cnt = cnt; 
 	}
+	
 	
 
 	public int getBno() {
@@ -264,6 +267,14 @@ public class BoardDto {
 
 	public void setGicon(String gicon) {
 		this.gicon = gicon;
+	}	
+
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
 	}
 
 	@Override

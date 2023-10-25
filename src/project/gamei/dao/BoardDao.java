@@ -32,16 +32,17 @@ public class BoardDao {
 		}
 	}
 
-	// (1) 특정 gid의 게시글 목록을 출력함. 회원의 닉네임과 프로필사진, 레벨 정보 포함하고 게임명 / 게임아이콘을 포함해야 함. 페이징 처리 - 게시글은 10개씩.
+	// (1) 특정 gid의 게시글 목록을 출력함. 회원의 닉네임과 프로필사진, 레벨 정보 포함하고 게임명 / 게임아이콘, 댓글 갯수를 포함해야 함. 페이징 처리 - 게시글은 10개씩.
 	public ArrayList<BoardDto> listBoard(String gid, int startRow, int endRow) {
 		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.*" + 
-				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL" + 
-				"				, B.* FROM MEMBER M, BOARD B, GAME G"+ 
-				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BGROUP DESC, BSTEP) A)" + 
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* " + 
+				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, " + 
+				"				 B.* , (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO=B.BNO) CNT " +
+				"                 FROM MEMBER M, BOARD B, GAME G " +
+				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BGROUP DESC, BSTEP) A) " + 
 				"				WHERE RN BETWEEN ? AND ?";
 		try {
 			conn = ds.getConnection();
@@ -67,8 +68,9 @@ public class BoardDao {
 				int bstep = rs.getInt("bstep");
 				int bindent = rs.getInt("bindent");
 				int bhit = rs.getInt("bhit");
-				String mid = rs.getString("mid");								
-				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail));				
+				String mid = rs.getString("mid");
+				int cnt = rs.getInt("cnt");
+				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail, cnt));				
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -124,9 +126,9 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* " + 
-				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, " + 
-				"				B.* FROM MEMBER M, BOARD B, GAME G " + 
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A. " + 
+				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL," + 
+				"				B.*, (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO = B.BNO) CNT FROM MEMBER M, BOARD B, GAME G" + 
 				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A) " + 
 				"				WHERE RN BETWEEN ? AND ? AND BTITLE LIKE '%'||?||'%'";
 		try {
@@ -154,8 +156,9 @@ public class BoardDao {
 				int bstep = rs.getInt("bstep");
 				int bindent = rs.getInt("bindent");
 				int bhit = rs.getInt("bhit");
-				String mid = rs.getString("mid");								
-				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail));				
+				String mid = rs.getString("mid");	
+				int cnt = rs.getInt("cnt");
+				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail, cnt));				
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -215,7 +218,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.* " + 
 				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, " + 
-				"				B.* FROM MEMBER M, BOARD B, GAME G " + 
+				"				B.*, (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO = B.BNO) CNT FROM MEMBER M, BOARD B, GAME G " + 
 				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A) " + 
 				"				WHERE RN BETWEEN ? AND ? AND MNICKNAME LIKE '%'||?||'%'";
 		try {
@@ -243,8 +246,9 @@ public class BoardDao {
 				int bstep = rs.getInt("bstep");
 				int bindent = rs.getInt("bindent");
 				int bhit = rs.getInt("bhit");
-				String mid = rs.getString("mid");								
-				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail));				
+				String mid = rs.getString("mid");		
+				int cnt = rs.getInt("cnt");
+				list.add(new BoardDto(gname, gicon, bno, btitle, bcontent, brdate, bimg, bip, bgroup, bstep, bindent, bhit, gid, mid, mphoto, mnickname, mlevel, memail, cnt));				
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());

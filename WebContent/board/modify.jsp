@@ -61,12 +61,13 @@
 				<input type = "hidden" name = "mid" value = "${member.mid }">
 				<input type = "hidden" name = "bno" value = "${param.bno }">
 				<input type = "hidden" name = "pageNum" value = "${param.pageNum }">
-				<input type = "hidden" name = "next" value = "boardContent.do?gid=${param.gid }&bno=${param.bno }&pageNum=${param.pageNum }">					
+				<input type = "hidden" name = "next" value = "boardContent.do?gid=${param.gid }&bno=${param.bno }&pageNum=${param.pageNum }">
+				<input type = "hidden" name = "dbBimg" value = "${originInfo.bimg }">					
 					<div class = "writeForm">
 						<table class="board-table">							
 							<tbody>
 								<tr>
-									<td rowspan="2" style = "text-align: center;"> <img src = "${conPath }/img/${originInfo.mphoto }" height = "45px">																																									
+									<td rowspan="2" style = "text-align: center;"> <img src = "${conPath }/memberPhotoUp/${originInfo.mphoto }" height = "45px">																																									
 										<b>&nbsp;&nbsp;글제목 &nbsp;</b>
 									</td>
 									<td rowspan="2">

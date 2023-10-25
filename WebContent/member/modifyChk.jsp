@@ -74,13 +74,13 @@
 					<table>
 						<tr>
 							<td>
-							<button class = "btn" onclick = "return modifyChk()"> &nbsp;본인확인 </button>							
+							<input type = "submit" class =  "btn" onclick = "return modifyChk()" value= "본인확인">							
 							</td>							
 							<td>
-							<button class = "btn" onclick = "history.back()"> &nbsp; 뒤로가기</button> 
+							<input type = "button" class = "btn" onclick = "history.back()" value = "뒤로가기"> 
 							</td>
 							<td>
-							<button class = "btn" onclick = "location.href='${conPath}/main.do'">메인으로</button>
+							<input type = "button" class = "btn" onclick = "location.href='${conPath}/main.do'" value = "메인으로">
 						</tr>	
 					</table>					
 					</div>
