@@ -35,27 +35,26 @@ public class FavoriteDao {
 	}
 
 	// 특정 멤버의 즐겨찾기 목록을 출력. 게임 정보에는 게임 이름과 게임 아이콘이 함께 필요함.
-	public ArrayList<FavoriteDto> getFavoriteList(String mid){
+	public ArrayList<FavoriteDto> getFavoriteList(String mid) {
 		ArrayList<FavoriteDto> list = new ArrayList<FavoriteDto>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT F.*, G.GNAME, G.GICON, G.GGENRE "
-				+ "FROM FAVORITE F, GAME G "
+		String sql = "SELECT F.*, G.GNAME, G.GICON, G.GGENRE " + "FROM FAVORITE F, GAME G "
 				+ "WHERE F.GID = G.GID AND MID = ? ORDER BY F.FRDATE DESC";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, mid);			
+			pstmt.setString(1, mid);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				int fid = rs.getInt("fid");
 				Timestamp frdate = rs.getTimestamp("frdate");
-				String gid = rs.getString("gid");				
+				String gid = rs.getString("gid");
 				String gname = rs.getString("gname");
 				String gicon = rs.getString("gicon");
 				String ggenre = rs.getString("ggenre");
-				list.add(new FavoriteDto(fid, frdate, gid, mid, gname, gicon, ggenre));			
+				list.add(new FavoriteDto(fid, frdate, gid, mid, gname, gicon, ggenre));
 			}
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -73,14 +72,13 @@ public class FavoriteDao {
 		}
 		return list;
 	}
-	
+
 	// 특정 멤버가 즐겨찾기 목록을 추가할 때의 메소드.
 	public int insertFavorite(String gid, String mid) {
 		int result = FAIL;
 		Connection conn = null;
-		PreparedStatement pstmt = null;		
-		String sql = "INSERT INTO FAVORITE (FID, FRDATE, GID, MID) " + 
-				"VALUES (FAVORITE_SEQ.NEXTVAL, SYSDATE, ?, ?)";
+		PreparedStatement pstmt = null;
+		String sql = "INSERT INTO FAVORITE (FID, FRDATE, GID, MID) " + "VALUES (FAVORITE_SEQ.NEXTVAL, SYSDATE, ?, ?)";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -102,35 +100,35 @@ public class FavoriteDao {
 		}
 		return result;
 	}
-	
+
 	// 특정 멤버가 즐겨찾기 목록을 삭제할 때의 메소드.
-		public int deleteFavorite(String gid, String mid) {
-			int result = FAIL;
-			Connection conn = null;
-			PreparedStatement pstmt = null;		
-			String sql = "DELETE FROM FAVORITE WHERE GID = ? AND MID = ?";
+	public int deleteFavorite(String gid, String mid) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM FAVORITE WHERE GID = ? AND MID = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, gid);
+			pstmt.setString(2, mid);
+			result = pstmt.executeUpdate();
+			System.out.println(mid + " 회원이 " + gid + " 게시판 즐겨찾기 삭제함");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
 			try {
-				conn = ds.getConnection();
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, gid);
-				pstmt.setString(2, mid);
-				result = pstmt.executeUpdate();
-				System.out.println(mid + " 회원이 " + gid + " 게시판 즐겨찾기 삭제함");
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
-			} finally {
-				try {
-					if (pstmt != null)
-						pstmt.close();
-					if (conn != null)
-						conn.close();
-				} catch (SQLException e) {
-					System.out.println(e.getMessage());
-				}
 			}
-			return result;
 		}
-		
+		return result;
+	}
+
 	// 즐겨찾기를 추가할지, 삭제할지 나누기 위해 해당 회원 + 게시판 즐겨찾기 여부 확인작업.
 	public int favoriteConfirm(String gid, String mid) {
 		int count = 0;
@@ -141,11 +139,11 @@ public class FavoriteDao {
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, gid);	
+			pstmt.setString(1, gid);
 			pstmt.setString(2, mid);
 			rs = pstmt.executeQuery();
 			rs.next();
-			count = rs.getInt("CNT");			
+			count = rs.getInt("CNT");
 		} catch (SQLException e) {
 			System.out.println(e.getMessage());
 		} finally {
@@ -159,7 +157,38 @@ public class FavoriteDao {
 			} catch (SQLException e) {
 				System.out.println(e.getMessage());
 			}
-		}		
+		}
 		return count;
-	}	
+	}
+
+	// 현재 등록된 즐겨찾기가 몇 개인지를 확인하는 작업.
+	public int countFavoriteList(String mid) {
+		int count = 0;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT COUNT(*) CNT FROM FAVORITE " + "WHERE MID = ?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			rs.next();
+			count = rs.getInt("CNT");
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}
+		return count;
+	}
 }

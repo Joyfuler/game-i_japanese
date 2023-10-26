@@ -77,12 +77,12 @@
                 	<c:forEach var = "favoriteList" items = "${rightAreaFavoriteList }">
                 	<ul>
           				<li>
-	          				<img src="${conPath }/img/${favoriteList.gicon}" alt="${favoriteList.gname } 아이콘" onerror="noImage(this)"/> <a href="${conPath }/boardList.do?gid=${favoriteList.gid}">${favoriteList.gname }</a>
+	          				<img src="${conPath }/img/${favoriteList.gicon}" alt="${favoriteList.gname } 아이콘" onerror="noImage(this)"/> <a href="${conPath }/boardList.do?gid=${favoriteList.gid}" style = "color: ghostwhite; padding-left: 5px;">${favoriteList.gname }</a>
     	      			</li>    	
         	  		</ul>
             	    </c:forEach>
             	</c:if>                	    
-            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기 관리</a>                
+            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>                
 	</div>
 </div>	
 </body>
