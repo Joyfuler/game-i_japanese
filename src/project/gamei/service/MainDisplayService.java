@@ -2,9 +2,12 @@ package project.gamei.service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import project.gamei.dao.ArticleDao;
+import project.gamei.dao.FavoriteDao;
 import project.gamei.dao.GameDao;
+import project.gamei.dto.MemberDto;
 
 public class MainDisplayService implements Service {
 
@@ -57,5 +60,17 @@ public class MainDisplayService implements Service {
 		// rightArea의 순위 정보 전달 영역.
 		request.setAttribute("rightAreaViewTop10", gDao.rightAreaViewTop10());
 		request.setAttribute("rightAreaNewReview", gDao.rightAreaNewReview());
+		
+		// rightArea의 즐겨찾기 리스트 전달 영역.
+		FavoriteDao fDao = FavoriteDao.getInstance();
+		String mid = "";
+		HttpSession session = request.getSession();
+		MemberDto member = (MemberDto) session.getAttribute("member");
+		if(member!=null) {
+			mid = member.getMid();
+			request.setAttribute("rightAreaFavoriteList", fDao.getFavoriteList(mid));
+		} else {
+			request.setAttribute("rightAreaFavoriteList", fDao.getFavoriteList(mid));
+		}		
 	}
 }

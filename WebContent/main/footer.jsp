@@ -19,7 +19,7 @@
                     <a href = "#"><button type="button" class="btn btn-outline-light btn-lg px-1" onclick = "location.href='${conPath}/intro.do'">회사소개</button></a>
                     <a href = "#privacy"><button type="button" class="btn btn-outline-light btn-lg px-1">개인정보방침</button></a>
                     <a href = "#policy"><button type="button" class="btn btn-outline-light btn-lg px-1">운영규약</button></a>
-                    <a href = "#qna"><button type="button" class="btn btn-outline-light btn-lg px-1">문의<br>게시판</button></a>
+                    <a href = "${conPath }/boardList.do?gid=qna"><button type="button" class="btn btn-outline-light btn-lg px-1">문의<br>게시판</button></a>
                 </div>
                 <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
               	   <h1 class="display-5 fw-bold text-white"><img class = "footerImg" src = "${conPath }/main/img/footerlogo.jpg" height = "100">Weekend Company</h1>

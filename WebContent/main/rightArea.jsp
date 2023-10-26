@@ -67,29 +67,22 @@
     </div>       
   <!-- 우측 즐겨찾기 영역-->  
   <div class="m-right_favorite"  style="z-index:1000">
-    <p class="favorite_title">&nbsp;&nbsp;내 즐겨찾기</p>
-    <table>
-                <tr>
-          <td class="td01"><img src="${conPath }/img/thum10.jpg" alt="" onerror="noImage(this)"/> <a href="#favorite1">즐겨찾기1</a></td>
-        </tr>
-                <tr>
-          <td class="td01"><img src="${conPath }/img/thum11.jpg" alt="" onerror="noImage(this)"/> <a href="#favorite2">즐겨찾기2</a></td>
-        </tr>
-                <tr>
-          <td class="td01"><img src="${conPath }/img/thum12.jpg" alt="" onerror="noImage(this)"/> <a href="#favorite3">즐겨찾기3즐겨찾기3</a></td>
-        </tr>
-                <tr>
-          <td class="td01"><img src="${conPath }/img/thum13.jpg" alt="" onerror="noImage(this)"/> <a href="#favorite4">즐겨찾기4즐겨찾기4즐겨찾기4</a></td>
-        </tr>
-                <tr>
-          <td class="td01"><img src="${conPath }/img/thum14.jpg" alt="" onerror="noImage(this)"/> <a href="#favorite5">즐겨찾기5즐겨찾기5즐겨찾기5즐겨찾기5</a></td>
-        </tr>
-        <tr><td></td></tr>
-        <tr>
-        <td><a href ="#" onclick = "window.open('/1st_project/main/favorite_modify.jsp','즐겨찾기수정','resizable=no width=450 height=550');return false" id = "favorite_a">즐겨찾기 관리</a></td>
-        </tr>
-        <tr><td></td></tr>       
-    </table>        
+    	<p class="favorite_title">&nbsp;&nbsp;내 즐겨찾기</p>    		
+    			<c:if test = "${rightAreaFavoriteList.size() eq 0 }">
+                <ul style = "padding: 5px !important;">
+                	<li style = "text-align: center;"><span>즐겨찾기 없음</span></li>
+                </ul>                
+                </c:if>
+                <c:if test = "${rightAreaFavoriteList.size() != 0 }">
+                	<c:forEach var = "favoriteList" items = "${rightAreaFavoriteList }">
+                	<ul>
+          				<li>
+	          				<img src="${conPath }/img/${favoriteList.gicon}" alt="${favoriteList.gname } 아이콘" onerror="noImage(this)"/> <a href="${conPath }/boardList.do?gid=${favoriteList.gid}">${favoriteList.gname }</a>
+    	      			</li>    	
+        	  		</ul>
+            	    </c:forEach>
+            	</c:if>                	    
+            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기 관리</a>                
 	</div>
 </div>	
 </body>

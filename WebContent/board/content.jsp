@@ -81,7 +81,7 @@
 <section class="notice">
   <div class="page-title">
         <div class="board_title">        	
-        	<h2 class="title_bar">
+        	<h2 class="title_bar" onclick = 'location.href="${conPath}/boardList.do?gid=${boardContent.gid }"' style = "cursor: pointer;">
 				<img src = "${conPath }/img/${boardContent.gicon }" height = "44px" onerror = "noImage(this)">&nbsp;${boardContent.gname } 게시글 상세보기					
 			</h2>
 		</div>
@@ -120,7 +120,8 @@
                         	<span style = "font-size: 15px;">${boardContent.bcontent }</span>
                     	</td>
                 	</tr>
-               	</table>                          
+               	</table>
+               	<!--  댓글 영역     -->                          
                	<table>
                		<tr>
                		 	<td>
@@ -143,8 +144,13 @@
 	                        	<br>
 	                        	<c:forEach var="i" begin="1" end="${boardComments.bcindent }">									 
 									&nbsp; &nbsp; 
-								</c:forEach>	
+								</c:forEach>
+								<c:if test = "${boardComments.mlevel eq 0}">	
 	                        	<span>${boardComments.mnickname }</span><br>
+	                        	</c:if>
+	                        	<c:if test = "${boardComments.mlevel eq 1}">	
+	                        	<span style = "color: red;">${boardComments.mnickname }</span><br>
+	                        	</c:if>	                        	
 	                        	<c:if test = "${empty member }">
     	                    	<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">답글</a>
     	                    	</c:if>

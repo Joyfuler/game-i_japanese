@@ -17,10 +17,12 @@
 		<table>	
 			<tr>	
 				<td><input type = "hidden" name = "commentPageNum" value = "${empty param.commentPageNum? '1':param.commentPageNum }"></td>
-		<input type = "hidden" name = "bno" value = "${param.bno }">
-		<input type = "hidden" name = "bcno" value = "${param.bcno }">
-		<input type = "hidden" name = "mid" value = "${member.mid }">
-		<input type = "hidden" name = "gid" value = "${param.gid }">
+				<td>
+					<input type = "hidden" name = "bno" value = "${param.bno }">
+					<input type = "hidden" name = "bcno" value = "${param.bcno }">
+					<input type = "hidden" name = "mid" value = "${member.mid }">
+					<input type = "hidden" name = "gid" value = "${param.gid }">
+				</td>
 			</tr>
 			<tr>
 				<td>

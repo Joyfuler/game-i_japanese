@@ -68,10 +68,10 @@
                     <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>
                   </li>      
                      <li class="nav-item">
-                      <a class="nav-link" href="#qna">문의게시판</a>
+                      <a class="nav-link" href="${conPath }/boardList.do?gid=qna">문의게시판</a>
                     </li>    
                     <li class="nav-item">
-                      <a class="nav-link" href="${conPath }/main/favorite_modify.jsp" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기</a>
+                      <a class="nav-link" href="${conPath }/modifyFavoriteView.do" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기</a>
                     </li>                                                         
                 </ul>
                 <button class="navbar-toggler" type="button" id="closeMenuButton">▲닫기</button>

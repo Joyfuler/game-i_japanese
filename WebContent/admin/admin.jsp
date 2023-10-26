@@ -129,6 +129,16 @@
 				},	
 			});
 		});
+		<%-- --%>
+		$('.articleImg').click(function(){
+			var artid = $(this).data('id');
+			var link1 = $(this).siblings('span.articleId').data('id');
+			var imgSrc = $(this).attr('src');
+			$('.artid').val(artid);
+			$('.link1').val(link1);
+			$('.preview').attr('src', imgSrc);
+			$('.dbimg1').val(imgSrc.split('/').pop());
+		});		
 	});
 	
 	</script>
@@ -294,7 +304,9 @@
 	    	</table>
 	    </form>	    
 	    <hr>
-	    <table>
+	    <!--  세 번째 탭 영역 하단, 게임 리스트 출력 -->
+	    <span>게임 게시판 리스트</span>
+	    <table>	    	
 			<tr style = "border-bottom: 1px solid gray;">
 				<th> 게시판ID </th><th> 게임명 </th><th>장르</th><th>개발사</th><th>아이콘</th><th>출시일</th><th>조회수</th>
 			</tr>
@@ -306,10 +318,10 @@
 			</c:forEach>
 		</table>		
 			<div class = "paging" style = "padding-left: 100px;"> 
-				<c:if test="${startPage >BLOCKSIZE }">
-					<a href = "${conPath }/admin.do?idx=2&pageNum=${startPage-1 }">[이전]</a>
+				<c:if test="${gameStartPage >GAMEBLOCKSIZE }">
+					<a href = "${conPath }/admin.do?idx=2&pageNum=${gameStartPage-1 }">[이전]</a>
 				</c:if>
-				<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
+				<c:forEach var = "i" begin = "${gameStartPage }" end = "${gameEndPage }">
 					<c:if test = "${i eq pageNum }">
 						[<b style = "color: red;"> ${i }</b>]
 					</c:if>
@@ -317,13 +329,14 @@
 						<a href = "${conPath }/admin.do?idx=2&pageNum=${i }">[${i }]</a>
 					</c:if>
 				</c:forEach>
-				<c:if test = "${endPage < gamePageCnt }">
-					<a href = "${conPath }/admin.do?&idx=2&pageNum=${endPage+1 }">[다음]</a>
+				<c:if test = "${gameEndPage < gamePageCnt }">
+					<a href = "${conPath }/admin.do?&idx=2&pageNum=${gameEndPage+1 }">[다음]</a>
 				</c:if>		
 			</div>	
 	  </div>
 	  <!--  네 번째 영역. 관리자 추가 / 제거 -->
-	   <div id="tabs-4">	   	   		
+	   <div id="tabs-4">	  
+	   	<span>관리자를 추가하거나 삭제할 수 있습니다.</span> 	   		
 	    	<table>	   
 	    		<tr>
 	    			<th>아이디 검색</th>
@@ -339,8 +352,8 @@
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				<input type = "button" value = "관리자추가" id = "addAdmin" style = "width:150px;" onclick = "location.href='${conPath}/adminSetup.do?method=add"> &nbsp; &nbsp; 
-	    				<input type = "button" value = "관리자삭제" id = "removeAdmin" style = "width:150px;" onclick = "location.href='${conPath}/adminSetup.do?method=delete'">
+	    				<input type = "button" value = "관리자추가" id = "addAdmin" style = "width:150px;"> &nbsp; &nbsp; 
+	    				<input type = "button" value = "관리자삭제" id = "removeAdmin" style = "width:150px;">
 	    			</td>
 	    		</tr>			    			
 	    </table>	    
@@ -416,30 +429,43 @@
 	    		</tr>
 	    		<tr>	    			
 	    		<tr>	
-	    	</table>	       
-	    <form action = "">
+	    	</table>	    
+	    <!--  다섯 번째 메뉴 하단 기사 변경 메뉴  -->   
+	    <form action = "${conPath }/articleModify.do" method = "post" enctype = "multipart/form-data">	    
 	    	<table>
 	    		<tr>
 	    			<th>
-	    			상단 이미지 영역 설정
+	    			상단 이미지 영역 설정 <br>(클릭해 변경할 기사를 선택 -<br>사이즈는 265 x 400으로 통일해주세요)
 	    			</th>
 	    		</tr>
-	    		<tr>	    		
-	    			<td> 1번 이미지 : <input type = "file" name = "article1Img"></td>
-	    			<td> 1번 주소링크 : <input type = "text" name = "article1Text"></td>
-	    		</tr>	  
-	    		<tr>	    		
-	    			<td> 2번 이미지 : <input type = "file" name = "article2Img"></td>
-	    			<td> 2번 주소링크 : <input type = "text" name = "article2Text"></td>
+	    		<tr>
+	    			<c:set var= "idx" value="1"/>
+	    			<c:forEach var="articles" items="${articleList }">	    				    		
+	    				<td>이미지${idx }<br><img data-id= "${articles.artid }" src = "${conPath }/img/${articles.img1 }" class = "articleImg"><br>
+	    					게시판아이디 : <span data-id = "${articles.link1}" class = "articleId">${articles.link1 }</span></td>
+	    			<c:set var = "idx" value = "${idx +1 }"/>	 
+	    			</c:forEach>	    			
 	    		</tr>
-	    		<tr>	    		
-	    			<td> 3번 이미지 : <input type = "file" name = "article3Img"></td>
-	    			<td> 3번 주소링크 : <input type = "text" name = "article3Text"></td>
+	    		<tr>
+	    			<td>
+	    				선택 기사: <input type = "text" name = "artid" class = "artid">
+	    			</td>
+	    			<td>	
+	    				이미지 업로드<br>(미첨부시 기존파일적용) <input type = "file" name = "img1" onchange = "displayImg(this)">
+	    			</td>
+	    			<td>
+	    				<img class = "preview" height = "100px">
+	    			</td>
 	    		</tr>
-	    		<tr>	    		
-	    			<td> 4번 이미지 : <input type = "file" name = "article4Img"></td>
-	    			<td> 4번 주소링크 : <input type = "text" name = "article4Text"></td>
-	    		</tr>
+	    		<tr>
+	    			<td>	
+	    				게시판 아이디: <input type = "text" name = "link1" class = "link1">
+	    				<input type = "hidden" name = "dbimg1" class = "dbimg1">
+	    			</td>
+	    			<td>	    			
+	    			<input type = "submit" value = "기사 변경">
+	    			</td>
+	    		</tr>		
 	    	</table>
 	    </form>
 	  </div>

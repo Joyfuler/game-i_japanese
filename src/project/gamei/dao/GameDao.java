@@ -347,6 +347,51 @@ public class GameDao {
 		return gameInfo;
 	}
 	
+	// 유저 즐겨찾기 검색용. 특정 게임의 dto를 게임 이름으로 검색해 가져온다.
+	public GameDto getGameInfoByGname(String gname) {
+		GameDto gameInfo = null;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String sql = "SELECT GAME.*, NVL((SELECT AVG(RSCORE) "
+				+ "FROM REVIEW WHERE GID=GAME.GID), 0) AVG  "
+				+ "FROM GAME WHERE GNAME LIKE '%'||?||'%'";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);			
+			pstmt.setString(1, gname);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				gname = rs.getString("gname");
+				String gid = rs.getString("gid");				
+				String ggenre = rs.getString("ggenre");
+				String gpub = rs.getString("gpub");
+				Date gpdate = rs.getDate("gpdate");
+				String gicon = rs.getString("gicon");
+				String gdesc = rs.getString("gdesc");
+				int ghit = rs.getInt("ghit");				
+				double avg = rs.getDouble("avg");
+				gameInfo = new GameDto(gid, gname, ggenre, gpub, gpdate, gicon, gdesc, ghit, avg);
+			}
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}			
+		return gameInfo;
+	}
+	
+	
+	
 	// 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
 	public void gameViewUp(String gid) {
 		Connection conn = null;

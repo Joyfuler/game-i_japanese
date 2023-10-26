@@ -95,8 +95,8 @@
   	</div>
   	<form action = "${conPath }/main.do" class = "listSort">    
 	    <select id = "selectBox" name = "sortBy">
-	      	<option value = "">정렬방식</option>
-	      	<c:if test = "${sortBy eq 'new' }">
+	      	<option value = "new">정렬방식</option>
+	      	<c:if test = "${sortBy eq 'new' or empty sortBy}">
 	      	<option value = "new" selected = "selected"> 출시일순 </option>
 	      	<option value = "highScore"> 평점 높은 순</option>
 	      	</c:if>      

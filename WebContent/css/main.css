@@ -310,16 +310,18 @@ div.m-right_gameRank ul li.rank-chagne {
 }
 
 .m-right_favorite table{
-  margin-left: 10px;  
+  margin-left: 10px;
+  border-bottom: 1px solid white;  
 }
 
 .m-right_favorite table tr{
-  padding-bottom: 5px;
-  border-bottom: 1px solid white;
+  padding-bottom: 5px;  
 }
 
 .m-right_favorite table tr td a{
   color: ghostwhite;
+  text-align: center;
+  text-decoration: none;
 }
 
 .m-right_favorite img {

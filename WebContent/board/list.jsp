@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <title> ${gameInfo.gname } 게시글보기</title>
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <link href = "${conPath }/css/style2.css" rel = "stylesheet">
 <link href = "${conPath }/css/boardList.css" rel = "stylesheet">
 </head>
@@ -40,16 +41,36 @@
 		alert('차단된 유저는 게시글을 작성할 수 없습니다.');
 	}
 	</script>
+	<script>
+	$(document).ready(function(){
+		$('img.addFavo').click(function(){
+			var gid = '${param.gid}';
+			var mid = '${member.mid}';			
+			$.ajax({
+				url : '${conPath}/boardSetFavorite.do',
+				type : 'POST',
+				data : {gid: gid, mid: mid},
+				dataType : 'html',
+				success: function(data){
+					alert(data.trim());
+				},				
+			});
+		});
+	});
+	</script>
 </body>		
 <section class="notice">
   <div class="page-title">
         <div class="board_title">        	
-        			<h2 class="title_bar">
+        			<h2 class="title_bar" onclick = "location.href='${conPath}/boardList.do?gid=${gameInfo.gid }'" style = "cursor: pointer;">
 					<img src = "${conPath }/img/${gameInfo.gicon }" height = "44px" onerror = "noImage(this)">
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 게시판
-					</h2>
-		</div>
-    </div>          
+					</h2>					 
+		</div>		
+    </div>    
+    <c:if test = "${not empty member }">
+    <img src = "${conPath }/img/addfavo.png" style = "height: 30px; margin: 0 0 5px 90px;" class = "addFavo">
+    </c:if>      
     <div id="board-list">
         <div class="board_container">
             <table class="board-table">

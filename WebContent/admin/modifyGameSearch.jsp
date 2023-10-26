@@ -6,5 +6,5 @@
 	"ggenre" : "${modifyGameInfo.ggenre}",
 	"gpub" : "${modifyGameInfo.gpub}",
 	"gpdate" : "${modifyGameInfo.gpdate}",
-	"gicon" : "${modifyGameInfo.gicon }"
+	"gicon" : "${modifyGameInfo.gicon}"
 }]

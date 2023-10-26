@@ -53,7 +53,7 @@ public class AdminAddGameService implements Service {
 			}
 		} catch (Exception e) {
 			System.out.println(e.getMessage());
-			request.setAttribute("result", "게임 아이콘 용량은 5메가 이하로 업로드해주세요");
+			request.setAttribute("result", "빈 칸이 존재하거나, 이미지 용량이 초과되었습니다.");
 		}		
 		File serverFile = new File(path + "/" + gicon);
 		if (serverFile.exists() && result == MemberDao.SUCCESS) {

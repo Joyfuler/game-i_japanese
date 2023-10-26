@@ -17,6 +17,10 @@ import project.gamei.service.MModifyService;
 import project.gamei.service.MainDisplayService;
 import project.gamei.service.MemailConfirmService;
 import project.gamei.service.MidConfirmService;
+import project.gamei.service.ModifyFavoriteListService;
+import project.gamei.service.ModifyFavoriteService;
+import project.gamei.service.ModifyGameSearchService;
+import project.gamei.service.BoardSetFavoriteService;
 import project.gamei.service.TopMenuSetupService;
 import project.gamei.service.ReviewListService;
 import project.gamei.service.Service;
@@ -41,6 +45,7 @@ import project.gamei.service.AdminGameListService;
 import project.gamei.service.AdminModifyGameService;
 import project.gamei.service.AdminSetupService;
 import project.gamei.service.AdminTopGameMenuSetupService;
+import project.gamei.service.ArticleModifyService;
 import project.gamei.service.MFindAccountService;
 import project.gamei.service.MFindPasswordService;
 import project.gamei.service.ReviewDeleteService;
@@ -228,6 +233,23 @@ public class FrontController extends HttpServlet {
 			service = new CommentReplyService();
 			service.execute(request, response);
 			viewPage = "boardContent.do";
+			// 유저 즐겨찾기 기능 관련 영역						
+		} else if (command.equals("/modifyFavoriteView.do")) {
+			service = new ModifyFavoriteListService();
+			service.execute(request, response);
+			viewPage = "favorite/favorite_modify.jsp";
+		} else if (command.equals("/modifyGameSearch.do")) {
+			service = new ModifyGameSearchService();
+			service.execute(request, response);
+			viewPage = "favorite/modifyGameSearchResult.jsp";
+		} else if (command.equals("/modifyFavorite.do")) {
+			service = new ModifyFavoriteService();
+			service.execute(request, response);
+			viewPage = "modifyFavoriteView.do";
+		} else if (command.equals("/boardSetFavorite.do")) {			
+			service = new BoardSetFavoriteService();
+			service.execute(request, response);
+			viewPage = "board/favoriteResult.jsp";			
 			// 관리자모드 관련 영역
 		} else if (command.equals("/admin.do")){
 			service = new AdminTopGameMenuSetupService();
@@ -235,7 +257,7 @@ public class FrontController extends HttpServlet {
 			service = new AdminCustomerListService();
 			service.execute(request, response);
 			service = new AdminGameListService();
-			service.execute(request, response);
+			service.execute(request, response);			
 			viewPage = "admin/admin.jsp";
 		} else if (command.equals("/adminBlockUser.do")) {
 			service = new AdminBlockControlService();
@@ -268,6 +290,10 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/topMenuSetup.do")) {
 			service = new TopMenuSetupService();
 			service.execute(request, response);		
+			viewPage = "admin.do?idx=4";
+		} else if (command.equals("/articleModify.do")) {
+			service = new ArticleModifyService();
+			service.execute(request, response);
 			viewPage = "admin.do?idx=4";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

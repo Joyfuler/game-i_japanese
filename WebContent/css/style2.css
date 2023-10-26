@@ -20,8 +20,7 @@ li {
 }
 
 a {
-  text-decoration: none !important;
-  color: black;
+  text-decoration: none !important;  
 }
 
 /* header css */
@@ -326,6 +325,10 @@ div.m-right_gameRank ul li.rank-chagne {
   width: 30px; line-height: 31px; text-align: center;
 }
 
+
+
+/* 즐겨찾기 영역 */
+
 .m-right_favorite {   
   position: absolute;
   left: 1200px;
@@ -339,25 +342,38 @@ div.m-right_gameRank ul li.rank-chagne {
   color: ghostwhite;  
 }
 
-.m-right_favorite table{
-  margin-left: 10px;  
-}
-
-.m-right_favorite table tr{
-  padding-bottom: 5px;
-  border-bottom: 1px solid white;
-}
-
-.m-right_favorite table tr td a{
-  color: ghostwhite;
-}
-
 .m-right_favorite img {
   width: 30px;
 }
 
-m-right_favorite td a:hover{
+.m-right_favorite ul li a:hover, .m-right_favorite ul li span:hover,
+.m-right_favorite a:hover{
 	color: aqua;
+	cursor: pointer;
+}
+
+.m-right_favorite ul li {
+	display: flex;
+	align-items: center;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.m-right_favorite ul li a, .m-right_favorite a{
+	padding-left: 5px;
+	color: ghostwhite;	
+	font-size: 0.85em;
+	font-weight: bold;
+}
+
+.m-right_favorite ul{
+	padding-left: 5px !important;
+	padding-bottom: 5px;
+	border-bottom: 1px solid gray;
+	
+}
+.m-right_favorite ul li img {
+	margin-right: 5px;
 }
 
 .favorite_title{
