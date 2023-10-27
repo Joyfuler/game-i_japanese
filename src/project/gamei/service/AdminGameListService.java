@@ -22,8 +22,7 @@ public class AdminGameListService implements Service {
 		int endRow = startRow + GAMEPAGESIZE - 1;		
 		request.setAttribute("gameList", gDao.gameListSortByDate(startRow, endRow));
 		int gameTotCnt = gDao.getQueryGameCnt("");
-		int gamePageCnt = (int) Math.ceil((double) gameTotCnt / GAMEPAGESIZE);
-		
+		int gamePageCnt = (int) Math.ceil((double) gameTotCnt / GAMEPAGESIZE);		
 		request.setAttribute("gamePageCnt", gamePageCnt);
 		int gameStartPage = ((gameCurrentPage -1) / GAMEBLOCKSIZE) * GAMEBLOCKSIZE + 1;
 		int gameEndPage = gameStartPage + GAMEBLOCKSIZE - 1;

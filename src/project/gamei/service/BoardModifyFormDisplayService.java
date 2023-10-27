@@ -18,9 +18,6 @@ public class BoardModifyFormDisplayService implements Service {
 		request.setAttribute("modifyFormInfo", gDao.getGameInfo(gid));
 		// 원글의 정보를 dto로 가져온다. 이후 수정시 게시글의 게시글의 원본 제목, 내용과 첨부 파일 정보를 출력한다.
 		BoardDao bDao = BoardDao.getInstance();
-		request.setAttribute("originInfo", bDao.getBoardContent(gid, bno));
-		
-
+		request.setAttribute("originInfo", bDao.getBoardContent(gid, bno));		
 	}
-
 }

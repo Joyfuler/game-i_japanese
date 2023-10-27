@@ -20,14 +20,15 @@ SELECT * FROM BOARD_COMMENT;
     MNICKNAME VARCHAR2 (30) NOT NULL, 
     MPW VARCHAR2 (30) NOT NULL,
     MEMAIL VARCHAR2 (50) NOT NULL UNIQUE,
-    MPHONE VARCHAR2 (20) NOT NULL,
+    MPHONE VARCHAR2 (20),
     MPHOTO VARCHAR2 (60),
     MQUEST NUMBER(1),
     MANSWER VARCHAR2 (60),
-    MLEVEL NUMBER(1) DEFAULT 0        
-    MRDATE DATE DEFAULT SYSDATE
+    MLEVEL NUMBER(1) DEFAULT 0 -- 일반 유저는 0, 관리자는 1, 탈퇴한 유저는 -1
+    MRDATE DATE DEFAULT SYSDATE    
  );
   
+  SELECT * FROM GAME;
  CREATE TABLE GAME(
     GID VARCHAR2 (60) PRIMARY KEY,
     GNAME VARCHAR2 (120) NOT NULL,
@@ -51,17 +52,17 @@ SELECT * FROM BOARD_COMMENT;
      BGROUP NUMBER(8) NOT NULL,
      BSTEP NUMBER(2) NOT NULL,
      BINDENT NUMBER(2) NOT NULL,
+     BHIT NUMBER(5) DEFAULT 0,
+     BLEVEL NUMBER(1) DEFAULT 0,
      GID VARCHAR2 (60),
-     MID VARCHAR2 (36),
-     MLEVEL NUMBER(1) DEFAULT 0, -- 게시판 구분을 위함. 관리자 전용 게시판은 1로 변경함.
+     MID VARCHAR2 (36),     
      FOREIGN KEY (GID) REFERENCES GAME(GID),
      FOREIGN KEY (MID) REFERENCES MEMBER(MID)
  ); 
-     
-    -- 게시판 댓글 작성을 위한 시퀀스 및 데이터 생성
-
-    CREATE SEQUENCE BOARD_COMMENT_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
-    CREATE TABLE BOARD_COMMENT (
+     SELECT * FROM BOARD_COMMENT;
+    -- 게시판 댓글 작성을 위한 시퀀스 및 테이블 생성
+CREATE SEQUENCE BOARD_COMMENT_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
+CREATE TABLE BOARD_COMMENT (
         BCNO NUMBER(8) NOT NULL,
         BCTEXT VARCHAR2 (4000) NOT NULL,
         BCIP VARCHAR2 (30),
@@ -69,23 +70,24 @@ SELECT * FROM BOARD_COMMENT;
         BCSTEP NUMBER(2) NOT NULL,
         BCINDENT NUMBER(2) NOT NULL,    
         BNO NUMBER(8),
+        BCRDATE DATE DEFAULT SYSDATE,
         MID VARCHAR2 (30),
         FOREIGN KEY (BNO) REFERENCES BOARD(BNO),
         FOREIGN KEY (MID) REFERENCES MEMBER(MID)
-    );
-
-    CREATE SEQUENCE FAVORITE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
-    CREATE TABLE FAVORITE (
+);
+    
+-- 즐겨찾기 추가용 시퀀스와 테이블 생성
+CREATE SEQUENCE FAVORITE_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
+CREATE TABLE FAVORITE (
         FID NUMBER(5) PRIMARY KEY,
         FRDATE DATE DEFAULT SYSDATE,
         GID VARCHAR2 (60) NOT NULL,
-           MID VARCHAR2 (30) NOT NULL,
+        MID VARCHAR2 (30) NOT NULL,
         FOREIGN KEY (GID) REFERENCES GAME(GID),
         FOREIGN KEY (MID) REFERENCES MEMBER(MID)
-    );
-    
-    SELECT * FROM FAVORITE;    
+);
 
+-- 리뷰 작성용 시퀀스와 테이블 생성
 DROP SEQUENCE REVIEW_SEQ;
 CREATE SEQUENCE REVIEW_SEQ START WITH 1 INCREMENT BY 1 MAXVALUE 99999 NOCACHE NOCYCLE;
 CREATE TABLE REVIEW (
@@ -94,18 +96,24 @@ CREATE TABLE REVIEW (
     RTEXT CLOB NOT NULL,
     MID VARCHAR2 (30) NOT NULL,
     GID VARCHAR2 (60) NOT NULL,
+    RRDATE DATE DEFAULT SYSDATE,
     FOREIGN KEY (MID) REFERENCES MEMBER(MID),
     FOREIGN KEY (GID) REFERENCES GAME(GID)
 );
 
+-- 메인 상단 기사 변경용 테이블 생성
 CREATE TABLE ARTICLE (
-ARTID NUMBER(5) PRIMARY KEY,
-IMG1 VARCHAR2 (60),
-LINK1 VARCHAR2(60)
+    ARTID NUMBER(5) PRIMARY KEY,
+    IMG1 VARCHAR2 (60),
+    LINK1 VARCHAR2(60)
 );
 
-UPDATE GAME SET GHIT = 1 WHERE GID = 'pixelhero';
-select * from board;
+--  메인 상단 검색어 변경용 테이블 생성
+CREATE TABLE SEARCHWORD (
+    SID NUMBER (1) PRIMARY KEY,
+    SINTRO VARCHAR2 (120),
+    SWORD VARCHAR2 (120)
+);
 
 -- 3) Dummy Data
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER)
@@ -128,8 +136,12 @@ INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER
     VALUES ('iii', '동네축구', '5521515A2', '33@aa.ca', '010-5325-2522', 'unnamed.png', '2', '엥');                
 INSERT INTO MEMBER (MID, MNICKNAME, MPW, MEMAIL, MPHONE, MPHOTO, MQUEST, MANSWER)
     VALUES ('jjj', '우즈벡헤딩슛', '111', '44@naver.com', '010-1131-2424', 'unnamed.png', '3', '뭐라고');                
-UPDATE MEMBER SET MNICKNAME='침대축구', MPW='55535', MEMAIL='tt@ttac.com', MPHONE='010-5535-3535', MPHOTO='noimg.jpg', MQUEST='2', MANSWER='몰라요' where mid = 'ggg';
 
+INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
+    VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd');
+INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
+    VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd', '127.0.0.1');        
+    
 INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
     VALUES (1, 'art1.png', 'leneagem');
 INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
@@ -138,40 +150,21 @@ INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
     VALUES (3, 'art3.png', 'genshin');
 INSERT INTO ARTICLE (ARTID, IMG1, LINK1)
     VALUES (4, 'art4.png', 'fo4m');    
-select * from member;
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 4, '그럭저럭', 'iii', 'genshin');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 4, '무난하네요 ㅋ', 'aaa', 'cod');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 3, '잘모르겠음', 'bbb', 'wos');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 2, '별로인듯...과금심함', 'ddd', 'odin');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 1, '이거 저작권 괜찮나요;;', 'eee', 'redline');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 2, '글쎄..', 'ddd', 'leneagem');
-INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
-VALUES (REVIEW_SEQ.NEXTVAL, 5, '요새 하는사람 있나요?', 'ddd', 'firenow');
 
-SELECT * FROM GAME;
-commit;
-select * from review;
-alter table game add gviewcount number(5) default 0;
-ALTER TABLE REVIEW ADD RRDATE DATE DEFAULT SYSDATE;
-alter table board add bhit number(5) default 0;
-commit;
-select * from board;
-alter table member add mrdate date default sysdate;
----
-SELECT * FROM GAME;
-INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
-    VALUES ('fo4m', 'EA SPORTS FC Online M', 'NEXON Company', TO_DATE('2018-08-01','YYYY-MM-DD'), 'thum2.jpg', '새로운 Look & Feel로 더욱 세련되게!
-게임 플레이 템포와 체감 개선을 통해 더욱 현실감 있게!
-파워슛, 하드태클, 녹온 드리블로 더욱 다양하게!
-모든 것이 새로워진 FC 모바일에서, 나만의 팀을 완성하세요!!',1,'스포츠');
-select * from review;
-SELECT AVG(RSCORE) FROM REVIEW WHERE GID='leneagem';
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 4, '그럭저럭', 'iii', 'genshin');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 4, '무난하네요 ㅋ', 'aaa', 'cod');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 3, '잘모르겠음', 'bbb', 'wos');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 2, '별로인듯...과금심함', 'ddd', 'odin');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 1, '이거 저작권 괜찮나요;;', 'eee', 'redline');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 2, '글쎄..', 'ddd', 'leneagem');
+INSERT INTO REVIEW (RID, RSCORE, RTEXT, MID, GID)
+    VALUES (REVIEW_SEQ.NEXTVAL, 5, '요새 하는사람 있나요?', 'ddd', 'firenow');
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC,GHIT)
     VALUES ('wos','WOS:화이트 아웃 서바이벌', '시뮬레이션', 'Century Games Pte.Ltd.','2023-09-15','thum3.jpg','화이트 아웃 서바이벌은 빙하 종말 서바이벌 전략 게임입니다. 매혹적인 기계와 복잡한 사안들이 여러분을 기다리고 있습니다.
@@ -263,8 +256,6 @@ RPG에서의 캐릭터는 또 다른 “나”입니다.
 이제 땅과 하늘, 그 사이 모든 공간이 전장이 됩니다.
 나이트 크로우의 이야기 속 유럽 대륙에서는 "글라이더"를 통해 드디어 하늘을 품게 되었습니다. 글라이더는 고저차를 이용한 단순한 활강에 그치지 않고, 활공과 호버링 그리고 상승 기류를 이용한 다양한 전략적인 전투까지 가능하게 하며, 평면적인 전투에서 벗어난 입체적인 전투의 경험을 선사합니다.',1);
 
-
-
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
     VALUES ('odin', '오딘: 발할라 라이징', 'MMORPG', 'Kakao Games Corp.', '2021-06-26', 'thum6.jpg', '▣게임 소개▣
 ■ MMORPG, 신의 영역에 도전하다
@@ -355,7 +346,7 @@ INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
 
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES ('gardenscapes', '꿈의 정원(Gardenscapes)', '시뮬레이션', 'PlayRix', '2016-08-25', 'thum_garden.png', 'Playrix 꿈 시리즈(Scapes™ 시리즈)의 첫 히트작, 꿈의 정원에 오신 것을 환영합니다. 3조각 맞추기 퍼즐을 풀어 정원의 영광을 되찾아주세요!
+    VALUES ('gardenscapes', '꿈의 정원(Gardenscapes)', '시뮬레이션', 'PlayRix', '2016-08-25', 'thum_garden.png', 'Playrix 꿈 시리즈(Scapes™ 시리즈)의 첫 히트작, 꿈의 정원에 오신 것을 환영합니다. 3조각 맞추기 퍼즐을 풀어 정원의 영광을 되찾아주세요!
 
 3조각 맞추기 레벨을 깨며 정원의 여러 구역을 복원 또는 장식하고, 그에 얽힌 비밀을 파헤치며 여러분의 집사 오스틴을 비롯한 게임 캐릭터들을 만나 보세요! 지금 바로 꿈의 정원을 만들어요!
 
@@ -367,16 +358,15 @@ VALUES ('gardenscapes', '꿈의 정원(Gardenscapes)', '시뮬레이션', 'PlayR
 * 최신 소식을 접할 수 있는 게임 내 소셜 네트워크
 * 독특한 구조로 만들어진 정원의 여러 구역: 부서진 분수대와 미스터리 미로 등
 * 커뮤니티: Facebook 친구들과 이웃이 되세요!',1);
-SELECT * FROM BOARD;
-COMMIT;
+
 INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
-VALUES ('uparu', '우파루 오딧세이', 'NHN Corp.', '2023-10-04', 'thum_uparu.png', '▦ 강력 추천! 우파루 오딧세이 특징 ▦
+    VALUES ('uparu', '우파루 오딧세이', 'NHN Corp.', '2023-10-04', 'thum_uparu.png', '▦ 강력 추천! 우파루 오딧세이 특징 ▦
 1. 수백 가지 종류의 매력적인 우파루 총집합!
 신비의 생명체 우파루를 모으고, 키우는 컬렉션 SNG!
 상상을 뛰어넘는 다양한 조합으로 귀염뽀짝한 우파루를 소환하세요.
 키우는 재미가 가득한 우파루를 수집하여 개성 넘치는 컬렉션을 완성해보세요.
 
-2. 우파루들의 일상을 만나는 힐링타임 ♥
+2) 우파루들의 일상을 만나는 힐링타임 ♥
 유니크한 서식지와 다양한 장식들로 꾸민 나만의 마을에서
 우파루들의 이야기에 귀 기울여 보세요.
 
@@ -386,11 +376,9 @@ VALUES ('uparu', '우파루 오딧세이', 'NHN Corp.', '2023-10-04', 'thum_upar
 
 4. 세상을 구원할 우파루의 전투!
 다양한 속성 조합으로 덱을 구성하여 전략적인 전투를 즐겨보세요.',1,'시뮬레이션');
-SELECT * FROM GAME; 
-select * from member;
-SELECT COUNT(*) CNT FROM MEMBER WHERE MID = 'aaa';
+
 INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
-VALUES ('hkstarrail', '붕괴:스타레일', '호요버스', '2023-04-26', 'thum_hkstarrail.jpg', '[붕괴: 스타레일]은 HoYoverse 신작 은하 판타지 RPG 게임입니다
+    VALUES ('hkstarrail', '붕괴:스타레일', '호요버스', '2023-04-26', 'thum_hkstarrail.jpg', '[붕괴: 스타레일]은 HoYoverse 신작 은하 판타지 RPG 게임입니다
 「은하열차」를 타고 은하계의 신비롭고 환상적인 풍경을 경험하며, 모험과 짜릿함이 가득한 여정의 선율을 즐겨보세요.
 플레이어는 여러 세계에서 새로운 친구를 만나고 반가운 친구와 재회하며 함께 「스텔라론」으로 인한 분쟁을 해결하고 비밀을 파헤치게 됩니다. 여정의 끝이 뭇별에 닿길!
 
@@ -404,7 +392,7 @@ VALUES ('hkstarrail', '붕괴:스타레일', '호요버스', '2023-04-26', 'thum
 별바다에는 끝없는 모험과 만남이 있습니다. 동료들을 위한 티켓을 준비해 이 놀라운 여정에 몸을 실으세요! 기억을 잃은 영민한 소녀, 고결하고 정직한 실버메인 철위대, 다소 나태해 보이는 운기 장군, 베일에 싸인 제복 미녀까지... 함께 「스텔라론」의 위기에 맞서고 웃음과 눈물이 한데 모인 현재, 과거, 미래를 만드세요.',1,'턴제RPG');
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES ('darkgamer','달빛조각사: 다크게이머', 'MMORPG', '엑스엘게임즈', '2023-09-10', 'thum_moon.jpg', '■ 조각나버린 달빛조각사의 세계
+    VALUES ('darkgamer','달빛조각사: 다크게이머', 'MMORPG', '엑스엘게임즈', '2023-09-10', 'thum_moon.jpg', '■ 조각나버린 달빛조각사의 세계
 위대한 모험가 위드가 알 수 없는 이유로 자취를 감춘 혼란의 시대
 다시 한 번 베르사 대륙의 패권을 쟁취하라!
 원작 소설의 설정을 계승한 오리지널 스토리
@@ -429,7 +417,7 @@ VALUES ('darkgamer','달빛조각사: 다크게이머', 'MMORPG', '엑스엘게�
 거래소에서 자유롭게 거래해보세요!',1);
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES('firenow', '탕탕특공대', '어드벤처', 'Habby', '2022-08-09', 'thum12.jpg', '위험한 좀비들이 도시 전체를 공격하고 있습니다! 도시가 위기에 빠졌어요!
+    VALUES('firenow', '탕탕특공대', '어드벤처', 'Habby', '2022-08-09', 'thum12.jpg', '위험한 좀비들이 도시 전체를 공격하고 있습니다! 도시가 위기에 빠졌어요!
 꿈의 시련에서 깨어난 당신은 도시를 구하는 영웅의 임무를 맡게 되었습니다!
 무한한 잠재력을 지닌 인간 전사로서, 다른 생존자들과 함께 무기를 들어 끔찍한 좀비 군단에 맞서 싸워야 할 것입니다!
 적군이 너무 강해서 자칫 잘못하면 목숨이 위태로워질 수 있어요!
@@ -442,7 +430,7 @@ VALUES('firenow', '탕탕특공대', '어드벤처', 'Habby', '2022-08-09', 'thu
 -새로운 스테이지 경험! 다양한 난이도를 도전해보세요!',1);
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES('pixelhero', '픽셀 히어로', 'RPG', '유조이 게임즈', '2023-06-07', 'thum8.jpg', '● 1,024번의 뽑기를 무료로 증정하는 RPG 원픽!
+    VALUES('pixelhero', '픽셀 히어로', 'RPG', '유조이 게임즈', '2023-06-07', 'thum8.jpg', '● 1,024번의 뽑기를 무료로 증정하는 RPG 원픽!
 지금까지 이런 혜택은 없었다.
 질릴 틈 없이 쏟아지는 영웅들로
 더욱 풍성한 모험을 즐겨보세요!
@@ -470,10 +458,9 @@ VALUES('pixelhero', '픽셀 히어로', 'RPG', '유조이 게임즈', '2023-06-0
 강력한 동료들과 길드 BOSS를 처치하고,
 다른 길드와 전투하는 대규모 GVG까지
 커뮤니티를 통해 든든한 모험을 즐겨보세요!',1);
-select * from game;
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES ('maplestorym', '메이플스토리M', 'MMORPG', 'NEXON Company', '2016-10-13', 'thum18.jpg', '■ 언제 어디서나, 메이플!
+    VALUES ('maplestorym', '메이플스토리M', 'MMORPG', 'NEXON Company', '2016-10-13', 'thum18.jpg', '■ 언제 어디서나, 메이플!
 PC 메이플스토리의 감성을 그대로!
 언제 어디서나 만날 수 있는 나만의 캐릭터
 내 손 안에 펼쳐지는 방대한 메이플 월드
@@ -495,7 +482,7 @@ MMORPG 최강자, 【메이플스토리M】
 귀염, 앙증, 멋짐, 심플, 유니크 등, 용사님의 취향에 맞춰 꾸며보세요',0);
 
 INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC, GHIT)
-VALUES ('proseka', '프로젝트 세카이 컬러풀 스테이지! feat.하츠네 미쿠', '리듬', 'Nuverse', '2022-05-20', 'thum_proseka.jpg', '세카이는 진정한 마음을 찾을 수 있는 장소예요. - 하츠네 미쿠
+    VALUES ('proseka', '프로젝트 세카이 컬러풀 스테이지! feat.하츠네 미쿠', '리듬', 'Nuverse', '2022-05-20', 'thum_proseka.jpg', '세카이는 진정한 마음을 찾을 수 있는 장소예요. - 하츠네 미쿠
 이 게임은 음악을 사랑하는 다섯 팀의 소년 소녀들이 우연히 마음에서 비롯된 버추얼 세카이에 들어가 하츠네 미쿠를 비롯한 버추얼 싱어들의 도움을 받아 진정한& 마음을 찾는 이야기입니다. 게임을 통해 인기 버추얼 싱어를 만나고 새로운 방식의 리듬 게임을 체험해 보세요. 다양한 인기 VOCALOID 음악을 듣고 눈과 귀로 즐기는 감각의 향연을 경험해 보세요. 버추얼 & 라이브에서는 친구를 사귀는 등, 즐거운 요소들이 많이 준비되어 있습니다!
 버추얼 싱어와 함께 소년, 소녀들의 마음을 찾고 세카이의 스테이지에 올라보세요!
 
@@ -509,48 +496,87 @@ EASY부터 MASTER까지 총 5개 난이도 중 자유롭게 선택할 수 있으
 오토 라이브 기능을 사용하면 자동으로 라이브를 클리어하고 한 번에 보상을 획득할 수 있습니다.
 멀티 라이브 모드로 다른 플레이어와 한 무대에서 라이브를 즐겨보세요! FEVER/SUPER FEVER 타임 완료 시 추가 아이템 보상을 얻을 수 있습니다!',0);
 
--- 게시글 댓글 작성시 출력해야 하는 정보 - 유저 프로필사진, 유저 이메일, 유저레벨 (일반 / 관리자)
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT M.MNICKNAME, M.MPHOTO,M.MLEVEL, M.MEMAIL, BC.* FROM MEMBER M, BOARD_COMMENT BC WHERE M.MID = BC.MID AND BC.BNO = 9 ORDER BY BC.BCGROUP DESC, BC.BCSTEP) A) WHERE RN BETWEEN 2 AND 4;
+INSERT INTO GAME (GID, GNAME, GPUB, GPDATE, GICON, GDESC, GHIT, GGENRE)
+    VALUES ('fo4m', 'EA SPORTS FC Online M', 'NEXON Company', TO_DATE('2018-08-01','YYYY-MM-DD'), 'thum2.jpg', '새로운 Look & Feel로 더욱 세련되게!
+게임 플레이 템포와 체감 개선을 통해 더욱 현실감 있게!
+파워슛, 하드태클, 녹온 드리블로 더욱 다양하게!
+모든 것이 새로워진 FC 모바일에서, 나만의 팀을 완성하세요!!',1,'스포츠');
 
+INSERT INTO FAVORITE (FID, FRDATE, GID, MID)
+    VALUES (FAVORITE_SEQ.NEXTVAL, SYSDATE, 'pubg', 'aaa');
 
--- 게시글 댓글 작성 쿼리.
+INSERT INTO SEARCHWORD (SID, SINTRO, SWORD)
+    VALUES ('1','요즘 핫한 신작, 세나키우기 평가하러 Go!', '세븐나이츠');
+INSERT INTO SEARCHWORD (SID, SINTRO, SWORD)
+    VALUES ('2','배그 모바일, 한국-인도 수교 50주년 기념 친선전 개최', '배틀그라운드');    
+INSERT INTO SEARCHWORD (SID, SINTRO, SWORD)
+    VALUES ('3', '원피스 주인공들과 생생한 모험을 떠나자!', '항로:레드라인');
+INSERT INTO SEARCHWORD (SID, SINTRO, SWORD)
+    VALUES ('4', '압도적인 클라스의 차이, 「나이트크로우」', '나이트 크로우');        
 
+--- Query 연습장
+
+-- 게시글 /  댓글 작성시 출력해야 하는 정보 - 유저 프로필사진, 유저 이메일, 유저레벨 (일반 / 관리자)
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM 
+(SELECT M.MNICKNAME, M.MPHOTO,M.MLEVEL, M.MEMAIL, BC.* 
+FROM MEMBER M, BOARD_COMMENT BC 
+WHERE M.MID = BC.MID AND BC.BNO = 9 ORDER BY BC.BCGROUP DESC, BC.BCSTEP) A) 
+WHERE RN BETWEEN 2 AND 4;
+
+-- 특정 게임의 평균 평점 구하기.
+SELECT AVG(RSCORE) FROM REVIEW WHERE GID='leneagem';
+
+-- 게시글 댓글 작성하기.
 INSERT INTO BOARD_COMMENT (BCNO, BCTEXT, BCIP, BCGROUP, BCSTEP, BCINDENT, BNO, MID)
 VALUES (BOARD_COMMENT_SEQ.NEXTVAL, '잘보고갑니다^^', '127.0.0.1', BOARD_COMMENT_SEQ.CURRVAL, 0, 0, 9, 'jjj');
-DELETE FROM BOARD_COMMENT WHERE BCNO=10;
-SELECT * FROM BOARD_COMMENT;
-SELECT COUNT(*) CNT FROM BOARD_COMMENT WHERE BNO = 9;
---- ★★★★★ 평점 출력용 쿼리
-UPDATE BOARD_COMMENT SET BCSTEP = BCSTEP + 1 WHERE BCGROUP=25 AND BCSTEP>0;
-SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY GPDATE DESC;
-SELECT * FROM BOARD_COMMENT;
-commit;
 
-SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID,R.RSCORE,R.RTEXT,R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A;
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT G.*, R.RID, R.RSCORE, R.RTEXT, R.MID FROM GAME G, REVIEW R WHERE G.GID=R.GID ORDER BY RSCORE) A) WHERE RN BETWEEN 2 AND 4;
+--- ★★★★★ Review 페이지에서의 각 게임들의 평점을 포함하여 정보 출력.
+SELECT GAME.*, NVL((SELECT AVG(RSCORE) 
+FROM REVIEW WHERE GID=GAME.GID), 0) AVG 
+FROM GAME ORDER BY GPDATE DESC;
+
+SELECT ROWNUM RN, A.* FROM 
+(SELECT G.*, R.RID,R.RSCORE,R.RTEXT,R.MID 
+FROM GAME G, REVIEW R 
+WHERE G.GID=R.GID ORDER BY RSCORE) A;
+
+SELECT * FROM 
+(SELECT ROWNUM RN, A.* FROM 
+(SELECT G.*, R.RID, R.RSCORE, R.RTEXT, R.MID 
+FROM GAME G, REVIEW R WHERE G.GID=R.GID 
+ORDER BY RSCORE) A) 
+WHERE RN BETWEEN 2 AND 4;
 --- ★★★★★
 
+-- 우측 메뉴의 최근리뷰 목록 순위 TOP 10을 출력
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM 
+(SELECT G.GID, G.GNAME, G.GPUB, G.GICON, MAX(R.RRDATE) AS MAXDATE 
+FROM GAME G, REVIEW R WHERE G.GID=R.GID 
+GROUP BY G.GID, G.GNAME, G.GPUB, G.GICON 
+ORDER BY MAXDATE DESC) A) 
+WHERE RN BETWEEN 1 AND 10;
 
--- 우측 메뉴의 최근리뷰 목록 게임을 출력
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT G.GID, G.GNAME, G.GPUB, G.GICON, MAX(R.RRDATE) AS MAXDATE FROM GAME G, REVIEW R WHERE G.GID=R.GID GROUP BY G.GID, G.GNAME, G.GPUB, G.GICON ORDER BY MAXDATE DESC) A) WHERE RN BETWEEN 1 AND 20;
---
-SELECT * FROM BOARD;
--- 게시글 수정 쿼리
+-- 게시글 수정하기
 UPDATE BOARD
 SET BTITLE = '안녕...^^', BCONTENT = 'ㅋㅋㅋㅋ', BIMG = 'noimg.jpg', BIP='127.0.0.1'
 WHERE BNO = 3;
--- 
+
+-- 게시글 조회수를 +1 UP 
 UPDATE BOARD SET BHIT = BHIT +1 WHERE BNO = 3;
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT R.*, M.MPHOTO, M.MNICKNAME FROM REVIEW R, MEMBER M WHERE M.MID = R.MID AND GID = 'leneagem' ORDER BY RRDATE DESC) A) WHERE RN BETWEEN 1 AND 5;
-SELECT * FROM GAME;
-SELECT ROWNUM RN, A.* FROM (SELECT G.GNAME,G.GICON,M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.* FROM MEMBER M, BOARD B, GAME G WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'leneagem') A;
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT G.GNAME,G.GICON,M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.* FROM MEMBER M, BOARD B, GAME G WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'leneagem') A) WHERE RN BETWEEN 1 AND 10;
 
+-- 게임별 리뷰 목록을 출력. 한 페이지에 5개씩, 멤버 닉네임과 프로필 사진을 포함
+SELECT * FROM (SELECT ROWNUM RN, A.* FROM 
+(SELECT R.*, M.MPHOTO, M.MNICKNAME FROM REVIEW R, MEMBER M 
+WHERE M.MID = R.MID AND GID = 'leneagem' 
+ORDER BY RRDATE DESC) A) WHERE RN BETWEEN 1 AND 5;
 
--- 검색어에 맞는 게임을 출력
-SELECT * FROM (SELECT ROWNUM RN, A.* FROM (SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW
-				WHERE GID=GAME.GID), 0) AVG FROM GAME ORDER BY GPDATE DESC) A) WHERE GNAME LIKE '%리%' AND RN BETWEEN 1 AND 5;
+-- 특정 게시글의 게시글 정보 및 회원 정보, 게임명과 게임 아이콘을 포함하여 출력. (상세보기 용도)
+SELECT ROWNUM RN, A.* FROM 
+(SELECT G.GNAME,G.GICON,M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.* 
+FROM MEMBER M, BOARD B, GAME G 
+WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'leneagem') A;
 
+-- 해당 검색어에 맞는 게임의 정보와 그 평점을 출력
 SELECT * FROM (
   SELECT ROWNUM RN, A.* FROM (
     SELECT GAME.*, NVL((SELECT AVG(RSCORE) FROM REVIEW WHERE GID=GAME.GID), 0) AVG
@@ -559,11 +585,8 @@ SELECT * FROM (
     ORDER BY GPDATE DESC
   ) A
 ) WHERE RN BETWEEN 1 AND 5;
-INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
-VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd');
-INSERT INTO BOARD (BNO, BTITLE, BCONTENT, BIMG, BGROUP, BSTEP, BINDENT, GID, MID, BIP)
-VALUES (BOARD_SEQ.NEXTVAL, '날씨가 참 좋네요^^', 'ㅋㅋㅋㅋ', 'noimg.jpg', BOARD_SEQ.CURRVAL, 0, 0 , 'genshin', 'ddd', '127.0.0.1');
 
+-- 게임 이름, 아이콘, 회원 정보, 게시글 정보와 댓글 갯수를 출력. (게시글 + 댓글 상세보기 용도) 
 SELECT * FROM (
     SELECT ROWNUM RN, A.*, C.COMMENT_COUNT
     FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL, B.*
@@ -571,23 +594,8 @@ SELECT * FROM (
     ORDER BY B.BGROUP DESC, B.BSTEP) A
     LEFT JOIN (SELECT BNO, COUNT(*) COMMENT_COUNT FROM BOARD_COMMENT GROUP BY BNO ) C
     ON A.BNO = C.BNO) WHERE RN BETWEEN 1 AND 5;
-
-
-SELECT * FROM MEMBER WHERE MID = 'aaa' AND MQUEST = 1 AND MANSWER = '봉래' AND MEMAIL = 'aa@bb.com';
-SELECT * FROM BOARD_COMMENT;
-SELECT * FROM GAME;
-INSERT INTO GAME (GID, GNAME, GGENRE, GPUB, GPDATE, GICON, GDESC)
-VALUES ('monsterstrike', '몬스터 스트라이크', 'RPG', 'MIXI', '2012-09-08', 'thum_monst.png', '게임소개');
-
--- 원본 게시글 출력 쿼리
-
-SELECT * FROM (SELECT ROWNUM RN, A.*
-				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL,
-				 B.* FROM MEMBER M, BOARD B, GAME G
-				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'genshin' ORDER BY BGROUP DESC, BSTEP) A)
-				WHERE RN BETWEEN 1 AND 20;
                 
--- 게시글 출력 쿼리 변경.                
+-- 게시글 출력 쿼리                
 SELECT * FROM (SELECT ROWNUM RN, A.*
 				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL,
 				 B.* , (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO=B.BNO) CNT
@@ -595,35 +603,31 @@ SELECT * FROM (SELECT ROWNUM RN, A.*
 				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'genshin' ORDER BY BGROUP DESC, BSTEP) A)
 				WHERE RN BETWEEN 1 AND 20;            
     
--- 제목으로 글 검색하는 쿼리.    
+-- 제목으로 해당 게시판의 게시글 검색. 게임명과 아이콘, 회원 닉네임과 프로필 사진, 회원등급이 필요. (관리자의 경우에는 볼드 및 프로필 사진을 List에 표시)
 SELECT * FROM (SELECT ROWNUM RN, A.*
 				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL,
 				B.*, (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO = B.BNO) CNT FROM MEMBER M, BOARD B, GAME G
 				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'genshin' ORDER BY BRDATE DESC) A)
 				WHERE RN BETWEEN 1 AND 5 AND BTITLE LIKE '%흠%';
                 
-                UPDATE GAME SET GNAME = '헐', GGENRE= 'ㄹㅇ인가', GPUB= 'ㅋㅋㄹㅇ', GPDATE = '11-11-11', GICON = 'NOIMG.JPG' WHERE GID = 'skiagb';
-                
-                
--- 글 작성자로 글 검색하는 쿼리.
+-- 닉네임으로 해당 게시판의 게시글 검색.
 SELECT * FROM (SELECT ROWNUM RN, A.*
 				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL,
 				B.*, (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO = B.BNO) CNT FROM MEMBER M, BOARD B, GAME G
 				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = 'genshin' ORDER BY BRDATE DESC) A)
 				WHERE RN BETWEEN 1 AND 5 AND MNICKNAME LIKE '%즈%';
                 select * from game;
-SELECT * FROM REVIEW;
-SELECT * FROM GAME;
-SELECT * FROM MEMBER;
-SELECT * FROM ARTICLE ORDER BY ARTID;
-UPDATE ARTICLE SET IMG1 = '2', LINK1= '3' WHERE ARTID = 4;
-ROLLBACK;
 
-SELECT * FROM FAVORITE;
-INSERT INTO FAVORITE (FID, FRDATE, GID, MID)
-VALUES (FAVORITE_SEQ.NEXTVAL, SYSDATE, 'pubg', 'aaa');
+-- 해당 회원이 즐겨찾기 선택한 게임을 추가했는지를 확인
 SELECT COUNT(*) CNT FROM FAVORITE WHERE GID = 'genshin' AND MID = 'jjj';
+
+-- 해당 회원의 즐겨찾기 리스트를 출력 (추가한 날짜순)
 SELECT F.*, G.GNAME, G.GICON FROM FAVORITE F, GAME G WHERE F.GID = G.GID AND MID = 'jjj' ORDER BY F.FRDATE;
+
+-- 해당 회원이 즐겨찾기를 삭제
 DELETE FROM FAVORITE WHERE GID = 'pubg' AND MID = 'aaa';
-SELECT * FROM FAVORITE;
-DELETE FROM FAVORITE WHERE GID = 'nightcrows' AND MID = 'admin';
+
+-- 관리자 모드에서 검색바 검색어를 변경
+UPDATE SEARCHWORD SET SINTRO = '요', SWORD = '세' WHERE SID = 1;
+
+SELECT * FROM BOARD_COMMENT;

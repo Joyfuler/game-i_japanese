@@ -81,7 +81,7 @@ public class Board_CommentDao {
 		return list;
 	}
 	
-	// (1) 특정 게시글 내에 있는 댓글이 몇 개인지를 count
+	// (2) 특정 게시글 내에 있는 댓글이 몇 개인지를 count
 	public int boardCommentCnt(int bno) {
 		int commentCnt = 0;
 		Connection conn = null;
@@ -111,7 +111,7 @@ public class Board_CommentDao {
 		}
 		return commentCnt;
 	}	
-	// (2) 댓글 작성
+	// (3) 댓글 작성
 	public int writeComment(int bno, Board_CommentDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -142,7 +142,7 @@ public class Board_CommentDao {
 		return result;
 	}
 	
-	// (3) 댓글 삭제
+	// (4) 댓글 삭제
 	public int deleteComment(int bcno) {
 		int result = FAIL;
 		Connection conn = null;
@@ -169,7 +169,7 @@ public class Board_CommentDao {
 		return result;
 	}	
 	
-	// (4) 댓글의 댓글 작성 사전작업
+	// (5) 댓글의 댓글 작성 사전작업
 	private void preReplyCommentStep(int bcgroup, int bcstep) {
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
@@ -191,7 +191,7 @@ public class Board_CommentDao {
 			} 
 		}	
 	}
-	// (5) 댓글의 group, step, indent를 알기 위해, 원본 댓글의 정보를 가져온다. 원본 댓글의 bcno가 필요.
+	// (6) 댓글의 group, step, indent를 알기 위해, 원본 댓글의 정보를 가져온다. 원본 댓글의 bcno가 필요.
 	public Board_CommentDto getOriginReplyInfo(int bcno) {
 		Board_CommentDto dto = null;
 		Connection conn = null;
@@ -229,10 +229,9 @@ public class Board_CommentDao {
 			}
 		}		
 		return dto;
-	}
+	}	
 	
-	
-	// (6) 댓글 작성
+	// (7) 댓글 작성
 	public int replyComment(int bno, Board_CommentDto dto) {
 		int result = FAIL;
 		preReplyCommentStep(dto.getBcgroup(), dto.getBcstep());

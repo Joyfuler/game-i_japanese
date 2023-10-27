@@ -14,16 +14,16 @@
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>             
 <script> 
-        window.onload = function() {
-        document.getElementById('searchForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-            var searchInput = document.getElementById('searchInput');
-            if (searchInput.value.trim() === '') {                
-                searchInput.value = '세븐';
+        $(document).ready(function() {
+        	$('#searchForm').on('submit', function (event) {
+            	event.preventDefault();
+            	var searchInput = $('#searchInput');
+            if (searchInput.val().trim() === '') {                
+                searchInput.val('${searchWord.sword}');
             }            
             this.submit();
         });
-      }
+      });
 </script>
 <script>	
 	function noImage(imageElement) {
@@ -88,7 +88,7 @@
           <div class="search">          
             <form action ="${conPath }/main.do" method = "get" id="searchForm">
             	<c:if test = "${empty param.query }">                
-                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="요즘핫한 신작, 세나키우기 평가하러 Go!" style = "margin:auto;"/>
+                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${searchWord.sintro }" style = "margin:auto;"/>
                 </c:if>
                 <c:if test = "${not empty param.query }">
                 <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${param.query }" style = "margin:auto;"/>

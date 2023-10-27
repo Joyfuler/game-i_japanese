@@ -16,7 +16,6 @@ public class MemailConfirmService implements Service {
 			request.setAttribute("memailConfirmResult", "중복된 이메일입니다.");
 		} else {
 			request.setAttribute("memailConfirmResult", "사용 가능한 이메일입니다.");
-
 		}
 	}
 }

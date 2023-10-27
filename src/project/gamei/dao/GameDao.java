@@ -28,7 +28,6 @@ public class GameDao {
 	}
 	
 	public GameDao() {
-		// ds에 connectionPool에 있는 ds를 할당
 		try {
 			Context ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Oracle11g");
@@ -69,8 +68,7 @@ public class GameDao {
 			}
 		}
 		return result;
-	}
-	
+	}	
 	
 	// (2) 메인화면의 관리자 추천 게임 리스트 출력 
 	public ArrayList<GameDto> topGameList(){
@@ -305,7 +303,7 @@ public class GameDao {
 		return lists;
 	}
 	
-	// 특정 게임의 DTO 및 평균 평점을 가져온다.
+	// (8) 특정 게임의 DTO 및 평균 평점을 가져온다.
 	public GameDto getGameInfo(String gid) {
 		GameDto gameInfo = null;
 		Connection conn = null;
@@ -347,7 +345,7 @@ public class GameDao {
 		return gameInfo;
 	}
 	
-	// 유저 즐겨찾기 검색용. 특정 게임의 dto를 게임 이름으로 검색해 가져온다.
+	// (9) 유저 즐겨찾기 검색용. 특정 게임의 dto를 게임 이름으로 검색해 가져온다.
 	public GameDto getGameInfoByGname(String gname) {
 		GameDto gameInfo = null;
 		Connection conn = null;
@@ -390,9 +388,7 @@ public class GameDao {
 		return gameInfo;
 	}
 	
-	
-	
-	// 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
+	// (10) 특정 게임 리뷰 입장 / 게시판 페이지 입장 시, VIEW 수가 1씩 증가함.
 	public void gameViewUp(String gid) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -418,7 +414,7 @@ public class GameDao {
 		}
 	}
 	
-	// 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
+	// (11) 게임을 View 수 상위 10개까지 출력함. (우측 순위 표시용)
 	public ArrayList<GameDto> rightAreaViewTop10() {
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -457,7 +453,7 @@ public class GameDao {
 		}			
 		return lists;
 	}	
-	// (9) 게임을 최근 댓글이 남겨진 순서 top10으로 출력함. (우측 순위 표시용)
+	// (12) 게임을 최근 댓글이 남겨진 순서 top10으로 출력함. (우측 순위 표시용)
 	public ArrayList<GameDto> rightAreaNewReview() {
 		ArrayList<GameDto> lists = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -497,7 +493,7 @@ public class GameDao {
 		return lists;
 	}	
 	
-	// 검색 실행시 사용할 메소드 1 - 최신날짜순
+	// (13) 검색 실행시 사용할 메소드 1 - 최신날짜순
 	public ArrayList<GameDto> searchResultByDate(String query, int startRow, int endRow){
 		ArrayList<GameDto> list = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -547,7 +543,7 @@ public class GameDao {
 		}					
 		return list;
 	}
-	// 검색 사용시 사용하는 메소드 - 평점순
+	// (14) 검색 사용시 사용하는 메소드 - 평점순
 	public ArrayList<GameDto> searchResultByScore(String query, int startRow, int endRow){
 		ArrayList<GameDto> list = new ArrayList<GameDto>();
 		Connection conn = null;
@@ -598,7 +594,7 @@ public class GameDao {
 		return list;
 	}
 	
-	// 검색어가 들어간 게임의 숫자를 출력함.
+	// (15) 검색어가 들어간 게임의 숫자를 출력함.
 	public int getQueryGameCnt(String query) {
 		int queryGameCnt = 0;
 		Connection conn = null;
@@ -627,6 +623,5 @@ public class GameDao {
 			}
 		}		
 		return queryGameCnt;
-	}
-	
+	}	
 }

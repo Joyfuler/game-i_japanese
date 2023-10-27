@@ -26,5 +26,4 @@ public class WithdrawalService implements Service {
 			request.setAttribute("withdrawalResult", "로그인되어있지 않습니다");
 		}
 	}
-
 }

@@ -20,6 +20,7 @@ import project.gamei.service.MidConfirmService;
 import project.gamei.service.ModifyFavoriteListService;
 import project.gamei.service.ModifyFavoriteService;
 import project.gamei.service.ModifyGameSearchService;
+import project.gamei.service.ModifySearchWordService;
 import project.gamei.service.BoardSetFavoriteService;
 import project.gamei.service.TopMenuSetupService;
 import project.gamei.service.ReviewListService;
@@ -170,7 +171,7 @@ public class FrontController extends HttpServlet {
 			service = new WithdrawalService();
 			service.execute(request, response);
 			viewPage = "main.do";			
-		// 게시판 관련 영역	
+			// 게시판 관련 영역	
 		} else if (command.equals("/boardList.do")) {
 			service = new MainDisplayService(); 
 			service.execute(request, response);
@@ -217,6 +218,10 @@ public class FrontController extends HttpServlet {
 			service = new BoardReplyService();
 			service.execute(request, response);
 			viewPage = "boardList.do";
+		} else if (command.equals("/commentReplyView.do")) {
+			service = new CommentReplyViewService();
+			service.execute(request, response);
+			viewPage = "board/commentReplyView.jsp";			
 		} else if (command.equals("/commentWrite.do")) {
 			service = new CommentWriteService();
 			service.execute(request, response);
@@ -224,15 +229,12 @@ public class FrontController extends HttpServlet {
 		} else if (command.equals("/commentDelete.do")) {
 			service = new CommentDeleteService();
 			service.execute(request, response);
-			viewPage = "boardContent.do";
-		} else if (command.equals("/commentReplyView.do")) {
-			service = new CommentReplyViewService();
-			service.execute(request, response);
-			viewPage = "board/commentReplyView.jsp";	
+			viewPage = "boardContent.do";		
+			// 댓글의 댓글을 작성. (원 댓글의 정보를 가져온 후 댓글 작성 필요)
 		} else if (command.equals("/commentReply.do")) {
 			service = new CommentReplyService();
 			service.execute(request, response);
-			viewPage = "boardContent.do";
+			viewPage = "boardContent.do";		
 			// 유저 즐겨찾기 기능 관련 영역						
 		} else if (command.equals("/modifyFavoriteView.do")) {
 			service = new ModifyFavoriteListService();
@@ -295,6 +297,10 @@ public class FrontController extends HttpServlet {
 			service = new ArticleModifyService();
 			service.execute(request, response);
 			viewPage = "admin.do?idx=4";
+		} else if (command.equals("/modifySearchWord.do")) {
+			service = new ModifySearchWordService();
+			service.execute(request, response);
+			viewPage = "admin/modifySearchWordResult.jsp";
 		}
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
 		dispatcher.forward(request, response);

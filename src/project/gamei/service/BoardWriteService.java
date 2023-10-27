@@ -33,8 +33,7 @@ public class BoardWriteService implements Service {
 												new DefaultFileRenamePolicy());
 			Enumeration<String> params = mRequest.getFileNames();
 			String param = params.nextElement();
-			bimg = mRequest.getFilesystemName(param);
-			// mId, fTitle, fContent,  fileName, fIp
+			bimg = mRequest.getFilesystemName(param);			
 			HttpSession httpSession = request.getSession();
 			MemberDto member = (MemberDto)httpSession.getAttribute("member");
 			if(member!=null) {
@@ -47,11 +46,9 @@ public class BoardWriteService implements Service {
 				BoardDto boardDto = new BoardDto(0, btitle, bcontent, bimg, bip, gid, mid);
 				result = boardDao.writeBoard(gid, mid, boardDto);
 				// 글작성에 성공하든, 실패하든 gid 패러미터를 넘겨 viewPage에서 이동할 수 있도록 한다.
-				request.setAttribute("gid", gid);
-				
+				request.setAttribute("gid", gid);				
 				if(result == BoardDao.SUCCESS) {
-					request.setAttribute("boardWriteResult", "글쓰기 성공");
-					
+					request.setAttribute("boardWriteResult", "글쓰기 성공");					
 				}else {
 					request.setAttribute("boardWriteResult", "글쓰기 실패");
 				}

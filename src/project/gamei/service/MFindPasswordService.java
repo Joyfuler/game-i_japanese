@@ -25,5 +25,4 @@ public class MFindPasswordService implements Service {
 			request.setAttribute("findPasswordResult", "해당하는 정보가 존재하지 않습니다.");
 		}
 	}
-
 }

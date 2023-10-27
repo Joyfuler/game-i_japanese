@@ -53,5 +53,4 @@ public class ReviewListService implements Service {
 		request.setAttribute("pageCnt", pageCnt);
 		request.setAttribute("pageNum", currentPage);		
 	}
-
 }

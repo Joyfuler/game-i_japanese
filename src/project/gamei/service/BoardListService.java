@@ -17,11 +17,7 @@ public class BoardListService implements Service {
 			gid = (String)request.getAttribute("gid");
 		}
 		if (pageNum == null) {
-//			if (request.getAttribute("pageNum") != null ) {
-//				pageNum = (String) request.getAttribute("pageNum");
-//			} else {
-				pageNum = "1";
-//			}
+			pageNum = "1";
 		}
 		int currentPage = Integer.parseInt(pageNum);
 		final int PAGESIZE = 10; // 페이지 별 게시글 갯수
@@ -52,13 +48,16 @@ public class BoardListService implements Service {
 			int endPage = startPage + BLOCKSIZE - 1;
 			if (endPage > pageCnt) { // 총 15페이지밖에 없는데 20페이지를 표시 x, 15페이지까지만 표시하게
 				endPage = pageCnt;
-			}
+			}			
+			// 공지사항 게시판을 제외한 모든 게시판에, 공지사항 게시글의 상위 2개를 출력시킴.
+			request.setAttribute("noticeList", bDao.listBoard("notice", 1, 2));
+			
 			request.setAttribute("gid", gid);
-			request.setAttribute("BLOCKSIZE", BLOCKSIZE); // '이전' 을 출력할지를 확인 필요 (startPage가 BLOCKSIZE보다 크다면)
-			request.setAttribute("startPage", startPage); // 시작과 마지막 페이지도 전달.
+			request.setAttribute("BLOCKSIZE", BLOCKSIZE); 
+			request.setAttribute("startPage", startPage); 
 			request.setAttribute("endPage", endPage);
-			request.setAttribute("pageNum", currentPage); // 현재 페이지에서 a태그를 빼는 용도로 사용.
-			request.setAttribute("pageCnt", pageCnt); // '다음을 출력할지 확인 필요 (endPage가 pageCnt보다 작다면)
+			request.setAttribute("pageNum", currentPage); 
+			request.setAttribute("pageCnt", pageCnt);
 		}	
 }
 

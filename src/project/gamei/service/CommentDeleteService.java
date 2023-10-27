@@ -25,7 +25,5 @@ public class CommentDeleteService implements Service {
 		}
 		request.setAttribute("gid", gid);
 		request.setAttribute("bno", bno);
-
 	}
-
 }

@@ -17,16 +17,16 @@ public class CommentReplyService implements Service {
 		int bcgroup = bcDao.getOriginReplyInfo(bcno).getBcgroup();
 		int bcstep = bcDao.getOriginReplyInfo(bcno).getBcstep();
 		int bcindent = bcDao.getOriginReplyInfo(bcno).getBcindent();
-		// 이하 댓글을 작성한 회원 정보 및 댓글 정보.
+		// 이하 대댓글을 작성할 회원 정보와 작성할 댓글 정보.
 		String mid = request.getParameter("mid");
 		String bctext = request.getParameter("bctext");
 		String bcip = request.getRemoteAddr();		
 		Board_CommentDto dto = new Board_CommentDto(bctext, bcip, bcgroup, bcstep, bcindent, mid);
 		int result = bcDao.replyComment(bno, dto);
 		if (result == Board_CommentDao.SUCCESS) {
-			request.setAttribute("commentReplyResult", "댓글 작성이 완료되었습니다");
+			request.setAttribute("commentReplyResult", "대댓글 작성이 완료되었습니다");
 		} else {
-			request.setAttribute("commentReplyResult", "댓글 작성 실패");
+			request.setAttribute("commentReplyResult", "대댓글 작성 실패");
 		}
 	}
 }

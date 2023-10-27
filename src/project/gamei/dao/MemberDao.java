@@ -75,7 +75,6 @@ public class MemberDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String sql = "SELECT COUNT(*) CNT FROM MEMBER WHERE MEMAIL = ?";
-
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);
@@ -321,7 +320,7 @@ public class MemberDao {
 		return totCnt;
 	}
 	
-	// (9) 회원 차단 기능. mlevel이 -2가 된 유저는 게시글 / 댓글 작성이 불가능함.
+	// (9) 회원 차단 기능. mlevel이 -2가 된 유저는 차단 유저로, 게시글 / 댓글 작성이 불가능함.
 	public int setMemberBlock(int mlevel, String mid) {
 		int result = FAIL;
 		Connection conn = null;

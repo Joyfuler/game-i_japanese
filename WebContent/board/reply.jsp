@@ -49,7 +49,9 @@
 <section class="notice">
   <div class="page-title">
         <div class="write_title">
-            <h3 style = "text-align:left;"><img src = "${conPath }/img/${replyFormInfo.gicon }" height = "44px"><b> ${replyFormInfo.gname } - 답변글 작성</b></h3>         
+            <h3 style = "text-align:left;">
+            	<img src = "${conPath }/img/${replyFormInfo.gicon }" height = "44px"><b> ${replyFormInfo.gname } - 답변글 작성</b>
+            </h3>         
         </div>
   </div>
   <div id="contents">
@@ -68,10 +70,10 @@
 							<tbody>
 								<tr>
 									<td rowspan="2" style = "text-align: center;"> <img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "45px">																																									
-									<b>&nbsp;&nbsp;글제목 &nbsp;</b>
+										<b>&nbsp;&nbsp;글제목 &nbsp;</b>
 									</td>
 									<td rowspan="2">
-									<input id="btitle" name="btitle" class = "writeInput" maxlength="100" tabindex="2"
+										<input id="btitle" name="btitle" class = "writeInput" maxlength="100" tabindex="2"
 										type="text" value = "re: ${originInfo.btitle }">										
 									</td>
 								</tr>
@@ -79,20 +81,21 @@
 								</tr>
 								<tr>
 									<th>글내용 </th>
-									<td><textarea cols="30" rows="15" maxlength="4000" name = "bcontent"></textarea>										
+									<td>
+										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent"></textarea>										
 									</td>
 								</tr>								
 								<tr>
 									<th>사진추가</th>
 									<td>
-									<input type = "file" name = "bimg" onchange = "checkFileType(this)"><img id = "uploadedImg" height = "44px">
+										<input type = "file" name = "bimg" onchange = "checkFileType(this)"><img id = "uploadedImg" height = "44px">
 									</td>
 								</tr>
 								<tr>
 									<td colspan= "3">
-									<input type = "submit" name = "writeButton" value = "글작성" style = "margin-left: 400px;"> 
-									<input type = "button" value = "뒤로가기" style = "margin-left: 10px;" onclick = "history.back()"> 
-									<input type = "button" value = "글목록" onclick = "location.href='${conPath }/board/list.do?gid=${replyForminfo.gid }'" style = "margin-left: 10px;"> 
+										<input type = "submit" name = "writeButton" value = "글작성" style = "margin-left: 400px;"> 
+										<input type = "button" value = "뒤로가기" style = "margin-left: 10px;" onclick = "history.back()"> 
+										<input type = "button" value = "글목록" onclick = "location.href='${conPath }/board/list.do?gid=${replyForminfo.gid }'" style = "margin-left: 10px;"> 
 									</td>
 							</tbody>
 						</table>

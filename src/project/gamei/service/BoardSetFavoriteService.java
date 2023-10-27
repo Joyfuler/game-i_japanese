@@ -12,6 +12,7 @@ public class BoardSetFavoriteService implements Service {
 		String mid = request.getParameter("mid");
 		String gid = request.getParameter("gid");
 		FavoriteDao fDao = FavoriteDao.getInstance();
+		// 먼저 해당 게시판 (gid)가 이미 추가되어 있는지를 확인 후, 없다면 추가 / 있다면 제거.
 		int count = fDao.favoriteConfirm(gid, mid);
 		int result = FavoriteDao.FAIL;
 		if (count == 0) {

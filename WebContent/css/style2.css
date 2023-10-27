@@ -354,8 +354,7 @@ div.m-right_gameRank ul li.rank-chagne {
 
 .m-right_favorite ul li {
 	display: flex;
-	align-items: center;
-	white-space: nowrap;
+	align-items: center;	
 	overflow: hidden;
 }
 

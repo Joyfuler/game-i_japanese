@@ -89,7 +89,7 @@ public class BoardDao {
 		return list;
 	}
 	
-	// (1) 특정 gid의 게시글의 총 숫자가 몇 개인지를 셈. 페이징을 위한 count
+	// (2) 특정 gid의 게시글의 총 숫자가 몇 개인지를 셈. 페이징을 위한 count
 	public int boardCntByGid(String gid) {
 		int boardCnt = 0;
 		Connection conn = null;
@@ -120,7 +120,7 @@ public class BoardDao {
 		return boardCnt;
 	}
 	
-	// (2) 게시판 검색. 제목 검색 기능.
+	// (3) 게시판 검색. 제목 검색 기능.
 	public ArrayList<BoardDto> listBoardBySearchTitle(String searchWord, String gid, int startRow, int endRow) {
 		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
 		Connection conn = null;
@@ -177,7 +177,7 @@ public class BoardDao {
 		return list;
 	}
 	
-	// (3) 타이틀로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
+	// (4) 타이틀로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
 	public int boardCntByGidSearchByTitle(String searchWord, String gid) {
 		int boardCnt = 0;
 		Connection conn = null;
@@ -210,7 +210,7 @@ public class BoardDao {
 	}
 	
 	
-	// (4) 글 작성자로 검색기능.
+	// (5) 글 작성자로 검색기능.
 	public ArrayList<BoardDto> listBoardBySearchWriter(String searchWord, String gid, int startRow, int endRow) {
 		ArrayList<BoardDto> list = new ArrayList<BoardDto>();
 		Connection conn = null;
@@ -267,7 +267,7 @@ public class BoardDao {
 		return list;
 	}
 	
-	// (5) 글 작성자로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
+	// (6) 글 작성자로 검색했을 때의 페이지 수를 셈. 페이징 처리를 위함
 	public int boardCntByGidSearchByWriter(String searchWord, String gid) {
 		int boardCnt = 0;
 		Connection conn = null;
@@ -325,7 +325,7 @@ public class BoardDao {
 		}
 	}
 		
-	// (6) 게시글 상세보기를 위해, 특정 BNO의 DTO를 가져옴. 게임 정보와 회원 정보를 포함.
+	// (7) 게시글 상세보기를 위해, 특정 BNO의 DTO를 가져옴. 게임 정보와 회원 정보를 포함.
 	public BoardDto getBoardContent(String gid, int bno) {
 		BoardDto dto = null;
 		Connection conn = null;
@@ -376,7 +376,7 @@ public class BoardDao {
 		return dto;
 	}		
 	
-	// (7) 특정 게시판에 원글을 작성.
+	// (8) 특정 게시판에 원글을 작성.
 	public int writeBoard(String gid, String mid, BoardDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -410,7 +410,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	// (8) 특정 게시글을 수정. bno와 dto가 필요.
+	// (9) 특정 게시글을 수정. bno와 dto가 필요.
 	public int modifyBoard(int bno, BoardDto dto) {
 		int result = FAIL;
 		Connection conn = null;
@@ -443,7 +443,7 @@ public class BoardDao {
 		return result;
 	}
 	
-	// (9) 특정 게시물 삭제. bno가 필요.
+	// (10) 특정 게시물 삭제. bno가 필요.
 	public int deleteBoard(int bno) {
 		int result = FAIL;
 		Connection conn = null;
@@ -470,7 +470,7 @@ public class BoardDao {
 		return result;
 	}	
 	
-	// (10) 답변글 작성 전, bgroup이 같고 bstep이 원글보다 큰 (답변글인) 게시글들의 bstep과 bindent를 조정함.
+	// (11) 답변글 작성 전, bgroup이 같고 bstep이 원글보다 큰 (답변글인) 게시글들의 bstep과 bindent를 조정함.
 	private void preReplyBoardStep(int bgroup, int bstep) {
 		Connection        conn  = null;
 		PreparedStatement pstmt = null;
@@ -493,7 +493,7 @@ public class BoardDao {
 		}
 	}
 	
-	// (11) 답변글을 작성.
+	// (12) 답변글을 작성.
 	public int replyBoard(String gid, String mid, BoardDto dto) {
 		int result = FAIL;
 		preReplyBoardStep(dto.getBgroup(), dto.getBstep());
@@ -529,7 +529,5 @@ public class BoardDao {
 			}
 		}
 		return result;
-	}
-	
-	
+	}	
 }

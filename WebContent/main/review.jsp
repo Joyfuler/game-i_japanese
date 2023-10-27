@@ -233,7 +233,7 @@
 				</span>
 			</li>			
 			<li class = "text" style = "font-size: 0.9em;"> ${reviewInfo.rtext }&nbsp;&nbsp;
-			<c:if test = "${member.mid eq reviewInfo.mid }">
+			<c:if test = "${member.mid eq reviewInfo.mid or member.mlevel eq 1}">
 			<br>
 			<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[삭제]</a>
 			</c:if>

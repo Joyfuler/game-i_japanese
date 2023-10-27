@@ -33,7 +33,6 @@ public class ReviewDao {
 		}
 	}
 	
-	// review.jsp에서 출력되는 순서대로 입력함.
 	// (1) 평점을 남긴 총 인원수와 각 별점별 인원수를 출력하는 용도.
 	public ReviewDto getScoreByGid(String gid) {
 		ReviewDto scoreInfo = null;
@@ -84,7 +83,7 @@ public class ReviewDao {
 		return scoreInfo;
 	}
 	
-	// (2) 특정 gid의 리뷰 목록을 출력한다. 한 페이지당 5개씩 출력되며 유저의 정렬순 입력에 따라 정렬방식이 달라짐.
+	// (2) 특정 gid의 리뷰 목록을 출력한다. 한 페이지당 5개씩 출력되며 유저의 정렬순서 선택에 따라 정렬방식이 달라짐.
 	public ArrayList<ReviewDto> reviewListSortByScore(String gid, int startRow, int endRow){
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
 		Connection conn = null;
@@ -127,7 +126,7 @@ public class ReviewDao {
 		return list;
 	}
 	
-	// (2) 특정 gid의 리뷰 목록을 출력한다. 한 페이지당 5개씩 출력되며 유저의 정렬순 입력에 따라 정렬방식이 달라짐.
+	// (2-1) 특정 gid의 리뷰 목록을 출력한다. 한 페이지당 5개씩 출력되며 유저의 정렬순서 선택에 따라 정렬방식이 달라짐.
 	public ArrayList<ReviewDto> reviewListSortByDate(String gid, int startRow, int endRow){
 		ArrayList<ReviewDto> list = new ArrayList<ReviewDto>();
 		Connection conn = null;
@@ -168,9 +167,7 @@ public class ReviewDao {
 			}
 		}		
 		return list;
-	}
-	
-	
+	}	
 	
 	// (3) 리뷰를 등록
 	public int writeReview(ReviewDto dto) {
@@ -230,7 +227,7 @@ public class ReviewDao {
 		return result;
 	}	
 	
-	// (5) 특정 유저가 특정 게임에 남긴 가장 최근 리뷰를 가져옴. 시간을 비교해 DATE가 동일하다면 리뷰를 작성하지 못함.
+	// (5) 특정 유저가 특정 게임에 남긴 가장 최근 리뷰를 가져옴. 시간을 비교해 DATE가 동일하다면 리뷰를 작성하지 못함. (하루 1개)
 	public ReviewDto getUserReviewWriteDate (String mid, String gid){
 		ReviewDto reviewInfo = null;
 		Connection conn = null;

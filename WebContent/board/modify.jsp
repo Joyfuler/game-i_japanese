@@ -46,7 +46,6 @@
 <body>
 <jsp:include page="../main/header.jsp"/>
 <jsp:include page="../main/rightArea.jsp"/>
-<!-- 게임 정보 표시와 원글의 정보 표시를 위해 writeForminfo, boardContent를 각각 가져온다. -->
 <section class="notice">
 	<div class="page-title">
         <div class="write_title">
@@ -57,18 +56,19 @@
 		<div class="article">						
 			<div class="gray_frame">				
 				<form action = "${conPath }/boardModify.do" method="post" enctype = "multipart/form-data">
-				<input type = "hidden" name = "gid" value = "${param.gid }">
-				<input type = "hidden" name = "mid" value = "${member.mid }">
-				<input type = "hidden" name = "bno" value = "${param.bno }">
-				<input type = "hidden" name = "pageNum" value = "${param.pageNum }">
-				<input type = "hidden" name = "next" value = "boardContent.do?gid=${param.gid }&bno=${param.bno }&pageNum=${param.pageNum }">
-				<input type = "hidden" name = "dbBimg" value = "${originInfo.bimg }">					
+					<input type = "hidden" name = "gid" value = "${param.gid }">
+					<input type = "hidden" name = "mid" value = "${member.mid }">
+					<input type = "hidden" name = "bno" value = "${param.bno }">
+					<input type = "hidden" name = "pageNum" value = "${param.pageNum }">
+					<input type = "hidden" name = "next" value = "boardContent.do?gid=${param.gid }&bno=${param.bno }&pageNum=${param.pageNum }">
+					<input type = "hidden" name = "dbBimg" value = "${originInfo.bimg }">					
 					<div class = "writeForm">
 						<table class="board-table">							
 							<tbody>
 								<tr>
-									<td rowspan="2" style = "text-align: center;"> <img src = "${conPath }/memberPhotoUp/${originInfo.mphoto }" height = "45px">																																									
-										<b>&nbsp;&nbsp;글제목 &nbsp;</b>
+									<td rowspan="2" style = "text-align: center;"> 
+									<img src = "${conPath }/memberPhotoUp/${originInfo.mphoto }" height = "45px">																																									
+									<b>&nbsp;&nbsp;글제목 &nbsp;</b>
 									</td>
 									<td rowspan="2">
 										<input id="btitle" name="btitle" class = "writeInput" maxlength="100" tabindex="2"
@@ -79,19 +79,20 @@
 								</tr>
 								<tr>
 									<th>글내용 </th>
-									<td><textarea cols="30" rows="15" maxlength="4000" name = "bcontent">${originInfo.bcontent }</textarea>										
+									<td>
+										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent">${originInfo.bcontent }</textarea>										
 									</td>
 								</tr>								
 								<tr>
 									<th>사진변경</th>
 									<td>
 										<input type = "file" name = "bimg" accept=".jpg, .jpeg, .png, .gif" onchange = "checkFileType(this)">
-									<c:if test = "${not empty originInfo.bimg }">
-										<img id = "uploadedImg" height = "44px" src = "${conPath }/memberPhotoUp/${originInfo.bimg }">
-									</c:if>
+										<c:if test = "${not empty originInfo.bimg }">
+											<img id = "uploadedImg" height = "44px" src = "${conPath }/memberPhotoUp/${originInfo.bimg }">
+										</c:if>
 										<c:if test = "${empty originInfo.bimg }">
-									<img id = "uploadedImg" height = "44px">
-									</c:if>
+											<img id = "uploadedImg" height = "44px">
+										</c:if>
 									</td>
 								</tr>
 								<tr>

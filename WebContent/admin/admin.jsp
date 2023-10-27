@@ -128,8 +128,8 @@
 					$('.gidSearchResult').text( '게임명:' + data[0].gname + ' / ' + '개발사:' + data[0].gpub);
 				},	
 			});
-		});
-		<%-- --%>
+		});		
+		
 		$('.articleImg').click(function(){
 			var artid = $(this).data('id');
 			var link1 = $(this).siblings('span.articleId').data('id');
@@ -138,9 +138,23 @@
 			$('.link1').val(link1);
 			$('.preview').attr('src', imgSrc);
 			$('.dbimg1').val(imgSrc.split('/').pop());
-		});		
-	});
-	
+		});
+		
+		$('.searchWordModify').click(function(){
+			var sid = $(this).parent().find('input[name="sintro"]').data('id');
+			var sintro = $(this).parent().find('input[name="sintro"]').val();
+			var sword = $(this).parent().find('input[name="sword"]').val();
+			$.ajax({
+				url: '${conPath }/modifySearchWord.do',
+				type : 'POST',
+				data : {sid : sid, sintro : sintro, sword : sword},
+				dataType : 'html',
+				success : function(data){
+					alert(data);
+				},
+			});
+		});	
+	});	
 	</script>
 </head>
 <body>	
@@ -160,7 +174,7 @@
 	    	<li><a href="#tabs-2">신규 게임 추가</a></li>
 	    	<li><a href="#tabs-3">게임정보 변경</a></li>
 	    	<li><a href="#tabs-4">관리자 추가/제거</a></li>
-	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>
+	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>	    	
 	  </ul>
 	  <div id="tabs-1">
 	    <p>
@@ -172,7 +186,7 @@
 			</tr>
 			<c:forEach var = "list" items = "${memberList }">
 			<tr>
-				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${list.mphone }</td>
+				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${empty list.mphone? "번호없음" : list.mphone }</td>
 				<td><img src = "${conPath}/memberPhotoUp/${list.mphoto }" height= "25px"></td>
 				<td>${list.mlevel eq 1 ? "관리자" : (list.mlevel eq 0? "일반회원": "탈퇴회원")}</td>
 				<c:if test = "${list.mlevel eq 0 }">
@@ -312,8 +326,12 @@
 			</tr>
 			<c:forEach var = "gameLists" items = "${gameList }">
 			<tr>
-				<td> ${gameLists.gid }</td><td>${gameLists.gname }</td><td>${gameLists.ggenre }</td><td>${gameLists.gpub }</td>
-				<td><img src = "${conPath}/img/${gameLists.gicon }" height= "25px"></td><td>${gameLists.gpdate }</td><td>${gameLists.gviewCount }</td>
+				<td> 
+					${gameLists.gid }</td><td>${gameLists.gname }</td><td>${gameLists.ggenre }</td><td>${gameLists.gpub }
+				</td>
+				<td>
+					<img src = "${conPath}/img/${gameLists.gicon }" height= "25px"></td><td>${gameLists.gpdate }</td><td>${gameLists.gviewCount }
+				</td>
 			</tr>
 			</c:forEach>
 		</table>		
@@ -397,7 +415,7 @@
 	    				<form action = "${conPath }/topMenuSetup.do">
 	    				<input type = "hidden" name = "method" value = "remove">
 	    				<input type = "text" id= "removeMenuGname">
-	    				<input type = "text" id = "removeMenuGid" name = "gid"><input type = "submit" value = "내리기">	    				
+	    				<input type = "text" id = "removeMenuGid" name = "gid" readonly="readonly"><input type = "submit" value = "내리기">	    				
 	    				</form>
 	    			</td>
 	    		</tr>	    		
@@ -417,7 +435,7 @@
 	    		<tr>
 	    			<td>		
 	    				<c:if test = "${topGameList.size() >= 18 }">
-	    				<input type = "button" value = "올리기"><br><br>
+	    				<input type = "button" value = "올리기" style = "color: gray;"><br><br>
 	    				<b style = "color: red;">(상단 게임 목록은  <br>
 	    				최대 18개까지만 등록됩니다) </b>
 	    				</c:if>
@@ -435,14 +453,16 @@
 	    	<table>
 	    		<tr>
 	    			<th>
-	    			상단 이미지 영역 설정 <br>(클릭해 변경할 기사를 선택 -<br>사이즈는 265 x 400으로 통일해주세요)
+	    				상단 이미지 영역 설정 <br>(클릭해 변경할 기사를 선택 -<br>사이즈는 265 x 400으로 통일해주세요)
 	    			</th>
 	    		</tr>
 	    		<tr>
 	    			<c:set var= "idx" value="1"/>
 	    			<c:forEach var="articles" items="${articleList }">	    				    		
-	    				<td>이미지${idx }<br><img data-id= "${articles.artid }" src = "${conPath }/img/${articles.img1 }" class = "articleImg"><br>
-	    					게시판아이디 : <span data-id = "${articles.link1}" class = "articleId">${articles.link1 }</span></td>
+	    				<td>
+	    					이미지${idx }<br><img data-id= "${articles.artid }" src = "${conPath }/img/${articles.img1 }" class = "articleImg"><br>
+	    					게시판아이디 : <span data-id = "${articles.link1}" class = "articleId">${articles.link1 }</span>
+	    				</td>
 	    			<c:set var = "idx" value = "${idx +1 }"/>	 
 	    			</c:forEach>	    			
 	    		</tr>
@@ -463,11 +483,30 @@
 	    				<input type = "hidden" name = "dbimg1" class = "dbimg1">
 	    			</td>
 	    			<td>	    			
-	    			<input type = "submit" value = "기사 변경">
+	    				<input type = "submit" value = "기사 변경">
 	    			</td>
 	    		</tr>		
 	    	</table>
-	    </form>
+	    </form>	    
+	    	<table>
+	    		<tr>
+	    			<th> 상단 검색어 편집 </th>
+	    		</tr>	    		
+	    			<c:set var= "idx" value="1"/>
+	    			<c:forEach var="searchWord" items="${searchWordList }">
+	    				<tr>	    				    		
+	    					<td>
+	    						${idx }번 문구 <br><input type = "text" name = "sintro" data-id="${idx }" value = "${searchWord.sintro }"><br><br>
+	    						${idx }번 검색어<br><input type = "text" name = "sword" value = "${searchWord.sword }"><br><br>
+	    						<input type = "button" value = "변경" style = "width: 250px;" class = "searchWordModify">
+	    					</td>
+	    				</tr>
+	    				<tr>
+	    					<td><hr></td>
+	    				</tr>		    				
+	    			<c:set var = "idx" value = "${idx +1 }"/>	 
+	    			</c:forEach>
+	    	</table>
 	  </div>
 	</div>
 </body>

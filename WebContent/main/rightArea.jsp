@@ -70,7 +70,7 @@
     	<p class="favorite_title">&nbsp;&nbsp;내 즐겨찾기</p>    		
     			<c:if test = "${rightAreaFavoriteList.size() eq 0 }">
                 <ul style = "padding: 5px !important;">
-                	<li style = "text-align: center;"><span>즐겨찾기 없음</span></li>
+                	<li style = "text-align: center; font-size:0.85em;"><span>즐겨찾기 없음</span></li>
                 </ul>                
                 </c:if>
                 <c:if test = "${rightAreaFavoriteList.size() != 0 }">
@@ -81,8 +81,13 @@
     	      			</li>    	
         	  		</ul>
             	    </c:forEach>
-            	</c:if>                	    
-            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>                
+            	</c:if>
+            	<c:if test = "${empty member }">
+            		<a href = "${conPath }/loginView.do?next=modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>
+            	</c:if>     
+            	<c:if test = "${not empty member }">           	    
+            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>
+            	</c:if>                    
 	</div>
 </div>	
 </body>

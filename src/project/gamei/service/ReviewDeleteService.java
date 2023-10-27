@@ -23,9 +23,9 @@ public class ReviewDeleteService implements Service {
 			int rid = Integer.parseInt(ridStr);		
 			ReviewDao rDao = ReviewDao.getInstance();
 			int result = rDao.deleteReview(rid);
-				if (result == ReviewDao.SUCCESS) {
-					request.setAttribute("reviewDeleteResult", "리뷰가 삭제되었습니다.");	
-				}
+			if (result == ReviewDao.SUCCESS) {
+				request.setAttribute("reviewDeleteResult", "리뷰가 삭제되었습니다.");	
+			}
 		}
 	}
 }

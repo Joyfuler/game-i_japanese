@@ -15,7 +15,7 @@ public class BoardContentService implements Service {
 		int bno = 0;		
 		String pageNumStr = request.getParameter("pageNum");
 		int pageNum = 1;
-		if(gid == null) {
+		if (gid == null) {
 			gid = (String)request.getAttribute("gid");
 		}
 		if (bnoStr == null) {
@@ -29,8 +29,7 @@ public class BoardContentService implements Service {
 			pageNum = 1;
 		} else {
 			pageNum = Integer.parseInt(pageNumStr);
-		}
-		
+		}		
 		
 		BoardDao bDao = BoardDao.getInstance();
 		Board_CommentDao bcDao = Board_CommentDao.getInstance();

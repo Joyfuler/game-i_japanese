@@ -42,7 +42,7 @@
 <script>
 		$(document).ready(function(){
 			$('.replyComment').click(function(){				
-				var bcno = $(this).attr('id');					
+			var bcno = $(this).attr('id');					
 				$.ajax({
 					url : '${conPath }/commentReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&bcno='+bcno,
 					type : 'get',
@@ -64,19 +64,19 @@
 <jsp:include page="../main/header.jsp"/>
 <jsp:include page="../main/rightArea.jsp"/>
 <c:if test="${not empty boardModifyResult }">
-		<script>
+	<script>
 		alert('${boardModifyResult }');
-		</script>
+	</script>
 </c:if>
 <c:if test="${not empty commentDeleteResult }">
-		<script>
+	<script>
 		alert('${commentDeleteResult }');
-		</script>
+	</script>
 </c:if>
 <c:if test = "${not empty commentReplyResult }">
-		<script>
+	<script>
 		alert('${commentReplyResult}');
-		</script>
+	</script>
 </c:if>		
 <section class="notice">
   <div class="page-title">
@@ -102,10 +102,11 @@
                     	<td class = "title-cell">
 	                    	<b>조회수: ${boardContent.bhit } </b><br>
     	                	<b>댓글  (${totCnt }) </b>
+    	                </td>	
         	        </tr>
             	    <tr>
                 		<td>
-	                	글제목
+	                		글제목
     	            	</td>
                     	<td colspan="2" class="content-cell">                                                
                         	<b>${boardContent.btitle }</b>
@@ -113,11 +114,11 @@
                 	</tr>
                 	<tr>
                 		<td>
-                		글내용
+                			글내용
                 		</td>
                     	<td colspan="3" class="content-cell" height="200px">
                     		<img src = "${conPath }/img/${boardContent.bimg }" id = "uploadedImg" width = "500px"><br>
-                        	<span style = "font-size: 15px;">${boardContent.bcontent }</span>
+                        	<pre><span style = "font-size: 15px;">${boardContent.bcontent }</span></pre>
                     	</td>
                 	</tr>
                	</table>
@@ -139,26 +140,26 @@
 									<c:if test="${i!= boardComments.bcindent }"> 
 									&nbsp; &nbsp; 
 									</c:if>
-						</c:forEach>                    	
+								</c:forEach>                    	
                         		<img src="${conPath }/memberPhotoUp/${boardComments.mphoto }" alt="${boardComments.mnickname } 프로필사진" height = "72px" onerror="noImage(this)">                        		
 	                        	<br>
 	                        	<c:forEach var="i" begin="1" end="${boardComments.bcindent }">									 
 									&nbsp; &nbsp; 
 								</c:forEach>
 								<c:if test = "${boardComments.mlevel eq 0}">	
-	                        	<span>${boardComments.mnickname }</span><br>
+	                        		<span>${boardComments.mnickname }</span><br>
 	                        	</c:if>
 	                        	<c:if test = "${boardComments.mlevel eq 1}">	
-	                        	<span style = "color: red;">${boardComments.mnickname }</span><br>
+	                        		<span style = "color: red;">${boardComments.mnickname }</span><br>
 	                        	</c:if>	                        	
 	                        	<c:if test = "${empty member }">
-    	                    	<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">답글</a>
+    	                    		<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">답글</a>
     	                    	</c:if>
     	                    	<c:if test = "${not empty member and member.mlevel eq -2 }">
-    	                    	<a style = "padding-left: 25px;" onclick = "blockUserAlert()" >답글</a>
+    	                    		<a style = "padding-left: 25px;" onclick = "blockUserAlert()" >답글</a>
     	                    	</c:if>
 	                        	<c:if test = "${not empty member }">
-    	                    	<a id = "${boardComments.bcno }" class = "replyComment" style = "padding-left: 25px;">답글</a>
+    	                    		<a id = "${boardComments.bcno }" class = "replyComment" style = "padding-left: 25px;">답글</a>
     	                    	</c:if>
     	                    	<c:if test= "${member.mid eq boardComments.mid }">
     	        	            	<a href = "${conPath }/commentDelete.do?gid=${boardContent.gid }&bno=${boardContent.bno }&bcno=${boardComments.bcno }" style = "padding-left: 25px;">삭제</a>
@@ -174,8 +175,7 @@
             	     </tr>
             	     <tr>            	     
             	     <%-- 댓글의 댓글 부분 --%>  	
-            	        	<td class = "replySpace${boardComments.bcno }" colspan="3"> 
-            	        	
+            	        	<td class = "replySpace${boardComments.bcno }" colspan="3">            	        	
             	        	</td>
             	     </tr>   	
             	        </c:if>	  
@@ -211,22 +211,32 @@
             				<textarea id = "bctext" name = "bctext" cols= "70" rows = "4" maxlength= "300"></textarea>
             			</td>
             			<td>
-            			<c:if test = "${empty member }">
-            				<input type = "button" value = "댓글작성" onclick = "location.href='${conPath}/loginView.do?next=boardList.do?gid=${boardContent.gid }'">
-            			</c:if>
-            			<c:if test = "${not empty member and member.mlevel eq -2 }">
-            				<input type = "button">(차단유저)
-            			</c:if>
-            			<c:if test = "${not empty member }">
-            				<input type = "submit" value = "댓글작성">
-            			</c:if>
+            				<c:if test = "${empty member }">
+            					<input type = "button" value = "댓글작성" onclick = "location.href='${conPath}/loginView.do?next=boardList.do?gid=${boardContent.gid }'">
+            				</c:if>
+            				<c:if test = "${not empty member and member.mlevel eq -2 }">
+            					<input type = "button">(차단유저)
+            				</c:if>
+            				<c:if test = "${not empty member }">
+            					<input type = "submit" value = "댓글작성">
+            				</c:if>
+            			</td>
+            		</tr>		
             	</table>
             </form>
           </div>
        </div>
        <div class = "button-container"> 
         	<button style="margin-top: 5px; margin-left: 640px; position: absolute;" onclick = "location.href='${conPath}/boardList.do?gid=${boardContent.gid }&pageNum=${pageNum }'">게시글목록</button>
-        	<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        	<c:if test = "${empty member and param.gid != 'notice'}">
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/loginView.do?next=boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        	</c:if>        	
+        	<c:if test = "${not empty member and param.gid != 'notice'}">
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        	</c:if>
+        	<c:if test = "${not empty member and param.gid eq 'notice' and member.mlevel eq 1 }">
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        	</c:if>
         	<c:if test = "${member.mid eq boardContent.mid or member.mlevel eq 1}">
         		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" onclick = "location.href='${conPath}/boardModifyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">게시글수정</button>
         		<button style="margin-top: 5px; margin-left: 970px; position: absolute;" onclick = "removeConfirm()">게시글삭제</button>                

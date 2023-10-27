@@ -17,7 +17,7 @@ public class ModifyFavoriteService implements Service {
 		int count = 0;
 		int result = FavoriteDao.FAIL;
 		if (method.equals("add")) {
-			// 만일 추가하기 전에 이미 즐겨찾기가 추가되어 있다면 추가하지 않도록 함.
+			// 만일 추가하기 전에 해당 게임이 이미 즐겨찾기가 추가되어 있다면 추가하지 않도록 함.
 			existent = fDao.favoriteConfirm(gid, mid);
 			if (existent == 1) {
 				request.setAttribute("modifyResult", "이미 즐겨찾기에 추가되어 있습니다");
@@ -35,6 +35,7 @@ public class ModifyFavoriteService implements Service {
 			} else {
 				request.setAttribute("modifyResult", "즐겨찾기 수정 실패");
 			}
+			// method가 add가 아닌 경우, 즉 삭제시
 		} else {
 			result = fDao.deleteFavorite(gid, mid);
 			if (result == FavoriteDao.SUCCESS) {

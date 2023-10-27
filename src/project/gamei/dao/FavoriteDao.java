@@ -34,7 +34,7 @@ public class FavoriteDao {
 		}
 	}
 
-	// 특정 멤버의 즐겨찾기 목록을 출력. 게임 정보에는 게임 이름과 게임 아이콘이 함께 필요함.
+	// 1) 특정 멤버의 즐겨찾기 목록을 출력. 게임 정보에는 게임 이름과 게임 아이콘이 함께 필요함.
 	public ArrayList<FavoriteDto> getFavoriteList(String mid) {
 		ArrayList<FavoriteDto> list = new ArrayList<FavoriteDto>();
 		Connection conn = null;
@@ -73,7 +73,7 @@ public class FavoriteDao {
 		return list;
 	}
 
-	// 특정 멤버가 즐겨찾기 목록을 추가할 때의 메소드.
+	// 2) 특정 멤버가 즐겨찾기 목록을 추가할 때의 메소드.
 	public int insertFavorite(String gid, String mid) {
 		int result = FAIL;
 		Connection conn = null;
@@ -101,7 +101,7 @@ public class FavoriteDao {
 		return result;
 	}
 
-	// 특정 멤버가 즐겨찾기 목록을 삭제할 때의 메소드.
+	// 3) 특정 멤버가 즐겨찾기 목록을 삭제할 때의 메소드.
 	public int deleteFavorite(String gid, String mid) {
 		int result = FAIL;
 		Connection conn = null;
@@ -129,7 +129,7 @@ public class FavoriteDao {
 		return result;
 	}
 
-	// 즐겨찾기를 추가할지, 삭제할지 나누기 위해 해당 회원 + 게시판 즐겨찾기 여부 확인작업.
+	// 4) 즐겨찾기를 추가할지, 삭제할지 나누기 위해 해당 회원 + 게시판 즐겨찾기 여부 확인작업.
 	public int favoriteConfirm(String gid, String mid) {
 		int count = 0;
 		Connection conn = null;
@@ -161,7 +161,7 @@ public class FavoriteDao {
 		return count;
 	}
 
-	// 현재 등록된 즐겨찾기가 몇 개인지를 확인하는 작업.
+	// 5) 현재 등록된 즐겨찾기가 몇 개인지를 확인하는 메소드.
 	public int countFavoriteList(String mid) {
 		int count = 0;
 		Connection conn = null;
