@@ -174,7 +174,8 @@
 	    	<li><a href="#tabs-2">신규 게임 추가</a></li>
 	    	<li><a href="#tabs-3">게임정보 변경</a></li>
 	    	<li><a href="#tabs-4">관리자 추가/제거</a></li>
-	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>	    	
+	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>	
+	    	<li><a href ="#tabs-6">신고 게시글 관리</a></li>    	
 	  </ul>
 	  <div id="tabs-1">
 	    <p>
@@ -188,7 +189,7 @@
 			<tr>
 				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${empty list.mphone? "번호없음" : list.mphone }</td>
 				<td><img src = "${conPath}/memberPhotoUp/${list.mphoto }" height= "25px"></td>
-				<td>${list.mlevel eq 1 ? "관리자" : (list.mlevel eq 0? "일반회원": "탈퇴회원")}</td>
+				<td>${list.mlevel eq 1 ? "관리자" : (list.mlevel eq 0? "일반회원": (list.mlevel eq -2 ? "차단회원" : "탈퇴회원"))}</td>
 				<c:if test = "${list.mlevel eq 0 }">
 					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 차단</button></td>
 				</c:if>
@@ -507,6 +508,29 @@
 	    			<c:set var = "idx" value = "${idx +1 }"/>	 
 	    			</c:forEach>
 	    	</table>
+	  </div>
+	  
+	  <div id = "tabs-6">
+	  <!-- 마지막 영역 - 신고 게시글 관리 -->
+	  <span>신고된 게시글 리스트</span>
+	    <table>	    	
+			<tr style = "border-bottom: 1px solid gray;">
+				<th> 게시글제목 </th><th> 게시글내용 </th><th>등록일</th><th>작성자ID</th><th>신고자아이디</th><th>신고사유</th><th>신고일</th><th>게시글삭제</th><th>링크</th>
+			</tr>				
+			<c:forEach var = "reportLists" items = "${reportList}">
+			<tr>	
+				<td>${reportLists.btitle }</td>
+				<td class = "overflow-ellipsis">${reportLists.bcontent }</td>
+				<td>${reportLists.brdate }</td>
+				<td>${reportLists.mid }</td>
+				<td>${empty reportLists.reportermid? "비회원" : reportLists.reportermid }</td>
+				<td>${reportLists.rreason eq 1 ? '욕설' : (reportLists.rreason eq 2 ? '도배' : (reportLists.rreason eq 3 ? '광고:홍보' : '기타'))}
+				<td>${reportLists.reportdate }</td>
+				<td><button onclick = "location.href='${conPath}/adminReportDelete.do?bno=${reportLists.bno}'">삭제</button></td>
+				<td><button onclick = "window.open('${conPath }/boardContent.do?gid=${reportLists.gid }&bno=${reportLists.bno }', '_blank')">글보기</button></td>				
+			</tr>
+			</c:forEach>
+		</table>			
 	  </div>
 	</div>
 </body>

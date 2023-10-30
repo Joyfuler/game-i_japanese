@@ -21,6 +21,8 @@ import project.gamei.service.ModifyFavoriteListService;
 import project.gamei.service.ModifyFavoriteService;
 import project.gamei.service.ModifyGameSearchService;
 import project.gamei.service.ModifySearchWordService;
+import project.gamei.service.ReportBoardService;
+import project.gamei.service.ReportListService;
 import project.gamei.service.BoardSetFavoriteService;
 import project.gamei.service.TopMenuSetupService;
 import project.gamei.service.ReviewListService;
@@ -44,6 +46,7 @@ import project.gamei.service.AdminBlockControlService;
 import project.gamei.service.AdminCustomerListService;
 import project.gamei.service.AdminGameListService;
 import project.gamei.service.AdminModifyGameService;
+import project.gamei.service.AdminReportDeleteService;
 import project.gamei.service.AdminSetupService;
 import project.gamei.service.AdminTopGameMenuSetupService;
 import project.gamei.service.ArticleModifyService;
@@ -235,6 +238,15 @@ public class FrontController extends HttpServlet {
 			service = new CommentReplyService();
 			service.execute(request, response);
 			viewPage = "boardContent.do";		
+			// 게시글 신고하기 기능
+		} else if (command.equals("/reportBoard.do")) {
+			service = new ReportBoardService();
+			service.execute(request, response);
+			viewPage = "boardContent.do";
+		} else if (command.equals("/adminReportDelete.do")) {
+			service = new AdminReportDeleteService();
+			service.execute(request, response);
+			viewPage = "admin.do?idx=5";	
 			// 유저 즐겨찾기 기능 관련 영역						
 		} else if (command.equals("/modifyFavoriteView.do")) {
 			service = new ModifyFavoriteListService();
@@ -259,7 +271,9 @@ public class FrontController extends HttpServlet {
 			service = new AdminCustomerListService();
 			service.execute(request, response);
 			service = new AdminGameListService();
-			service.execute(request, response);			
+			service.execute(request, response);		
+			service = new ReportListService();
+			service.execute(request, response);
 			viewPage = "admin/admin.jsp";
 		} else if (command.equals("/adminBlockUser.do")) {
 			service = new AdminBlockControlService();

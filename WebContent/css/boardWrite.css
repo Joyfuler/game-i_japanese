@@ -36,7 +36,7 @@ table.board-table tr:hover, table.board-table tr a:hover{
 }
 .page-title h3 {
   font-size: 28px;
-  color: #ghostwhite;
+  color: ghostwhite;
   font-weight: 400;
   text-align: center;
   margin-left: 5%;
@@ -51,7 +51,7 @@ table.board-table tr:hover, table.board-table tr a:hover{
 }
 
 .board-table a {
-  color: #ghostwhite;
+  color: ghostwhite;
   display: inline-block;
   line-height: 1.4;
   word-break: break-all;

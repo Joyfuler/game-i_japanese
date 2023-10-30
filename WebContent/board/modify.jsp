@@ -10,7 +10,9 @@
     <title>${modifyFormInfo.gname }게시글수정</title>
     <link rel="icon" type="image/x-icon" href="${conPath}/img/logo4.gif" sizes="144x144">    
     <link href="${conPath}/css/boardWrite.css" rel="stylesheet">
+    <link href="${conPath }/se2/css/ko_KR/smart_editor2.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="${conPath }/se2/js/service/HuskyEZCreator.js" charset="utf-8" ></script>
     <script>    
 	function noImage(imageElement) {
 	 	imageElement.src = "${conPath }/img/noimg.jpg";
@@ -39,7 +41,11 @@
     		 };
     		 reader.readAsDataURL(file);
     	 }
-      });      
+      });
+      
+      $('form').submit(function(){
+			oEditors.getById["bcontent"].exec("UPDATE_CONTENTS_FIELD", []);			
+		});
     });
   </script>
 </head>
@@ -79,8 +85,23 @@
 								</tr>
 								<tr>
 									<th>글내용 </th>
-									<td>
-										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent">${originInfo.bcontent }</textarea>										
+									<td style = "background-color: white; padding-left: 25px; border-right: 1px solid gray;">
+										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent" id = "bcontent">${originInfo.bcontent }</textarea>
+										<script type="text/javascript">
+										var oEditors = [];
+										nhn.husky.EZCreator.createInIFrame({
+							 			oAppRef: oEditors,
+							 			elPlaceHolder: "bcontent",
+							 			sSkinURI: "${conPath }/se2/SmartEditor2Skin.html",
+							 			fCreator: "createSEditor2",
+							 			htParams : {							    	 
+							      			bUseToolbar : true,										 
+								  			bUseVerticalResizer : false, 
+								  			bUseModeChanger : false 
+							    			}
+										});
+										</script>	
+																				
 									</td>
 								</tr>								
 								<tr>

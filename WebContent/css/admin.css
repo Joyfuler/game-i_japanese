@@ -64,3 +64,10 @@ h4 {
 #tabs_5 table tr td {
 	width: 20%;
 }
+
+.overflow-ellipsis{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+  	max-width: 350px;
+}

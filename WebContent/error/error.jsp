@@ -22,14 +22,14 @@ text-align: center;
 	<h1 class = "errorTitle" style = "border-bottom: 1px solid gray;"> 요청하신 페이지를 찾을 수 없습니다.</h1>
 	<br>
 	<div class = "errorImg">
-	<img src = "${conPath }/img/error.png" height="300">
+		<img src = "${conPath }/img/error.png" height="300">
 	</div>
 	<br>	
 	<h5 class = "errorContent">웹 브라우저에서 새로고침하거나, 새로고침 후에도 표시되지 않는 경우
-	URL를 확인해 주세요.</h5> <br>
+		URL를 확인해 주세요.</h5> <br>
 	<div class = "linkButton">
-	<button class = "errorButton" onclick = "location.href='${conPath }/index.jsp'">▶HOME</button>
-	<button class = "errorButton" onclick = "history.back()">▶뒤로가기</button>
+		<button class = "errorButton" onclick = "location.href='${conPath }/index.jsp'">▶HOME</button>
+		<button class = "errorButton" onclick = "history.back()">▶뒤로가기</button>
 	</div> 
 	<jsp:include page="../main/footer.jsp"/>
 </body>

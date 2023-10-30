@@ -47,17 +47,21 @@
 								<tbody>
 									<tr>
 										<th>ID: </th>
-										<td><input id="id" name="mid" type="text" maxlength="20" tabindex="1" autofocus="autofocus">																					
+										<td>
+											<input id="id" name="mid" type="text" maxlength="20" tabindex="1" autofocus="autofocus">																					
 										</td>
 									</tr>
 									<tr>
 										<th>PW: </th>
-										<td><input id="password" name="mpw" maxlength="20" tabindex="2"
+										<td>
+											<input id="password" name="mpw" maxlength="20" tabindex="2"
 											type="password">										
 										</td>
 									</tr>
 									<tr>
-										<td><br><a href="${conPath }/findAccountView.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a></td>
+										<td>
+											<br><a href="${conPath }/findAccountView.do" target="_blank">&nbsp;&nbsp;ID·비밀번호 찾기</a>
+										</td>
 								</tbody>
 							</table>
 						</div>					
@@ -65,13 +69,13 @@
 					<table>
 						<tr>
 							<td>
-							<input type = "submit" class = "btn" type = "submit" value = "로그인">												
+								<input type = "submit" class = "btn" type = "submit" value = "로그인">												
 							</td>							
 							<td>
-							<input class = "btn" type = "button" onclick = "location.href='${conPath}/joinView.do'" value = "회원가입"> 
+								<input class = "btn" type = "button" onclick = "location.href='${conPath}/joinView.do'" value = "회원가입"> 
 							</td>
 							<td>
-							<input class = "btn" type = "button" onclick = "location.href='${conPath}/main.do'" value = "메인">
+								<input class = "btn" type = "button" onclick = "location.href='${conPath}/main.do'" value = "메인">
 						</tr>	
 					</table>
 					</div>	

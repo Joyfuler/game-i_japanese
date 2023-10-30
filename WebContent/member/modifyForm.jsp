@@ -99,17 +99,24 @@ function submitChk(){
 							<tbody>
 								<tr>
 									<th>ID </th>
-									<td><input id="mid" name="mid" type="text" maxlength="20" tabindex="1" readonly = "readonly" value = "${member.mid }">																		
-									<br><br></td>
+									<td>
+										<input id="mid" name="mid" type="text" maxlength="20" tabindex="1" readonly = "readonly" value = "${member.mid }">																		
+										<br><br>
+									</td>
 								</tr>
 								<tr>
 									<th>프로필사진 </th>
-									<td><input id="mphoto" name="mphoto" type="file" onchange = "displayImg(this)" style = "margin-top: 25px;"><img id = "preview" height="144px" src = "${conPath }/memberPhotoUp/${member.mphoto }">																		
-									<br><br></td>
+									<td>
+										<input id="mphoto" name="mphoto" type="file" onchange = "displayImg(this)" style = "margin-top: 25px;"><img id = "preview" height="144px" src = "${conPath }/memberPhotoUp/${member.mphoto }">																		
+										<br><br>
+									</td>
 								</tr>
 								<tr>		
 									<th>닉네임</th>
-									<td><input id = "mnickname" name = "mnickname" maxlength="20" tabindex="3" type = "text" value = "${member.mnickname }">
+									<td>
+									<input id = "mnickname" name = "mnickname" maxlength="20" tabindex="3" type = "text" value = "${member.mnickname }">
+									</td>
+								</tr>	
 								<tr>
 									<th>새비밀번호 <span style = "color:red;">*</span></th>
 									<td><input id="mpw" name="mpw" maxlength="20" tabindex="4" type="password">										
@@ -120,7 +127,8 @@ function submitChk(){
 									<td><input id = "mpwChk" name = "mpwChk" maxlength="20" tabindex="5" type = "password"></td>
 								</tr>
 								<tr>
-									<td></td><td><span id = "pwChkResult">&nbsp;&nbsp;&nbsp;</span></td>
+									<td></td>
+									<td><span id = "pwChkResult">&nbsp;&nbsp;&nbsp;</span></td>
 								</tr>	
 								<tr>
 									<th>본인확인질문</th>
@@ -128,26 +136,32 @@ function submitChk(){
 								<tr>										
 									<td colspan="2">
 										<select name = "mquest" id = "mquest" style = "width:290px;">
-										<option value = "1"> 어렸을 적 고향은? </option>
-										<option value = "2"> 나온 초등학교 이름은? </option>
-										<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
+											<option value = "1"> 어렸을 적 고향은? </option>
+											<option value = "2"> 나온 초등학교 이름은? </option>
+											<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
 										</select>
 									</td>
 								</tr>	
 								<tr>
 									<th>본인확인 답<span style = "color:red;">*</span> </th> 
-									<td><input type = "text" name = "manswer" id = "manswer" tabindex = "6"></td>
+									<td>
+										<input type = "text" name = "manswer" id = "manswer" tabindex = "6">
+									</td>
 								</tr>	
 									
 										
 								<tr>
 									<th>이메일 <span style = "color:red;">*</span></th>
-									<td><input id="memail" name="memail" maxlength="20" tabindex="7"
+									<td>
+										<input id="memail" name="memail" maxlength="20" tabindex="7"
 										type="text" value = "${member.memail }" readonly = "readonly">										
 									</td>									
 								</tr>								
 								<tr>
-									<td></td><td><span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span> 
+									<td></td>
+									<td>
+									<span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span>
+									</td>									
 								</tr>										
 								<tr>
 									<th>휴대폰번호 </th>
@@ -162,12 +176,12 @@ function submitChk(){
 					<table>
 						<tr>
 							<td>
-							<input type = "submit" class = "btn" value = "정보수정" onclick = "return submitChk()">
+								<input type = "submit" class = "btn" value = "정보수정" onclick = "return submitChk()">
 							</td>
 							<td>
-							<input type = "button" class = "btn" onclick = "location ='${conPath}/main.do'" value = "메인"> 
+								<input type = "button" class = "btn" onclick = "location ='${conPath}/main.do'" value = "메인"> 
 							<td>					
-							<input type = "button" class = "btn" onclick = "withDrawalChk()" value = "회원탈퇴">
+								<input type = "button" class = "btn" onclick = "withDrawalChk()" value = "회원탈퇴">
 							</td>							
 					</table>											
 					</div>

@@ -172,7 +172,7 @@
                         		</select>
                         	</td>
                         	<td>
-                        		<input type="text" name="searchWord" placeholder="검색어를 입력해주세요.">
+                        		<input type="text" name="searchWord" placeholder="검색어를 입력해주세요." value = "${param.searchWord }">
                         	</td>                        
                         	<td><button>검색</button></td>
                         </tr>

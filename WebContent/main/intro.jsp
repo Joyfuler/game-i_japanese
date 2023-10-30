@@ -27,12 +27,12 @@
 	게임에 대한 정보와 유저들의 생생한 리뷰, 그리고 커뮤니티를 제공하고 있습니다. </h5>
 	<br><br>
 	<div class = "bottom">
-	<section>
-		<h2>CONTACT
-		<span>-문의사항-</span>
-		</h2>		
-	</section>	
-	<p> 사이트에 대한 문의사항은 아래 문의 페이지를 통해 문의해주세요. 빠른 시일 내로 답변해 드리겠습니다. </p> 
+		<section>
+			<h2>CONTACT
+				<span>-문의사항-</span>
+			</h2>		
+		</section>	
+		<p> 사이트에 대한 문의사항은 아래 문의 페이지를 통해 문의해주세요. 빠른 시일 내로 답변해 드리겠습니다. </p> 
 		<div class = "bottom_btn"><a href="${conPath }/board/list.jsp?bid=qna"> ▶문의게시판</a>
 		</div>
 	</div>

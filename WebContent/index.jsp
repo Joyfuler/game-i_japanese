@@ -15,7 +15,7 @@ ${pageContext.request.contextPath }"/>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>             
 </head>
 <body>
-<%response.sendRedirect("main.do"); %>
+	<%response.sendRedirect("main.do"); %>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>

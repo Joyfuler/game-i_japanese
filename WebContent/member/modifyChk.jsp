@@ -54,18 +54,20 @@
 								<tr>
 								<th>본인확인 답변 입력 &nbsp; <br>
 								<c:if test = "${memberInfo.mquest eq 1}">
-								(Q. 어렸을 적 고향은?) &nbsp;
+									(Q. 어렸을 적 고향은?) &nbsp;
 								</c:if>
 								<c:if test = "${memberInfo.mquest eq 2 }">
-								(Q. 나온 초등학교 이름은?) &nbsp;
+									(Q. 나온 초등학교 이름은?) &nbsp;
 								</c:if>
 								<c:if test = "${memberInfo.mquest eq 3 }">
-								(Q. 출신 초등학교 이름은?) &nbsp;
+									(Q. 출신 초등학교 이름은?) &nbsp;
 								</c:if>
 								</th>								
 								</tr>			
 								<tr>															
-									<td><input type = "text" name = "manswerConfirm" id = "manswerConfirm" maxlength="20" tabindex="3"></td>
+									<td>
+										<input type = "text" name = "manswerConfirm" id = "manswerConfirm" maxlength="20" tabindex="3">
+									</td>
 								</tr>
 							<tbody>
 						</table>
@@ -74,13 +76,13 @@
 					<table>
 						<tr>
 							<td>
-							<input type = "submit" class =  "btn" onclick = "return modifyChk()" value= "본인확인">							
+								<input type = "submit" class =  "btn" onclick = "return modifyChk()" value= "본인확인">							
 							</td>							
 							<td>
-							<input type = "button" class = "btn" onclick = "history.back()" value = "뒤로가기"> 
+								<input type = "button" class = "btn" onclick = "history.back()" value = "뒤로가기"> 
 							</td>
 							<td>
-							<input type = "button" class = "btn" onclick = "location.href='${conPath}/main.do'" value = "메인으로">
+								<input type = "button" class = "btn" onclick = "location.href='${conPath}/main.do'" value = "메인으로">
 						</tr>	
 					</table>					
 					</div>

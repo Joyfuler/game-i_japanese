@@ -33,16 +33,18 @@
 	<div class = "content">
        <!-- 우측 게임순위 목록 -->			        
        <div class="m-right_gameRank">
-        <div class = "Ranktitle">
-        <b class = "b1" style = "cursor:pointer;">방문TOP</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b class = "b2" style = "cursor:pointer;">최근리뷰</b><br>
-        </div>
+       		<div class = "Ranktitle">
+        		<b class = "b1" style = "cursor:pointer;">방문TOP</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b class = "b2" style = "cursor:pointer;">최근리뷰</b><br>
+        	</div>
         
         <!--  방문TOP 목록 -->
         <c:set var="idx" value = "1"/>	 	
         <c:forEach var = "viewTop10" items = "${rightAreaViewTop10 }">	
           	<ul class ="tab-content" data-tab= "b1" onclick="location.href='${conPath }/review.do?gid=${viewTop10.gid }'">          
           		<li class="rank-gameNum"><strong>${idx }</strong></li>
-          		<li class="rank-appicon"><a href = "${conPath }/review.do?gid=${viewTop10.gid }"><img src="${conPath }/img/${viewTop10.gicon }" alt="" onerror="noImage(this)" /></a></li>
+          		<li class="rank-appicon">
+          			<a href = "${conPath }/review.do?gid=${viewTop10.gid }"><img src="${conPath }/img/${viewTop10.gicon }" alt="" onerror="noImage(this)" /></a>
+          		</li>
           		<li class="rank-gameName">          			
             		<a href = "${conPath }/review.do?gid=${viewTop10.gid }"><strong>${viewTop10.gname }</strong></a>
             		<a href = "${conPath }/review.do?gid=${viewTop10.gid }"><span> ${viewTop10.gpub }</span></a>
@@ -56,7 +58,9 @@
         <c:forEach var = "newReview" items = "${rightAreaNewReview }">
          	<ul class = "tab-content" data-tab= "b2" onclick="location.href='${conPath}/review.do?gid=${newReview.gid }'">
           		<li class="rank-gameNum"><strong>${idx2 }</strong></li>
-          		<li class="rank-appicon"><a href = "${conPath }/review.do?gid=${newReview.gid }"><img src="${conPath }/img/${newReview.gicon }" alt="" onerror="noImage(this)" /></a></li>
+          		<li class="rank-appicon">
+          			<a href = "${conPath }/review.do?gid=${newReview.gid }"><img src="${conPath }/img/${newReview.gicon }" alt="" onerror="noImage(this)" /></a>
+          		</li>
           		<li class="rank-gameName">
             		<a href = "${conPath }/review.do?gid=${newReview.gid }"><strong>${newReview.gname }</strong></a>
             		<a href = "${conPath }/review.do?gid=${newReview.gid }"><span>${newReview.gpub }</span></a>
@@ -69,17 +73,17 @@
   <div class="m-right_favorite"  style="z-index:1000">
     	<p class="favorite_title">&nbsp;&nbsp;내 즐겨찾기</p>    		
     			<c:if test = "${rightAreaFavoriteList.size() eq 0 }">
-                <ul style = "padding: 5px !important;">
-                	<li style = "text-align: center; font-size:0.85em;"><span>즐겨찾기 없음</span></li>
-                </ul>                
+                	<ul style = "padding: 5px !important;">
+                		<li style = "text-align: center; font-size:0.85em;"><span>즐겨찾기 없음</span></li>
+                	</ul>                
                 </c:if>
                 <c:if test = "${rightAreaFavoriteList.size() != 0 }">
                 	<c:forEach var = "favoriteList" items = "${rightAreaFavoriteList }">
-                	<ul>
-          				<li>
-	          				<img src="${conPath }/img/${favoriteList.gicon}" alt="${favoriteList.gname } 아이콘" onerror="noImage(this)"/> <a href="${conPath }/boardList.do?gid=${favoriteList.gid}" style = "color: ghostwhite; padding-left: 5px;">${favoriteList.gname }</a>
-    	      			</li>    	
-        	  		</ul>
+                		<ul>
+          					<li>
+		          				<img src="${conPath }/img/${favoriteList.gicon}" alt="${favoriteList.gname } 아이콘" onerror="noImage(this)"/> <a href="${conPath }/boardList.do?gid=${favoriteList.gid}" style = "color: ghostwhite; padding-left: 5px;">${favoriteList.gname }</a>
+    		      			</li>    	
+        	  			</ul>
             	    </c:forEach>
             	</c:if>
             	<c:if test = "${empty member }">
@@ -88,7 +92,7 @@
             	<c:if test = "${not empty member }">           	    
             	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>
             	</c:if>                    
-	</div>
-</div>	
+		</div>
+	</div>	
 </body>
 </html>

@@ -148,19 +148,24 @@ function submitChk(){
 							<tbody>
 								<tr>
 									<th>ID <span style = "color:red;">*</span> </th>
-									<td><input id="mid" name="mid" type="text" maxlength="12" tabindex="1" autofocus="autofocus">&nbsp;&nbsp;<input type = "button" class = "idChk" value = "중복검사"></td>																																			
+									<td>
+										<input id="mid" name="mid" type="text" maxlength="12" tabindex="1" autofocus="autofocus">&nbsp;&nbsp;<input type = "button" class = "idChk" value = "중복검사">
+									</td>																																			
 								</tr>
 								<tr>
-									<td></td><td><span id = "idConfirmResult"> &nbsp; &nbsp; &nbsp; </span></td>
+									<td></td>
+									<td><span id = "idConfirmResult"> &nbsp; &nbsp; &nbsp; </span></td>
 								<tr>
 									<th>닉네임 <span style = "color:red;">*</span></th>
-									<td><input id="mnickname" name="mnickname" type="text" maxlength = "12" tabindex="2"> 																		
-									<br><br></td>
+									<td>
+									<input id="mnickname" name="mnickname" type="text" maxlength = "12" tabindex="2"> 																		
+									<br><br>
+									</td>
 								</tr>								
 								<tr>
 									<th>비밀번호 <span style = "color:red;">*</span></th>
-									<td><input id="mpw" name="mpw" maxlength="20" tabindex="3"
-										type="password">										
+									<td>
+										<input id="mpw" name="mpw" maxlength="20" tabindex="3" type="password">										
 									</td>
 								</tr>								
 								<tr>
@@ -170,16 +175,19 @@ function submitChk(){
 									</td>
 								</tr>								
 								<tr>
-									<td></td><td><span id = "pwChkResult">&nbsp;</span></td>
+									<td></td>
+									<td><span id = "pwChkResult">&nbsp;</span></td>
 								</tr>
 								<tr>
 									<th>이메일 <span style = "color:red;">*</span></th>
-									<td><input id="memail" name="memail" maxlength="20" tabindex="5"
+									<td>
+										<input id="memail" name="memail" maxlength="20" tabindex="5"
 										type="text">&nbsp;&nbsp;<input type = "button" class = "emailChk" value = "중복검사">										
 									</td>									
 								</tr>
 								<tr>
-									<td></td><td><span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span> 
+									<td></td>
+									<td><span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span></td> 
 								</tr>										
 								<tr>
 									<th>프로필사진 </th>
@@ -190,10 +198,11 @@ function submitChk(){
 									<th>본인확인질문</th>
 								</tr>
 								<tr>										
-										<td colspan="2"><select name = "mquest" style = "width:290px;">
-										<option value = "1"> 어렸을 적 고향은? </option>
-										<option value = "2"> 나온 초등학교 이름은? </option>
-										<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
+									<td colspan="2">
+										<select name = "mquest" style = "width:290px;">
+											<option value = "1"> 어렸을 적 고향은? </option>
+											<option value = "2"> 나온 초등학교 이름은? </option>
+											<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
 										</select>
 									</td>
 								</tr>	
@@ -217,14 +226,14 @@ function submitChk(){
 					<table>
 						<tr>
 							<td>
-							<input type = "submit" class = "btn" value = "회원가입" onclick = "return submitChk()">
+								<input type = "submit" class = "btn" value = "회원가입" onclick = "return submitChk()">
 							</td>
 							<td>
-							<input type = "reset" class = "btn" value = " 초기화"> 
+								<input type = "reset" class = "btn" value = " 초기화"> 
 							<td>					
-							<input type = "button" class = "btn" onclick = "location = '${conPath }/index.jsp'" value = "메인">
+								<input type = "button" class = "btn" onclick = "location = '${conPath }/index.jsp'" value = "메인">
 							</td>
-							
+						</tr>								
 					</table>											
 					</div>
 				</form>

@@ -10,7 +10,9 @@
     <title>댓글 작성 페이지</title>
     <link rel="icon" type="image/x-icon" href="${conPath}/img/logo4.gif" sizes="144x144">    
     <link href="${conPath}/css/boardWrite.css" rel="stylesheet">
+    <link href="${conPath }/se2/css/ko_KR/smart_editor2.css" rel="stylesheet" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="${conPath }/se2/js/service/HuskyEZCreator.js" charset="utf-8" ></script>	
     <script>    
 	function noImage(imageElement) {
 	 	imageElement.src = "${conPath }/img/noimg.jpg";
@@ -39,7 +41,11 @@
     		 };
     		 reader.readAsDataURL(file);
     	 }
-      });      
+      });
+      
+  		$('form').submit(function(){
+			oEditors.getById["bcontent"].exec("UPDATE_CONTENTS_FIELD", []);		
+		});      
     });
     </script>
 </head>
@@ -59,12 +65,12 @@
 			<div class="gray_frame">				
 				<form action = "${conPath }/boardReply.do" method="post" enctype = "multipart/form-data">
 					<input type = "text" name = "gid"	value = "${replyFormInfo.gid }">
-					<input type = "text" name = "mid" value = "${member.mid }">
-					<input type = "text" name = "bno" value = "${originInfo.bno }">
-					<input type = "text" name = "bgroup" value = "${originInfo.bgroup }">
-					<input type = "text" name = "bstep" value = "${originInfo.bstep }">
-					<input type = "text" name = "bindent" value = "${originInfo.bindent }">
-					<input type = "text" name = "pageNum" value = "${param.pageNum }">	
+					<input type = "hidden" name = "mid" value = "${member.mid }">
+					<input type = "hidden" name = "bno" value = "${originInfo.bno }">
+					<input type = "hidden" name = "bgroup" value = "${originInfo.bgroup }">
+					<input type = "hidden" name = "bstep" value = "${originInfo.bstep }">
+					<input type = "hidden" name = "bindent" value = "${originInfo.bindent }">
+					<input type = "hidden" name = "pageNum" value = "${param.pageNum }">	
 					<div class = "writeForm">
 						<table class="board-table">							
 							<tbody>
@@ -81,8 +87,22 @@
 								</tr>
 								<tr>
 									<th>글내용 </th>
-									<td>
-										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent"></textarea>										
+									<td style = "background-color: white; padding-left: 25px; border-right: 1px solid gray;">
+										<textarea cols="30" rows="15" maxlength="4000" name = "bcontent" id = "bcontent"></textarea>
+										<script type="text/javascript">
+											var oEditors = [];
+											nhn.husky.EZCreator.createInIFrame({
+							 					oAppRef: oEditors,
+							 					elPlaceHolder: "bcontent",
+							 					sSkinURI: "${conPath }/se2/SmartEditor2Skin.html",
+							 					fCreator: "createSEditor2",
+							 					htParams : { 
+							    	 				bUseToolbar : true,									 
+													bUseVerticalResizer : true,										 
+													bUseModeChanger : false 
+							    					}
+											});
+										</script>											
 									</td>
 								</tr>								
 								<tr>
@@ -95,7 +115,7 @@
 									<td colspan= "3">
 										<input type = "submit" name = "writeButton" value = "글작성" style = "margin-left: 400px;"> 
 										<input type = "button" value = "뒤로가기" style = "margin-left: 10px;" onclick = "history.back()"> 
-										<input type = "button" value = "글목록" onclick = "location.href='${conPath }/board/list.do?gid=${replyForminfo.gid }'" style = "margin-left: 10px;"> 
+										<input type = "button" value = "글목록" onclick = "location.href='${conPath }/boardList.do?gid=${replyFormInfo.gid }'" style = "margin-left: 10px;"> 
 									</td>
 							</tbody>
 						</table>

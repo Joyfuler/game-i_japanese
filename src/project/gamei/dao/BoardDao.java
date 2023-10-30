@@ -126,7 +126,7 @@ public class BoardDao {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String sql = "SELECT * FROM (SELECT ROWNUM RN, A. " + 
+		String sql = "SELECT * FROM (SELECT ROWNUM RN, A.*" + 
 				"				FROM (SELECT G.GNAME, G.GICON, M.MNICKNAME, M.MPHOTO, M.MLEVEL, M.MEMAIL," + 
 				"				B.*, (SELECT COUNT(*) FROM BOARD_COMMENT WHERE BNO = B.BNO) CNT FROM MEMBER M, BOARD B, GAME G" + 
 				"				WHERE B.MID=M.MID AND B.GID=G.GID AND G.GID = ? ORDER BY BRDATE DESC) A) " + 
@@ -448,7 +448,7 @@ public class BoardDao {
 		int result = FAIL;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
-		String sql = "DELETE FROM BOARD WHERE BNO= ?";
+		String sql = "DELETE FROM BOARD WHERE BNO= ? ";
 		try {
 			conn = ds.getConnection();
 			pstmt = conn.prepareStatement(sql);

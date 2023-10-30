@@ -29,11 +29,10 @@
 			location.href = "loginView.do?gid=${param.gid }&next=review.do";
 			return false;			
 		});		
-		$("button.reviewSubmit").click(function(){		
-			
+		$("button.reviewSubmit").click(function(){					
 			var textArea = $("textarea[name='rtext']").val().trim();
 			if (textArea == ""){
-				alert("리뷰를 입력해주세요.");
+				alert('리뷰를 입력해주세요.');
 				return false;
 			} else {
 				$("#reviewForm").submit();
@@ -56,7 +55,7 @@
 	<script>
 		alert('${loginResult }');
 	</script>
-	</c:if>
+</c:if>
 <c:if test = "${not empty reviewWriteErrorMsg }">
 	<script>
 		alert('${reviewWriteErrorMsg}');
@@ -74,46 +73,46 @@
 					onerror='noImage(this)' alt="${gameInfo.gname } 아이콘">
 				</div>
 				<div class="game_info">
-    			<p class="game_name" style = "color:aqua;">
-        		${gameInfo.gname }
-	    		</p>
-				<p class="game_genre">
-	    		장르 : [${gameInfo.ggenre }] / 개발사 : ${gameInfo.gpub }</p>				
-				<c:set var = "currentDate" value = "<%=new Date()%>"/>
-              	<c:set var = "timeGap" value = "${gameInfo.gpdate.time - currentDate.time }"/>
-              <c:choose>              
-              	<c:when test = "${timeGap >= 0}">
-              	<p class="game_open">				
-    			출시일 : ${gameInfo.gpdate } <span>(출시까지 ${timeGap/86400000}일 남음)</span>
-				</p>             	               
-              	</c:when> 
-              	<c:when test = "${timeGap < 0}">
-              	<p class="game_open">				
-    			출시일 : ${gameInfo.gpdate } <span>(출시됨)</span>
-				</p>             	               
-              	</c:when>
-              </c:choose>				
-			</div>
-			<div class="point_new">
-				<div class="star_new">
-				<c:forEach begin="1" end="${fn:substringBefore(gameInfo.avg, '.')}">
-                <img src = "${conPath }/img/point_star_on.png">
-               </c:forEach> 
-              <c:forEach begin="1" end ="${5 - fn:substringBefore(gameInfo.avg, '.')}">
-				<img src = "${conPath }/img/point_star_out.png">
-			  </c:forEach>    			
+    				<p class="game_name" style = "color:aqua;">
+        			${gameInfo.gname }
+	    			</p>
+					<p class="game_genre">
+	    			장르 : [${gameInfo.ggenre }] / 개발사 : ${gameInfo.gpub }</p>				
+					<c:set var = "currentDate" value = "<%=new Date()%>"/>
+              		<c:set var = "timeGap" value = "${gameInfo.gpdate.time - currentDate.time }"/>
+              		<c:choose>              
+              			<c:when test = "${timeGap >= 0}">
+              			<p class="game_open">				
+    					출시일 : ${gameInfo.gpdate } <span>(출시까지 ${timeGap/86400000}일 남음)</span>
+						</p>             	               
+              			</c:when> 
+              			<c:when test = "${timeGap < 0}">
+              			<p class="game_open">				
+    					출시일 : ${gameInfo.gpdate } <span>(출시됨)</span>
+						</p>             	               
+              			</c:when>
+              		</c:choose>				
 				</div>
-				<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#,##0.0;#0"/>점</div>					
-					<div class="community_bt">
-						<div class="board_link">
-							<a href="${conPath }/boardList.do?gid=${gameInfo.gid }" style = "text-decoration: none;">
-							게시판 바로가기
-							</a>
-						</div>
-					</div>	
-    			</div>				
-			</div>
-		</div>		
+				<div class="point_new">
+					<div class="star_new">
+					<c:forEach begin="1" end="${fn:substringBefore(gameInfo.avg, '.')}">
+        		        <img src = "${conPath }/img/point_star_on.png">
+               		</c:forEach> 
+              		<c:forEach begin="1" end ="${5 - fn:substringBefore(gameInfo.avg, '.')}">
+						<img src = "${conPath }/img/point_star_out.png">
+			  		</c:forEach>    			
+					</div>
+					<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#,##0.0;#0"/>점</div>					
+						<div class="community_bt">
+							<div class="board_link">
+								<a href="${conPath }/boardList.do?gid=${gameInfo.gid }" style = "text-decoration: none;">
+									게시판 바로가기
+								</a>
+							</div>
+						</div>	
+    				</div>				
+				</div>
+			</div>		
         </div>
         <!-- 리뷰 데이터 영역 -->
         <c:set var = "countData" value="${scoreCount }"/>
@@ -198,8 +197,8 @@
 	$("img[starCheck]").click(function () {
 		var sNum = $(this).attr("starNum"); 
 		$("img[starCheck]").attr("src","img/star_out.png");	
-		for (s = 1; s <= sNum; s++) {
-			$("img[starNum=" + s + "]").attr("src", "img/star_on.png");
+		for (idx = 1; idx <= sNum; idx++) {
+			$("img[starNum=" + idx + "]").attr("src", "img/star_on.png");
 		}
 <%-- form과 hidden input창의 value값을 클릭한 값으로 변경. --%>
 		$("#reviewForm input[name=rscore]").attr("value", sNum);				
@@ -219,44 +218,50 @@
 			<input type = "submit" value = "적용">
 		</form>
 총 리뷰 수 : <strong id="totalReviewCnt">${scoreCount.allCount }</strong>개 / 페이지: (<strong>${pageNum }</strong>/ ${pageCnt })
-		<ul class = "review">
+        	<ul class = "review">
 			<c:forEach var="reviewInfo" items="${reviewList }">
-			<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
-			<li style = "font-size:0.75em;">평점 <strong>${reviewInfo.rscore }</strong>
-				<span class = "star">
-				<c:forEach begin="1" end="${reviewInfo.rscore }">
-					<img src = "img/point_star_on.png">
-				</c:forEach>
-				<c:forEach begin="1" end="${5-reviewInfo.rscore }">
-					<img src = "img/point_star_out.png">
-				</c:forEach>
-				</span>
-			</li>			
-			<li class = "text" style = "font-size: 0.9em;"> ${reviewInfo.rtext }&nbsp;&nbsp;
-			<c:if test = "${member.mid eq reviewInfo.mid or member.mlevel eq 1}">
-			<br>
-			<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[삭제]</a>
-			</c:if>
-			</li>
+				<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
+				<li style = "font-size:0.75em;">평점 <strong>${reviewInfo.rscore }</strong>
+					<span class = "star">
+						<c:forEach begin="1" end="${reviewInfo.rscore }">
+							<img src = "img/point_star_on.png">
+						</c:forEach>
+						<c:forEach begin="1" end="${5-reviewInfo.rscore }">
+							<img src = "img/point_star_out.png">
+						</c:forEach>
+					</span>
+				</li>			
+				<li class = "text" style = "font-size: 0.9em;"> ${reviewInfo.rtext }&nbsp;&nbsp;
+				<c:if test = "${member.mid eq reviewInfo.mid or member.mlevel eq 1}">
+					<br>
+					<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[삭제]</a>
+				</c:if>
+				</li>
 			</c:forEach>		
-		</ul>
+			</ul>
 	</div>
 	<div class = "review_paging">
 	<table>
 		<tr>
 			<c:if test = "${startPage > BLOCKSIZE }">
-			<td><a href = "${conPath }/review.do?sortBy=${sortBy }&pageNum=${startPage-1 }">[이전]</a><td>
+				<td>
+					<a href = "${conPath }/review.do?sortBy=${sortBy }&pageNum=${startPage-1 }">[이전]</a>
+				<td>
 			</c:if>
 			<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
 				<c:if test = "${i eq pageNum }">
 					<td><b style = "color:red;">${i }</b></td>
 				</c:if>	
 				<c:if test = "${i != pageNum }">
-    				<td><a href = "${conPath }/review.do?gid=${param.gid }&sortBy=${sortBy }&pageNum=${i }" style = "color: #212529; padding-left: 10px; padding-right: 10px;">${i }</a></td>
+    				<td>
+    					<a href = "${conPath }/review.do?gid=${param.gid }&sortBy=${sortBy }&pageNum=${i }" style = "color: #212529; padding-left: 10px; padding-right: 10px;">${i }</a>
+    				</td>
    				</c:if> 				
     		</c:forEach>
     		<c:if test = "${endPage < pageCnt }">
-    		<td><a href = "${conPath }/review.do?sortBy=${sortBy }&pageNum=${endPage +1 }">[다음]</a></td>			
+    			<td>
+    				<a href = "${conPath }/review.do?sortBy=${sortBy }&pageNum=${endPage +1 }">[다음]</a>
+    			</td>			
 			</c:if>
 		</tr>
 	</table>

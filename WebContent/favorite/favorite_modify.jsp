@@ -80,7 +80,6 @@
 		alert('${modifyResult}');
 	</script>
 </c:if>
-
 	게임명을 검색하거나, <br>
 	하단의 목록을 클릭해 선택한 후 삭제할 수 있습니다.<br>	
 	<hr>

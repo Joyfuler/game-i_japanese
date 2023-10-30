@@ -4,6 +4,7 @@ body{
 
 a{
 	text-decoration: none;	
+	color: #212529;
 }
 table.board-table {
   border-collapse: collapse;
@@ -171,6 +172,8 @@ width:100px;
 }
 
 
+
+
 .board-table tbody th {
   padding-left: 28px;
   padding-right: 14px;
@@ -257,7 +260,7 @@ width:100px;
 }
 
 .comment-cell a{
-	font-size: 12px;
+	font-size: 12px;	
 }
 /* reset */
 

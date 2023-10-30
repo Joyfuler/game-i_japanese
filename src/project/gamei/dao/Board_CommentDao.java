@@ -169,6 +169,33 @@ public class Board_CommentDao {
 		return result;
 	}	
 	
+	// (4-2) 관리자모드에서 신고된 댓글을 삭제하거나, 댓글이 있는 게시글을 삭제하는 용도의 메소드
+	public int deleteAllComment(int bno) {
+		int result = FAIL;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "DELETE FROM BOARD_COMMENT WHERE BNO=?";
+		try {
+			conn = ds.getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, bno);			
+			result = pstmt.executeUpdate();			
+		} catch (SQLException e) {
+			System.out.println(e.getMessage());
+		} finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+		}		
+		return result;
+	}	
+	
+	
 	// (5) 댓글의 댓글 작성 사전작업
 	private void preReplyCommentStep(int bcgroup, int bcstep) {
 		Connection        conn  = null;

@@ -32,9 +32,9 @@
 								<tr>								
 									<td>									
 										<select name = "mquest" style = "width:290px;">
-										<option value = "1"> 어렸을 적 고향은? </option>
-										<option value = "2"> 나온 초등학교 이름은? </option>
-										<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
+											<option value = "1"> 어렸을 적 고향은? </option>
+											<option value = "2"> 나온 초등학교 이름은? </option>
+											<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
 										</select>
 									</td>
 								</tr>
@@ -83,9 +83,9 @@
 								<tr>								
 									<td>									
 										<select name = "mquest" style = "width:290px;">
-										<option value = "1"> 어렸을 적 고향은? </option>
-										<option value = "2"> 나온 초등학교 이름은? </option>
-										<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
+											<option value = "1"> 어렸을 적 고향은? </option>
+											<option value = "2"> 나온 초등학교 이름은? </option>
+											<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
 										</select>
 									</td>
 								</tr>

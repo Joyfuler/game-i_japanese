@@ -35,18 +35,17 @@
 	 <div class = "controller">
           <ul>
           	<c:if test = "${empty member }">			          
-            <li><a class = "control" href = "${conPath }/loginView.do">로그인</a></li>            
-            <li><a class = "control" href = "${conPath }/findAccountView.do">아이디/비밀번호찾기</a></li>            
-            <li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
+            	<li><a class = "control" href = "${conPath }/loginView.do">로그인</a></li>            
+            	<li><a class = "control" href = "${conPath }/findAccountView.do">아이디/비밀번호찾기</a></li>            
+            	<li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
             </c:if>
             <c:if test = "${not empty member }">
-            <li><a class = "control" href = "${conPath }/modifyChk.do?mid=${member.mid }">회원정보수정</a></li>
-            <li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
-            <li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>님</a></li>
-            
+            	<li><a class = "control" href = "${conPath }/modifyChk.do?mid=${member.mid }">회원정보수정</a></li>
+            	<li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
+            	<li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>님</a></li>            
             </c:if>
             <c:if test = "${not empty member and member.mlevel eq 1 }">
-            <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color: red;">관리자모드</a></li>
+           		 <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color: red;">관리자모드</a></li>
             </c:if>
           </ul>
         </div>
@@ -54,25 +53,25 @@
             <div class="container-fluid">
               <a class="navbar-brand" href="${conPath }/index.jsp"><img src = "${conPath }/main/img/logo6.png" height = "35"> &nbsp;Game - i</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+              	 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item item1">
-                    <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">평점목록</a>
+              	      <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">평점목록</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="${conPath }/boardList.do?gid=notice">공지사항</a>
+                	  <a class="nav-link" href="${conPath }/boardList.do?gid=notice">공지사항</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>
+                      <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>
                   </li>      
-                     <li class="nav-item">
+                  <li class="nav-item">
                       <a class="nav-link" href="${conPath }/boardList.do?gid=qna">문의게시판</a>
-                    </li>    
-                    <li class="nav-item">
+                  </li>    
+                  <li class="nav-item">
                       <a class="nav-link" href="${conPath }/modifyFavoriteView.do" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기</a>
-                    </li>                                                         
+                  </li>                                                         
                 </ul>
                 <button class="navbar-toggler" type="button" id="closeMenuButton">▲닫기</button>
                 <script>
@@ -88,10 +87,10 @@
           <div class="search">          
             <form action ="${conPath }/main.do" method = "get" id="searchForm">
             	<c:if test = "${empty param.query }">                
-                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${searchWord.sintro }" style = "margin:auto;"/>
+                	<input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${searchWord.sintro }" style = "margin:auto;"/>
                 </c:if>
                 <c:if test = "${not empty param.query }">
-                <input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${param.query }" style = "margin:auto;"/>
+                	<input style="padding-left: 10px;" id = "searchInput" class = "searchBox" type="text" name="query" placeholder="${param.query }" style = "margin:auto;"/>
                 </c:if>
                 <button type = "submit" style = "border:0; background: transparent">
                 <img src="${conPath }/main/img/searchbutton.png" width="30" height="30" alt ="submit" class = "searchButton">

@@ -53,6 +53,10 @@
 					}
 				});
 			});
+			
+			$('.reportButton').click(function(){
+				$('.reportForm').css('display', 'block');
+			});						
 		});
 	</script>
 	<script>
@@ -78,6 +82,11 @@
 		alert('${commentReplyResult}');
 	</script>
 </c:if>		
+<c:if test = "${not empty reportResult }">
+	<script>
+		alert('${reportResult}');
+	</script>
+</c:if>
 <section class="notice">
   <div class="page-title">
         <div class="board_title">        	
@@ -161,7 +170,7 @@
 	                        	<c:if test = "${not empty member }">
     	                    		<a id = "${boardComments.bcno }" class = "replyComment" style = "padding-left: 25px;">답글</a>
     	                    	</c:if>
-    	                    	<c:if test= "${member.mid eq boardComments.mid }">
+    	                    	<c:if test= "${member.mid eq boardComments.mid or member.mlevel eq 1}">
     	        	            	<a href = "${conPath }/commentDelete.do?gid=${boardContent.gid }&bno=${boardContent.bno }&bcno=${boardComments.bcno }" style = "padding-left: 25px;">삭제</a>
     	                    	</c:if>
         	            	</td>
@@ -215,9 +224,9 @@
             					<input type = "button" value = "댓글작성" onclick = "location.href='${conPath}/loginView.do?next=boardList.do?gid=${boardContent.gid }'">
             				</c:if>
             				<c:if test = "${not empty member and member.mlevel eq -2 }">
-            					<input type = "button">(차단유저)
+            					<input type = "button" value = "(차단유저)">
             				</c:if>
-            				<c:if test = "${not empty member }">
+            				<c:if test = "${not empty member and member.mlevel != -2}">
             					<input type = "submit" value = "댓글작성">
             				</c:if>
             			</td>
@@ -231,7 +240,7 @@
         	<c:if test = "${empty member and param.gid != 'notice'}">
         		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/loginView.do?next=boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
         	</c:if>        	
-        	<c:if test = "${not empty member and param.gid != 'notice'}">
+        	<c:if test = "${not empty member and member.mlevel != -2 and param.gid != 'notice'}">
         		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
         	</c:if>
         	<c:if test = "${not empty member and param.gid eq 'notice' and member.mlevel eq 1 }">
@@ -241,6 +250,51 @@
         		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" onclick = "location.href='${conPath}/boardModifyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">게시글수정</button>
         		<button style="margin-top: 5px; margin-left: 970px; position: absolute;" onclick = "removeConfirm()">게시글삭제</button>                
         	</c:if>
+        	<c:if test = "${member.mid != boardContent.mid }">
+        		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" class = "reportButton">게시글신고</button>
+        	</c:if>
+        </div>
+        <br><br>
+        <div class = "reportForm" style = "display: none; margin-left: 860px;">
+        	<form action = "${conPath }/reportBoard.do">
+        	<input type = "hidden" name = "bno" value = "${param.bno }">
+        	<input type = "hidden" name = "gid" value = "${param.gid }">
+         	<input type = "hidden" name = "reportermid" value = "${empty member ? 'nonmember' : member.mid }">       
+        	<table style = "border : 1px solid gray;">        	
+        		<tr>
+	        		<td> 신고 사유를 선택해주세요. </td>
+    	    	</tr>
+        		<tr>	 
+        			<td>
+        				<input type = "radio" value = "1" class = "reason1" name = "rreason" id = "reason1">
+        				<label for = "reason1">욕설</label>
+        			</td>
+        		</tr>
+        		<tr>
+	        		<td>		
+        				<input type = "radio" value = "2" class = "reason2" name = "rreason" id = "reason2">
+        				<label for = "reason2">도배</label>
+        			</td>
+        		</tr>
+        		<tr>		
+	        		<td>
+        				<input type = "radio" value = "3" class = "reason3" name = "rreason" id = "reason3">
+        				<label for = "reason3">광고/홍보</label>
+        			</td>
+        		</tr>
+        		<tr>
+	        		<td>		
+        				<input type = "radio" value = "4" class = "reason4" name = "rreason" id = "reason4">
+        				<label for = "reason4">기타</label>
+        			</td>
+        		</tr> 	   		
+ 	   			<tr>
+	 	   			<td>
+ 	   					<input type = "submit" class = "reportSubmit" value = "신고"> 	   				
+ 	   				</td>	
+ 	   			</tr>	
+ 	   		</table>
+ 	   	</form>
         </div>
 </section>
 <jsp:include page="../main/footer.jsp"/>
