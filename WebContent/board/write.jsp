@@ -31,8 +31,7 @@
  	<script>
     $(document).ready(function() {    
       $("#submitButton").click(function() {        
-        var form = $("#writeForm");        
-        form.submit();
+        $("#writeForm").submit();    	  
       });
       
       var inputFile = $("input[name='bimg']");
@@ -57,7 +56,7 @@
 <body>
 <jsp:include page="../main/header.jsp"/>
 <jsp:include page="../main/rightArea.jsp"/>
-<section class="notice">
+<section class="notice" style = "background-color: violet;">
   <div class="page-title">
         <div class="write_title">
             <h4 style = "text-align:left;">
