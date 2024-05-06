@@ -15,7 +15,7 @@ Game-i
 ![main](https://github.com/Joyfuler/webPro/assets/137759165/d6e17be7-bd35-4adf-abec-60779ac401e7)
 
 # 目次
-[1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#1-%EC%A3%BC%EC%A0%9C-%EB%B0%8F-%EB%AA%A9%EC%A0%81)<br>
+[1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese/blob/japanese/README.md#1-%E3%83%86%E3%83%BC%E3%83%9E%E5%8F%8A%E3%81%B3%E7%9B%AE%E7%9A%84)<br>
 [2. 개발환경](https://github.com/Joyfuler/game-i_1stProject#2-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)<br>
 [3. 작업분할 구조도 (WBS)](https://github.com/Joyfuler/game-i_1stProject#3-%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84-wbs) <br>
 [4. 작업일정 Gantt Chart](https://github.com/Joyfuler/game-i_1stProject#4-%EC%9E%91%EC%97%85%EC%9D%BC%EC%A0%95-gantt-chart) <br>
