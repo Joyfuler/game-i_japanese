@@ -15,7 +15,7 @@ Game-i
 ![main](https://github.com/Joyfuler/webPro/assets/137759165/d6e17be7-bd35-4adf-abec-60779ac401e7)
 
 # 目次
-[1. 주제 및 목적, 참조 사이트](https://github.com/Joyfuler/game-i_1stProject#1-%EC%A3%BC%EC%A0%9C-%EB%B0%8F-%EB%AA%A9%EC%A0%81)<br>
+[1. テーマ及び目的]<br>
 [2. 개발환경](https://github.com/Joyfuler/game-i_1stProject#2-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)<br>
 [3. 작업분할 구조도 (WBS)](https://github.com/Joyfuler/game-i_1stProject#3-%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84-wbs) <br>
 [4. 작업일정 Gantt Chart](https://github.com/Joyfuler/game-i_1stProject#4-%EC%9E%91%EC%97%85%EC%9D%BC%EC%A0%95-gantt-chart) <br>
@@ -27,7 +27,7 @@ Game-i
 [10. UI 화면 및 기능설명 ](https://github.com/Joyfuler/game-i_1stProject#10-ui-%ED%99%94%EB%A9%B4-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85)<br>
 
 
-## 1. 주제 및 목적
+## 1. テーマ及び目的
 ![슬라이드1](https://github.com/Joyfuler/webPro/assets/137759165/ea1af26e-d645-4878-b79c-d1587b49c105)
 ![슬라이드3](https://github.com/Joyfuler/webPro/assets/137759165/004c8649-b335-497d-8b9f-d509c85209fc)
 
