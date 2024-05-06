@@ -2,19 +2,19 @@ Game-i
 ==========
 >個人プロジェクト
 
-- 프로젝트 명 : Game-i (게임 리뷰와 평점, 커뮤니티 제공) <br>
-- 인 원 : 1명 <br>
-- 기간 : 2023.10.17 ~ 2023.10.30 (2주간) <br>
+- プロジェクト名 : Game-i (ゲームレビュ、ー及びコミュニティサイト) <br>
+- プロジェクト人数 : 1人 <br>
+- プロジェクト期間 : 2023.10.17 ~ 2023.10.30 (2週間) / 日本語訳 : 2024.05.06 ~ 2024.05.10 (5日間) <br>
 - DMBS : Oracle 11g Express Edition <br>
-- 언어 : Java SE * Platform, HTML5, CSS, CSS3, JavaScript <br>
-- 디자인 패턴 : MVC <br>
-- 오픈 라이브러리: jquery v3.7.1, jQueryUI <br>
-- 프로젝트 소개 : 방문한 회원에게 게임에 대한 유저들의 평가 및 평점을 확인하고 그 순위를 열람할 수 있으며,.
-각 게임에 대한 커뮤니티를 함께 제공하는 통합형 게임 커뮤니티 사이트입니다. <br>
+- 使用した言語 : Java SE * Platform, HTML5, CSS, CSS3, JavaScript <br>
+- デザインパターン : MVC パターン <br>
+- 使用オープンライブラリー: jquery v3.7.1, jQueryUI <br>
+- プロジェクト紹介 : サイトにアクセスした使用者にサイト內取り扱いゲームについて評価、
+またはサイト内のアクセスランキングなどを確認出来る。同時に各ゲームに対応したコミュニティを提供するサイトです。
 
 ![main](https://github.com/Joyfuler/webPro/assets/137759165/d6e17be7-bd35-4adf-abec-60779ac401e7)
 
-# 목차
+# 目次
 [1. 주제 및 목적, 참조 사이트](https://github.com/Joyfuler/game-i_1stProject#1-%EC%A3%BC%EC%A0%9C-%EB%B0%8F-%EB%AA%A9%EC%A0%81)<br>
 [2. 개발환경](https://github.com/Joyfuler/game-i_1stProject#2-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)<br>
 [3. 작업분할 구조도 (WBS)](https://github.com/Joyfuler/game-i_1stProject#3-%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84-wbs) <br>
