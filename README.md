@@ -22,9 +22,9 @@ Game-i
 [5. 要求定義書 ](https://github.com/Joyfuler/game-i_1stProject#5-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%B6%84%EC%84%9D) <br>
 [6. ユースケース図](https://github.com/Joyfuler/game-i_1stProject#6-%EC%9C%A0%EC%8A%A4%EC%BC%80%EC%9D%B4%EC%8A%A4-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
 [7. シーケンス図](https://github.com/Joyfuler/game-i_1stProject#7-%EC%88%9C%EC%B0%A8-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
-[8. 기능정의 및 설계](https://github.com/Joyfuler/game-i_1stProject#8-%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98-%EB%B0%8F-%EC%84%A4%EA%B3%84) <br>
-[9. DB 설계 (ERD)](https://github.com/Joyfuler/game-i_1stProject#9-db-%EC%84%A4%EA%B3%84-erd) <br>
-[10. UI 화면 및 기능설명 ](https://github.com/Joyfuler/game-i_1stProject#10-ui-%ED%99%94%EB%A9%B4-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85)<br>
+[8. 機能定義書及び設計](https://github.com/Joyfuler/game-i_1stProject#8-%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98-%EB%B0%8F-%EC%84%A4%EA%B3%84) <br>
+[9. データベース設計(ERD)](https://github.com/Joyfuler/game-i_1stProject#9-db-%EC%84%A4%EA%B3%84-erd) <br>
+[10. UI画面及び機能説明](https://github.com/Joyfuler/game-i_1stProject#10-ui-%ED%99%94%EB%A9%B4-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85)<br>
 
 
 ## 1. テーマ及び目的
@@ -58,15 +58,15 @@ Game-i
 ![슬라이드10](https://github.com/Joyfuler/webPro/assets/137759165/4fa954b8-9ebf-4bb9-9b71-724ebe433a6b)
 
 
-## 8. 기능정의 및 설계
+## 8. 機能定義書及び設計
 ![슬라이드10-2](https://github.com/Joyfuler/webPro/assets/137759165/179f124f-0fef-4cdb-ab9f-e787ac62b3d0)
 
 
-## 9. DB 설계 (ERD)
+## 9. データベース設計 (ERD)
 ![슬라이드11](https://github.com/Joyfuler/webPro/assets/137759165/4efd42a9-9449-41a8-adf1-8152eab04b23)
 
 
-## 10. UI 화면 및 기능설명
+## 10. UI画面及び機能説明
 ![슬라이드12](https://github.com/Joyfuler/webPro/assets/137759165/3fdb01b3-8819-43b7-ac41-f936afbb9033)
 ![슬라이드13](https://github.com/Joyfuler/webPro/assets/137759165/acc22ed0-8205-4919-9c38-05084c2d08ac)
 ![슬라이드14](https://github.com/Joyfuler/webPro/assets/137759165/1a05d2a2-3700-42dd-8d98-90c2a0dde378)
