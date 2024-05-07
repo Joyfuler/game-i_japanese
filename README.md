@@ -37,7 +37,7 @@ Game-i
 
 
 ## 3. 作業分解構造図 (WBS)
-![슬라이드5](https://github.com/Joyfuler/webPro/assets/137759165/56bd86ac-ba3d-4315-9e5c-b192f7e8004f)
+![스크린샷 2024-05-07 230524](https://github.com/Joyfuler/game-i_japanese/assets/137759165/d935242a-498e-415a-9403-006ad58d4f86)
 ![슬라이드7](https://github.com/Joyfuler/game-i_1stProject/assets/137759165/ca8ae1c7-02be-41a9-b0c3-3de22d9f8102)
 
 
