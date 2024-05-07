@@ -93,21 +93,21 @@
 	  	</table>
 	</div> 	
   	<div class = "mainTitle">
-  		<h2>&nbsp; &nbsp; 게임 리스트 </h2>
+  		<h2>&nbsp; &nbsp; ゲームリスト </h2>
   	</div>
   	<form action = "${conPath }/main.do" class = "listSort">    
 	    <select id = "selectBox" name = "sortBy">
-	      	<option value = "new">정렬방식</option>
+	      	<option value = "new">ソート</option>
 	      	<c:if test = "${sortBy eq 'new' or empty sortBy}">
-	     	 	<option value = "new" selected = "selected"> 출시일순 </option>
-		      	<option value = "highScore"> 평점 높은 순</option>
+	     	 	<option value = "new" selected = "selected"> リリース日順 </option>
+		      	<option value = "highScore"> 高い評価</option>
 	      	</c:if>      
 	      	<c:if test = "${sortBy eq 'highScore' }">
-		      	<option value = "new"> 출시일순 </option>
-	      		<option value = "highScore" selected = "selected"> 평점 높은 순</option>
+		      	<option value = "new"> リリース日順 </option>
+	      		<option value = "highScore" selected = "selected"> 高い評価</option>
 	      	</c:if>
     	</select>
-    	<input class = "sortSubmit" type = "submit" value = "적용">
+    	<input class = "sortSubmit" type = "submit" value = "適用">
     </form>    
     <c:set var = "idx" value = "1"/>
     <c:forEach var = "sortedList" items="${listSortby }">        	
@@ -122,7 +122,7 @@
           <div class="col-md-8">
             <div class="card-body">
               <h5 class="card-title" style = "color:aqua;">&nbsp;&nbsp;${sortedList.gname }</h5>              
-              <h6 style = "color:white;">&nbsp;&nbsp;(평점: <span style = color:red;><fmt:formatNumber value = "${sortedList.avg }" pattern = "#,##0.0;#0"/></span>점
+              <h6 style = "color:white;">&nbsp;&nbsp;(評価: <span style = color:red;><fmt:formatNumber value = "${sortedList.avg }" pattern = "#,##0.0;#0"/></span>点
               	<c:forEach begin="1" end="${fn:substringBefore(sortedList.avg, '.')}">
                 	<img src = "${conPath }/img/star_on.png" height="15px">
               	</c:forEach> 
@@ -130,19 +130,19 @@
 					<img src = "${conPath }/img/star_out.png" height="15px">
 			  	</c:forEach>
 				)</h6>
-              <p class="card-text1 card-text" style = "color:white;">장르: ${sortedList.ggenre } / 개발사: ${sortedList.gpub }</p>
+              <p class="card-text1 card-text" style = "color:white;">ジャンル: ${sortedList.ggenre } / 開発社: ${sortedList.gpub }</p>
               <c:set var = "currentDate" value = "<%=new Date()%>"/>
               <c:set var = "timeGap" value = "${sortedList.gpdate.time - currentDate.time }"/>
               <c:choose>              
               	<c:when test = "${timeGap >= 0}">
-             	 <p class="card-text2 card-text" style = "color:white;">출시일: ${sortedList.gpdate } (출시까지 ${timeGap/86400000}일 남음)</p>              
+             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース日まで ${timeGap/86400000}일 남음)</p>              
               	</c:when> 
               	<c:when test = "${timeGap < 0}">
-             	 <p class="card-text2 card-text" style = "color:white;">출시일: ${sortedList.gpdate } (출시됨)</p>              
+             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース)</p>              
               	</c:when>
               </c:choose>	
               <p class="card-text3 card-text card-intro" style = "color:white;">${sortedList.gdesc }</p>
-              &nbsp;&nbsp;<a href="${conPath }/review.do?gid=${sortedList.gid }" class="btn btn-primary">리뷰/평가</a> <a href="${conPath }/boardList.do?gid=${sortedList.gid }" class="btn btn-primary">게시판</a>
+              &nbsp;&nbsp;<a href="${conPath }/review.do?gid=${sortedList.gid }" class="btn btn-primary">評価</a> <a href="${conPath }/boardList.do?gid=${sortedList.gid }" class="btn btn-primary">コミュニティ</a>
             </div>
           </div>
         </div>
@@ -155,7 +155,7 @@
     	<table>
     		<tr>
     			<c:if test = "${startPage > BLOCKSIZE }">
-    				<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${startPage -1 }&query=${param.query }">[이전]</a></td>
+    				<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${startPage -1 }&query=${param.query }">[前]</a></td>
     			</c:if>
     			<td></td>
     			<c:forEach var = "i" begin = "${startPage }" end = "${endPage }">
@@ -167,7 +167,7 @@
    				</c:if> 				
     			</c:forEach>
     		<c:if test = "${endPage < pageCnt }">
-    			<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${endPage +1 }&query=${param.query }">[다음]</a></td>
+    			<td><a href = "${conPath }/main.do?sortBy=${sortBy }&pageNum=${endPage +1 }&query=${param.query }">[次]</a></td>
     		</c:if>
     		</tr>
   		</table>  

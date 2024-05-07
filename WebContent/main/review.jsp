@@ -77,18 +77,18 @@
         			${gameInfo.gname }
 	    			</p>
 					<p class="game_genre">
-	    			장르 : [${gameInfo.ggenre }] / 개발사 : ${gameInfo.gpub }</p>				
+	    			ジャンル : [${gameInfo.ggenre }] / 開発社 : ${gameInfo.gpub }</p>				
 					<c:set var = "currentDate" value = "<%=new Date()%>"/>
               		<c:set var = "timeGap" value = "${gameInfo.gpdate.time - currentDate.time }"/>
               		<c:choose>              
               			<c:when test = "${timeGap >= 0}">
               			<p class="game_open">				
-    					출시일 : ${gameInfo.gpdate } <span>(출시까지 ${timeGap/86400000}일 남음)</span>
+    					リリース日 : ${gameInfo.gpdate } <span>(リリースまであと ${timeGap/86400000}日)</span>
 						</p>             	               
               			</c:when> 
               			<c:when test = "${timeGap < 0}">
               			<p class="game_open">				
-    					출시일 : ${gameInfo.gpdate } <span>(출시됨)</span>
+    					출시일 : ${gameInfo.gpdate } <span>(リリース)</span>
 						</p>             	               
               			</c:when>
               		</c:choose>				
@@ -102,11 +102,11 @@
 						<img src = "${conPath }/img/point_star_out.png">
 			  		</c:forEach>    			
 					</div>
-					<div class="user_score">평점 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#,##0.0;#0"/>점</div>					
+					<div class="user_score">評価 <fmt:formatNumber value = "${gameInfo.avg }" pattern = "#,##0.0;#0"/>点</div>					
 						<div class="community_bt">
 							<div class="board_link">
 								<a href="${conPath }/boardList.do?gid=${gameInfo.gid }" style = "text-decoration: none;">
-									게시판 바로가기
+									掲示板
 								</a>
 							</div>
 						</div>	
@@ -118,7 +118,7 @@
         <c:set var = "countData" value="${scoreCount }"/>
 		<div id="star_in_DIV" style="padding:0px;margin:10px 0px 0px 0px; width:1000px; height:200px; margin-left: 150px;">
 			<div style="float:left; width:262px; height:180px; background:#FFFFFF; margin:0px 40px 0px 30px; border:1px solid #dfdfdf;">
-				<div class="user_new2">총 <span>${scoreCount.allCount }</span>명 참여</div>
+				<div class="user_new2">合計 <span>${scoreCount.allCount }</span>人の評価 </div>
 				<ul class="star">
 					<li>
 						<div class="star_num_new">5</div>
@@ -177,16 +177,16 @@
         				<img src = "img/star_on.png" starNum="1" starCheck/><img src = "img/star_on.png" starNum="2" starCheck/><img src = "img/star_on.png" starNum="3" starCheck/><img src = "img/star_on.png" starNum="4" starCheck/><img src = "img/star_on.png" starNum="5" starCheck/>   
         				</div>
         				<div style="float:left;width:120px;margin:0;font-weight:bold;font-size:15pt;">
-        				<div class="user_new2">평점<span id="starNumber">5.0</span></div>
+        				<div class="user_new2">評価点<span id="starNumber">5.0</span></div>
     					</div>
 					</div>
 					<div class="write">
 						<textarea name="rtext" style="height: 65px;" cols="6"  maxlength="80" label="평가글"></textarea>
 						<c:if test = "${empty member }">
-						<button class = "notLogin">평가하기</button>
+						<button class = "notLogin">評価</button>
 						</c:if>
 						<c:if test = "${not empty member }">
-						<button class = "reviewSubmit">평가하기</button>
+						<button class = "reviewSubmit">評価</button>
 						</c:if>
 					</div>
 					</form>
@@ -211,17 +211,17 @@
 		<form action ="${conPath }/review.do" method = "get" class = "sort">
 			<input type="hidden" name = "gid" value = "${param.gid }">
 			<select name = "sortBy" class = "sortBy">    
-    			<option value = "">정렬방식</option>
-    			<option value = "new">최신순</option>
-    			<option value = "score">별점순</option>
+    			<option value = "">ソート</option>
+    			<option value = "new">新しい順</option>
+    			<option value = "score">高い評価順</option>
 			</select>
-			<input type = "submit" value = "적용">
+			<input type = "submit" value = "適用">
 		</form>
-총 리뷰 수 : <strong id="totalReviewCnt">${scoreCount.allCount }</strong>개 / 페이지: (<strong>${pageNum }</strong>/ ${pageCnt })
+合計評価数 : <strong id="totalReviewCnt">${scoreCount.allCount }</strong>件 / ページ: (<strong>${pageNum }</strong>/ ${pageCnt })
         	<ul class = "review">
 			<c:forEach var="reviewInfo" items="${reviewList }">
 				<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
-				<li style = "font-size:0.75em;">평점 <strong>${reviewInfo.rscore }</strong>
+				<li style = "font-size:0.75em;">点数 <strong>${reviewInfo.rscore }</strong>
 					<span class = "star">
 						<c:forEach begin="1" end="${reviewInfo.rscore }">
 							<img src = "img/point_star_on.png">
@@ -234,7 +234,7 @@
 				<li class = "text" style = "font-size: 0.9em;"> ${reviewInfo.rtext }&nbsp;&nbsp;
 				<c:if test = "${member.mid eq reviewInfo.mid or member.mlevel eq 1}">
 					<br>
-					<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[삭제]</a>
+					<a href = "${conPath }/deleteReview.do?rid=${reviewInfo.rid }&gid=${gameInfo.gid }" style = "font-size:13px;">[削除]</a>
 				</c:if>
 				</li>
 			</c:forEach>		
