@@ -1,72 +1,72 @@
 Game-i
 ==========
->개별 프로젝트
+>個人プロジェクト
 
-- 프로젝트 명 : Game-i (게임 리뷰와 평점, 커뮤니티 제공) <br>
-- 인 원 : 1명 <br>
-- 기간 : 2023.10.17 ~ 2023.10.30 (2주간) <br>
+- プロジェクト名 : Game-i (ゲームレビュ、ー及びコミュニティサイト) <br>
+- プロジェクト人数 : 1人 <br>
+- プロジェクト期間 : 2023.10.17 ~ 2023.10.30 (2週間) / 日本語訳 : 2024.05.06 ~ 2024.05.15 (10日間予定) <br>
 - DMBS : Oracle 11g Express Edition <br>
-- 언어 : Java SE * Platform, HTML5, CSS, CSS3, JavaScript <br>
-- 디자인 패턴 : MVC <br>
-- 오픈 라이브러리: jquery v3.7.1, jQueryUI <br>
-- 프로젝트 소개 : 방문한 회원에게 게임에 대한 유저들의 평가 및 평점을 확인하고 그 순위를 열람할 수 있으며,.
-각 게임에 대한 커뮤니티를 함께 제공하는 통합형 게임 커뮤니티 사이트입니다. <br>
+- 使用した言語 : Java SE * Platform, HTML5, CSS, CSS3, JavaScript <br>
+- デザインパターン : MVC (モデル・ビュー・コントローラー) パターン <br>
+- 使用オープンライブラリー: jquery v3.7.1, jQueryUI <br>
+- プロジェクト紹介 : サイトにアクセスした使用者にサイト內取り扱いゲームについて評価、
+またはサイト内のアクセスランキングなどを確認出来ます。同時に各ゲームに対応したコミュニティを提供するサイトです。
 
-![main](https://github.com/Joyfuler/webPro/assets/137759165/d6e17be7-bd35-4adf-abec-60779ac401e7)
+![main](![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729))
 
-# 목차
-[1. 주제 및 목적, 참조 사이트](https://github.com/Joyfuler/game-i_1stProject#1-%EC%A3%BC%EC%A0%9C-%EB%B0%8F-%EB%AA%A9%EC%A0%81)<br>
-[2. 개발환경](https://github.com/Joyfuler/game-i_1stProject#2-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)<br>
-[3. 작업분할 구조도 (WBS)](https://github.com/Joyfuler/game-i_1stProject#3-%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84-wbs) <br>
-[4. 작업일정 Gantt Chart](https://github.com/Joyfuler/game-i_1stProject#4-%EC%9E%91%EC%97%85%EC%9D%BC%EC%A0%95-gantt-chart) <br>
-[5. 요구사항 분석 ](https://github.com/Joyfuler/game-i_1stProject#5-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%B6%84%EC%84%9D) <br>
-[6. 유스케이스 다이어그램](https://github.com/Joyfuler/game-i_1stProject#6-%EC%9C%A0%EC%8A%A4%EC%BC%80%EC%9D%B4%EC%8A%A4-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
-[7. 순차 다이어그램](https://github.com/Joyfuler/game-i_1stProject#7-%EC%88%9C%EC%B0%A8-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
-[8. 기능정의 및 설계](https://github.com/Joyfuler/game-i_1stProject#8-%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98-%EB%B0%8F-%EC%84%A4%EA%B3%84) <br>
-[9. DB 설계 (ERD)](https://github.com/Joyfuler/game-i_1stProject#9-db-%EC%84%A4%EA%B3%84-erd) <br>
-[10. UI 화면 및 기능설명 ](https://github.com/Joyfuler/game-i_1stProject#10-ui-%ED%99%94%EB%A9%B4-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85)<br>
+# 目次
+[1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#1-%E3%83%86%E3%83%BC%E3%83%9E%E5%8F%8A%E3%81%B3%E7%9B%AE%E7%9A%84)<br>
+[2. 開発環境](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#2-%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83)<br>
+[3.作業分解構造図 (WBS)](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#3-%E4%BD%9C%E6%A5%AD%E5%88%86%E8%A7%A3%E6%A7%8B%E9%80%A0%E5%9B%B3-wbs) <br>
+[4. 作業工程表 Gantt Chart](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#4-%E4%BD%9C%E6%A5%AD%E5%B7%A5%E7%A8%8B%E8%A1%A8-gantt-chart) <br>
+[5. 要件定義書 ](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#5-%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E6%9B%B8) <br>
+[6. ユースケース図](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#6-%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E5%9B%B3) <br>
+[7. シーケンス図](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#7-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3) <br>
+[8. 機能定義書及び設計](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#8-%E6%A9%9F%E8%83%BD%E5%AE%9A%E7%BE%A9%E6%9B%B8%E5%8F%8A%E3%81%B3%E8%A8%AD%E8%A8%88) <br>
+[9. データベース設計(ERD)](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#9-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E8%A8%AD%E8%A8%88-erd) <br>
+[10. UI画面及び機能説明](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#10-ui%E7%94%BB%E9%9D%A2%E5%8F%8A%E3%81%B3%E6%A9%9F%E8%83%BD%E8%AA%AC%E6%98%8E)<br>
 
 
-## 1. 주제 및 목적
-![슬라이드1](https://github.com/Joyfuler/webPro/assets/137759165/ea1af26e-d645-4878-b79c-d1587b49c105)
+## 1. テーマ及び目的
+![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729)
 ![슬라이드3](https://github.com/Joyfuler/webPro/assets/137759165/004c8649-b335-497d-8b9f-d509c85209fc)
 
 
-## 2. 개발환경
+## 2. 開発環境
 ![슬라이드4](https://github.com/Joyfuler/webPro/assets/137759165/15bdafc3-2d02-49a8-9a65-1dd10aeabcc6)
 
 
-## 3. 작업분할 구조도 (WBS)
+## 3. 作業分解構造図 (WBS)
 ![슬라이드5](https://github.com/Joyfuler/webPro/assets/137759165/56bd86ac-ba3d-4315-9e5c-b192f7e8004f)
 ![슬라이드7](https://github.com/Joyfuler/game-i_1stProject/assets/137759165/ca8ae1c7-02be-41a9-b0c3-3de22d9f8102)
 
 
-## 4. 작업일정 Gantt Chart
+## 4. 作業工程表 Gantt Chart
 ![슬라이드7](https://github.com/Joyfuler/webPro/assets/137759165/c6eb8c14-d19e-42bf-9338-7832cd83f687)
 
 
-## 5. 요구사항 분석
+## 5. 要件定義書
 ![슬라이드7-2](https://github.com/Joyfuler/webPro/assets/137759165/e506da5d-848b-4731-b846-ed2c45032c26)
 
 
-## 6. 유스케이스 다이어그램
+## 6. ユースケース図
 ![슬라이드8](https://github.com/Joyfuler/webPro/assets/137759165/8b1d43e1-b852-4d7c-8001-7215ef55d4b1)
 
 
-## 7. 순차 다이어그램
+## 7. シーケンス図
 ![슬라이드9](https://github.com/Joyfuler/webPro/assets/137759165/d5092614-a8ec-44b4-8047-d13d1c16acb7)
 ![슬라이드10](https://github.com/Joyfuler/webPro/assets/137759165/4fa954b8-9ebf-4bb9-9b71-724ebe433a6b)
 
 
-## 8. 기능정의 및 설계
+## 8. 機能定義書及び設計
 ![슬라이드10-2](https://github.com/Joyfuler/webPro/assets/137759165/179f124f-0fef-4cdb-ab9f-e787ac62b3d0)
 
 
-## 9. DB 설계 (ERD)
+## 9. データベース設計 (ERD)
 ![슬라이드11](https://github.com/Joyfuler/webPro/assets/137759165/4efd42a9-9449-41a8-adf1-8152eab04b23)
 
 
-## 10. UI 화면 및 기능설명
+## 10. UI画面及び機能説明
 ![슬라이드12](https://github.com/Joyfuler/webPro/assets/137759165/3fdb01b3-8819-43b7-ac41-f936afbb9033)
 ![슬라이드13](https://github.com/Joyfuler/webPro/assets/137759165/acc22ed0-8205-4919-9c38-05084c2d08ac)
 ![슬라이드14](https://github.com/Joyfuler/webPro/assets/137759165/1a05d2a2-3700-42dd-8d98-90c2a0dde378)
