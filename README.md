@@ -12,7 +12,7 @@ Game-i
 - プロジェクト紹介 : サイトにアクセスした使用者にサイト內取り扱いゲームについて評価、
 またはサイト内のアクセスランキングなどを確認出来ます。同時に各ゲームに対応したコミュニティを提供するサイトです。
 
-![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729)
+![스크린샷 2024-05-07 224539](https://github.com/Joyfuler/game-i_japanese/assets/137759165/12780bd6-1ada-4b19-bfdb-b498291b6e3d)
 
 # 目次
 [1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#1-%E3%83%86%E3%83%BC%E3%83%9E%E5%8F%8A%E3%81%B3%E7%9B%AE%E7%9A%84)<br>
@@ -28,7 +28,7 @@ Game-i
 
 
 ## 1. テーマ及び目的
-![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729)
+![스크린샷 2024-05-07 224539](https://github.com/Joyfuler/game-i_japanese/assets/137759165/12780bd6-1ada-4b19-bfdb-b498291b6e3d)
 ![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/eaab39e2-2e94-4851-85b4-35b6f00c0e92)
 
 
