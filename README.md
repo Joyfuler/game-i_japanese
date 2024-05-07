@@ -29,7 +29,7 @@ Game-i
 
 ## 1. テーマ及び目的
 ![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729)
-![슬라이드3](https://github.com/Joyfuler/webPro/assets/137759165/004c8649-b335-497d-8b9f-d509c85209fc)
+![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/eaab39e2-2e94-4851-85b4-35b6f00c0e92)
 
 
 ## 2. 開発環境
