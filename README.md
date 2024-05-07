@@ -16,15 +16,15 @@ Game-i
 
 # 目次
 [1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#1-%E3%83%86%E3%83%BC%E3%83%9E%E5%8F%8A%E3%81%B3%E7%9B%AE%E7%9A%84)<br>
-[2. 開発環境](https://github.com/Joyfuler/game-i_1stProject#2-%EA%B0%9C%EB%B0%9C%ED%99%98%EA%B2%BD)<br>
-[3.作業分解構造図 (WBS)](https://github.com/Joyfuler/game-i_1stProject#3-%EC%9E%91%EC%97%85%EB%B6%84%ED%95%A0-%EA%B5%AC%EC%A1%B0%EB%8F%84-wbs) <br>
-[4. 作業工程表 Gantt Chart](https://github.com/Joyfuler/game-i_1stProject#4-%EC%9E%91%EC%97%85%EC%9D%BC%EC%A0%95-gantt-chart) <br>
-[5. 要件定義書 ](https://github.com/Joyfuler/game-i_1stProject#5-%EC%9A%94%EA%B5%AC%EC%82%AC%ED%95%AD-%EB%B6%84%EC%84%9D) <br>
-[6. ユースケース図](https://github.com/Joyfuler/game-i_1stProject#6-%EC%9C%A0%EC%8A%A4%EC%BC%80%EC%9D%B4%EC%8A%A4-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
-[7. シーケンス図](https://github.com/Joyfuler/game-i_1stProject#7-%EC%88%9C%EC%B0%A8-%EB%8B%A4%EC%9D%B4%EC%96%B4%EA%B7%B8%EB%9E%A8) <br>
-[8. 機能定義書及び設計](https://github.com/Joyfuler/game-i_1stProject#8-%EA%B8%B0%EB%8A%A5%EC%A0%95%EC%9D%98-%EB%B0%8F-%EC%84%A4%EA%B3%84) <br>
-[9. データベース設計(ERD)](https://github.com/Joyfuler/game-i_1stProject#9-db-%EC%84%A4%EA%B3%84-erd) <br>
-[10. UI画面及び機能説明](https://github.com/Joyfuler/game-i_1stProject#10-ui-%ED%99%94%EB%A9%B4-%EB%B0%8F-%EA%B8%B0%EB%8A%A5%EC%84%A4%EB%AA%85)<br>
+[2. 開発環境](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#2-%E9%96%8B%E7%99%BA%E7%92%B0%E5%A2%83)<br>
+[3.作業分解構造図 (WBS)](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#3-%E4%BD%9C%E6%A5%AD%E5%88%86%E8%A7%A3%E6%A7%8B%E9%80%A0%E5%9B%B3-wbs) <br>
+[4. 作業工程表 Gantt Chart](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#4-%E4%BD%9C%E6%A5%AD%E5%B7%A5%E7%A8%8B%E8%A1%A8-gantt-chart) <br>
+[5. 要件定義書 ](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#5-%E8%A6%81%E4%BB%B6%E5%AE%9A%E7%BE%A9%E6%9B%B8) <br>
+[6. ユースケース図](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#6-%E3%83%A6%E3%83%BC%E3%82%B9%E3%82%B1%E3%83%BC%E3%82%B9%E5%9B%B3) <br>
+[7. シーケンス図](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#7-%E3%82%B7%E3%83%BC%E3%82%B1%E3%83%B3%E3%82%B9%E5%9B%B3) <br>
+[8. 機能定義書及び設計](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#8-%E6%A9%9F%E8%83%BD%E5%AE%9A%E7%BE%A9%E6%9B%B8%E5%8F%8A%E3%81%B3%E8%A8%AD%E8%A8%88) <br>
+[9. データベース設計(ERD)](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#9-%E3%83%87%E3%83%BC%E3%82%BF%E3%83%99%E3%83%BC%E3%82%B9%E8%A8%AD%E8%A8%88-erd) <br>
+[10. UI画面及び機能説明](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#10-ui%E7%94%BB%E9%9D%A2%E5%8F%8A%E3%81%B3%E6%A9%9F%E8%83%BD%E8%AA%AC%E6%98%8E)<br>
 
 
 ## 1. テーマ及び目的
