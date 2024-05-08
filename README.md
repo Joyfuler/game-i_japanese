@@ -42,7 +42,7 @@ Game-i
 
 
 ## 4. 作業工程表 Gantt Chart
-![스크린샷 2024-05-08 144159-vert](https://github.com/Joyfuler/game-i_japanese/assets/137759165/49ce0274-e67c-4602-a0fd-bf9ffd21a292)
+![스크린샷 2024-05-08 144810-vert](https://github.com/Joyfuler/game-i_japanese/assets/137759165/d04c2923-e375-4c3c-a742-bafbfac0f646)
 
 
 ## 5. 要件定義書
