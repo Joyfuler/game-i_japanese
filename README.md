@@ -46,7 +46,7 @@ Game-i
 
 
 ## 5. 要件定義書
-![슬라이드7-2](https://github.com/Joyfuler/webPro/assets/137759165/e506da5d-848b-4731-b846-ed2c45032c26)
+![스크린샷66](https://github.com/Joyfuler/game-i_japanese/assets/137759165/dfeeffd6-2331-4084-81b6-082f13412956)
 
 
 ## 6. ユースケース図
