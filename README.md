@@ -38,7 +38,7 @@ Game-i
 
 ## 3. 作業分解構造図 (WBS)
 ![스크린샷 2024-05-07 230524](https://github.com/Joyfuler/game-i_japanese/assets/137759165/d935242a-498e-415a-9403-006ad58d4f86)
-![슬라이드7](https://github.com/Joyfuler/game-i_1stProject/assets/137759165/ca8ae1c7-02be-41a9-b0c3-3de22d9f8102)
+![스크린샷52](https://github.com/Joyfuler/game-i_japanese/assets/137759165/eea9d7a1-7bb1-4d91-8741-e097415dd8c1)
 
 
 ## 4. 作業工程表 Gantt Chart
