@@ -50,7 +50,7 @@ Game-i
 
 
 ## 6. ユースケース図
-![슬라이드8](https://github.com/Joyfuler/webPro/assets/137759165/8b1d43e1-b852-4d7c-8001-7215ef55d4b1)
+![스크린샷60](https://github.com/Joyfuler/game-i_japanese/assets/137759165/a68f3094-66d2-4e25-9018-f7ab4fe0614b)
 
 
 ## 7. シーケンス図
