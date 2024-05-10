@@ -54,8 +54,8 @@ Game-i
 
 
 ## 7. シーケンス図
-![슬라이드9](https://github.com/Joyfuler/webPro/assets/137759165/d5092614-a8ec-44b4-8047-d13d1c16acb7)
-![슬라이드10](https://github.com/Joyfuler/webPro/assets/137759165/4fa954b8-9ebf-4bb9-9b71-724ebe433a6b)
+![스크린샷 2024-05-10 105922](https://github.com/Joyfuler/game-i_japanese/assets/137759165/edf3d317-7a0c-4524-89a6-eba181f6c6fe)
+![스크린샷61](https://github.com/Joyfuler/game-i_japanese/assets/137759165/bf991bae-24bd-4e3f-bf1c-2ec93cb4db00)
 
 
 ## 8. 機能定義書及び設計
