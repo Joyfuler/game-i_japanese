@@ -65,7 +65,7 @@ Game-i
 
 
 ## 9. データベース設計 (ERD)
-![슬라이드11](https://github.com/Joyfuler/webPro/assets/137759165/4efd42a9-9449-41a8-adf1-8152eab04b23)
+![SCREENSHOT52](https://github.com/Joyfuler/game-i_japanese/assets/137759165/505c48b6-58f0-4e2e-b9ce-c75da9735ad2)
 
 
 ## 10. UI画面及び機能説明
