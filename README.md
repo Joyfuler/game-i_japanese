@@ -60,7 +60,7 @@ Game-i
 
 ## 8. 機能定義書及び設計
 ![스크린샷 2024-05-12 171736](https://github.com/Joyfuler/game-i_japanese/assets/137759165/160f6ed9-8a86-4f62-8853-ecc796740102)
-![스크린샷 2024-05-12 171742](https://github.com/Joyfuler/game-i_japanese/assets/137759165/22723f14-53b1-4e51-949c-889e94079140)
+![스크린샷 2024-05-12 171934](https://github.com/Joyfuler/game-i_japanese/assets/137759165/95cd9873-353f-48d7-bb18-8b553a550fb3)
 ![스크린샷 2024-05-12 171749](https://github.com/Joyfuler/game-i_japanese/assets/137759165/ebfb3be0-06a4-4e2f-803c-ccb17f2e125f)
 
 
