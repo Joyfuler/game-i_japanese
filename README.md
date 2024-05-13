@@ -12,7 +12,7 @@ Game-i
 - プロジェクト紹介 : サイトにアクセスした使用者にサイト內取り扱いゲームについて評価、
 またはサイト内のアクセスランキングなどを確認出来ます。同時に各ゲームに対応したコミュニティを提供するサイトです。
 
-![main](![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729))
+![스크린샷 2024-05-07 224539](https://github.com/Joyfuler/game-i_japanese/assets/137759165/12780bd6-1ada-4b19-bfdb-b498291b6e3d)
 
 # 目次
 [1. テーマ及び目的](https://github.com/Joyfuler/game-i_japanese?tab=readme-ov-file#1-%E3%83%86%E3%83%BC%E3%83%9E%E5%8F%8A%E3%81%B3%E7%9B%AE%E7%9A%84)<br>
@@ -28,8 +28,8 @@ Game-i
 
 
 ## 1. テーマ及び目的
-![스크린샷1](https://github.com/Joyfuler/game-i_japanese/assets/137759165/5f8e625f-3752-4ed4-9100-ab5485318729)
-![슬라이드3](https://github.com/Joyfuler/webPro/assets/137759165/004c8649-b335-497d-8b9f-d509c85209fc)
+![스크린샷 2024-05-07 224539](https://github.com/Joyfuler/game-i_japanese/assets/137759165/12780bd6-1ada-4b19-bfdb-b498291b6e3d)
+![스크린샷 2024-05-07 224959](https://github.com/Joyfuler/game-i_japanese/assets/137759165/c2410033-9dc4-4fab-8b8a-37a4cf476f67)
 
 
 ## 2. 開発環境
@@ -37,33 +37,35 @@ Game-i
 
 
 ## 3. 作業分解構造図 (WBS)
-![슬라이드5](https://github.com/Joyfuler/webPro/assets/137759165/56bd86ac-ba3d-4315-9e5c-b192f7e8004f)
-![슬라이드7](https://github.com/Joyfuler/game-i_1stProject/assets/137759165/ca8ae1c7-02be-41a9-b0c3-3de22d9f8102)
+![스크린샷 2024-05-07 230524](https://github.com/Joyfuler/game-i_japanese/assets/137759165/d935242a-498e-415a-9403-006ad58d4f86)
+![스크린샷52](https://github.com/Joyfuler/game-i_japanese/assets/137759165/eea9d7a1-7bb1-4d91-8741-e097415dd8c1)
 
 
 ## 4. 作業工程表 Gantt Chart
-![슬라이드7](https://github.com/Joyfuler/webPro/assets/137759165/c6eb8c14-d19e-42bf-9338-7832cd83f687)
+![스크린샷 2024-05-08 144810-vert](https://github.com/Joyfuler/game-i_japanese/assets/137759165/d04c2923-e375-4c3c-a742-bafbfac0f646)
 
 
 ## 5. 要件定義書
-![슬라이드7-2](https://github.com/Joyfuler/webPro/assets/137759165/e506da5d-848b-4731-b846-ed2c45032c26)
+![스크린샷66](https://github.com/Joyfuler/game-i_japanese/assets/137759165/dfeeffd6-2331-4084-81b6-082f13412956)
 
 
 ## 6. ユースケース図
-![슬라이드8](https://github.com/Joyfuler/webPro/assets/137759165/8b1d43e1-b852-4d7c-8001-7215ef55d4b1)
+![스크린샷60](https://github.com/Joyfuler/game-i_japanese/assets/137759165/a68f3094-66d2-4e25-9018-f7ab4fe0614b)
 
 
 ## 7. シーケンス図
-![슬라이드9](https://github.com/Joyfuler/webPro/assets/137759165/d5092614-a8ec-44b4-8047-d13d1c16acb7)
-![슬라이드10](https://github.com/Joyfuler/webPro/assets/137759165/4fa954b8-9ebf-4bb9-9b71-724ebe433a6b)
+![스크린샷 2024-05-10 105922](https://github.com/Joyfuler/game-i_japanese/assets/137759165/edf3d317-7a0c-4524-89a6-eba181f6c6fe)
+![스크린샷61](https://github.com/Joyfuler/game-i_japanese/assets/137759165/bf991bae-24bd-4e3f-bf1c-2ec93cb4db00)
 
 
 ## 8. 機能定義書及び設計
-![슬라이드10-2](https://github.com/Joyfuler/webPro/assets/137759165/179f124f-0fef-4cdb-ab9f-e787ac62b3d0)
+![스크린샷 2024-05-12 171736](https://github.com/Joyfuler/game-i_japanese/assets/137759165/160f6ed9-8a86-4f62-8853-ecc796740102)
+![스크린샷 2024-05-12 171934](https://github.com/Joyfuler/game-i_japanese/assets/137759165/95cd9873-353f-48d7-bb18-8b553a550fb3)
+![스크린샷 2024-05-12 171749](https://github.com/Joyfuler/game-i_japanese/assets/137759165/ebfb3be0-06a4-4e2f-803c-ccb17f2e125f)
 
 
 ## 9. データベース設計 (ERD)
-![슬라이드11](https://github.com/Joyfuler/webPro/assets/137759165/4efd42a9-9449-41a8-adf1-8152eab04b23)
+![SCREENSHOT52](https://github.com/Joyfuler/game-i_japanese/assets/137759165/505c48b6-58f0-4e2e-b9ce-c75da9735ad2)
 
 
 ## 10. UI画面及び機能説明
