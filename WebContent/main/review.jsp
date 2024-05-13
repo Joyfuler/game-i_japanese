@@ -88,7 +88,7 @@
               			</c:when> 
               			<c:when test = "${timeGap < 0}">
               			<p class="game_open">				
-    					출시일 : ${gameInfo.gpdate } <span>(リリース)</span>
+    					リリース日 : ${gameInfo.gpdate } <span>(リリース)</span>
 						</p>             	               
               			</c:when>
               		</c:choose>				
@@ -220,7 +220,7 @@
 合計評価数 : <strong id="totalReviewCnt">${scoreCount.allCount }</strong>件 / ページ: (<strong>${pageNum }</strong>/ ${pageCnt })
         	<ul class = "review">
 			<c:forEach var="reviewInfo" items="${reviewList }">
-				<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;등록일: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
+				<li><img src = "${conPath }/memberPhotoUp/${reviewInfo.mphoto }" height= "20"><strong>${reviewInfo.mnickname }</strong> | &nbsp;作成日: <fmt:formatDate value= "${reviewInfo.rrdate }" pattern="yyyy-MM-dd HH:mm:ss"/></li>			
 				<li style = "font-size:0.75em;">点数 <strong>${reviewInfo.rscore }</strong>
 					<span class = "star">
 						<c:forEach begin="1" end="${reviewInfo.rscore }">

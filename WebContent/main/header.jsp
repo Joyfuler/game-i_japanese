@@ -35,17 +35,17 @@
 	 <div class = "controller">
           <ul>
           	<c:if test = "${empty member }">			          
-            	<li><a class = "control" href = "${conPath }/loginView.do">로그인</a></li>            
-            	<li><a class = "control" href = "${conPath }/findAccountView.do">아이디/비밀번호찾기</a></li>            
-            	<li><a class = "control" href = "${conPath }/joinView.do">회원가입</a></li>
+            	<li><a class = "control" href = "${conPath }/loginView.do">ログイン</a></li>            
+            	<li><a class = "control" href = "${conPath }/findAccountView.do">ID・PWを探す</a></li>            
+            	<li><a class = "control" href = "${conPath }/joinView.do">会員登録</a></li>
             </c:if>
             <c:if test = "${not empty member }">
-            	<li><a class = "control" href = "${conPath }/modifyChk.do?mid=${member.mid }">회원정보수정</a></li>
-            	<li><a class = "control" href = "${conPath }/logout.do">로그아웃</a></li>
-            	<li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>님</a></li>            
+            	<li><a class = "control" href = "${conPath }/modifyChk.do?mid=${member.mid }">個人情報修正</a></li>
+            	<li><a class = "control" href = "${conPath }/logout.do">ログアウト</a></li>
+            	<li><img src = "${conPath }/memberPhotoUp/${member.mphoto }" height = "25"><a class = "control" href = "#"><b>${member.mnickname } </b>さん</a></li>            
             </c:if>
             <c:if test = "${not empty member and member.mlevel eq 1 }">
-           		 <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color: red;">관리자모드</a></li>
+           		 <li><a class = "control" href = "${conPath }/admin.do?idx=0" style = "color: red;">管理者モード</a></li>
             </c:if>
           </ul>
         </div>
@@ -58,22 +58,22 @@
               <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav me-auto">
                   <li class="nav-item item1">
-              	      <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">평점목록</a>
+              	      <a class="nav-link" aria-current="page" href="${conPath }/index.jsp">スコア一覧</a>
                   </li>
                   <li class="nav-item">
-                	  <a class="nav-link" href="${conPath }/boardList.do?gid=notice">공지사항</a>
+                	  <a class="nav-link" href="${conPath }/boardList.do?gid=notice">お知らせ</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="${conPath }/intro.do">Game-i소개</a>
+                      <a class="nav-link" href="${conPath }/intro.do">Game-i紹介</a>
                   </li>      
                   <li class="nav-item">
-                      <a class="nav-link" href="${conPath }/boardList.do?gid=qna">문의게시판</a>
+                      <a class="nav-link" href="${conPath }/boardList.do?gid=qna">お問い合わせ</a>
                   </li>    
                   <li class="nav-item">
-                      <a class="nav-link" href="${conPath }/modifyFavoriteView.do" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">즐겨찾기</a>
+                      <a class="nav-link" href="${conPath }/modifyFavoriteView.do" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false">ブックマーク</a>
                   </li>                                                         
                 </ul>
-                <button class="navbar-toggler" type="button" id="closeMenuButton">▲닫기</button>
+                <button class="navbar-toggler" type="button" id="closeMenuButton">▲閉じる</button>
                 <script>
   $(document).ready(function() {    
     $('#closeMenuButton').click(function() {
