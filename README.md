@@ -71,7 +71,7 @@ Game-i
 ## 10. UI画面及び機能説明
 ![스크린샷 2024-05-14 222347](https://github.com/Joyfuler/game-i_japanese/assets/137759165/f9c1a00a-ca96-4f3f-9840-0c07aff6afab)
 ![스크린샷 2024-05-14 224942](https://github.com/Joyfuler/game-i_japanese/assets/137759165/937461a3-942c-4359-97f3-38693316ec0d)
-![슬라이드14](https://github.com/Joyfuler/webPro/assets/137759165/1a05d2a2-3700-42dd-8d98-90c2a0dde378)
+![스크린샷 2024-05-14 232138](https://github.com/Joyfuler/game-i_japanese/assets/137759165/8d824271-e760-4a82-9cab-74c5fd58c6a2)
 ![슬라이드15](https://github.com/Joyfuler/webPro/assets/137759165/300605cb-3aa4-4cbc-964d-ce1aa952c0ad)
 ![슬라이드16](https://github.com/Joyfuler/webPro/assets/137759165/12e0a526-9cf8-4e29-ab26-183d95d074c2)
 ![슬라이드17](https://github.com/Joyfuler/webPro/assets/137759165/12861b36-d276-4b57-b5db-9df877490291)
