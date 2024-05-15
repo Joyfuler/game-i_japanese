@@ -34,7 +34,7 @@
        <!-- 우측 게임순위 목록 -->			        
        <div class="m-right_gameRank">
        		<div class = "Ranktitle">
-        		<b class = "b1" style = "cursor:pointer;">방문TOP</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b class = "b2" style = "cursor:pointer;">최근리뷰</b><br>
+        		<b class = "b1" style = "cursor:pointer;">アクセス順</b>&nbsp;&nbsp;|&nbsp;&nbsp;<b class = "b2" style = "cursor:pointer;">最近のコメ</b><br>
         	</div>
         
         <!--  방문TOP 목록 -->
@@ -71,10 +71,10 @@
     </div>       
   <!-- 우측 즐겨찾기 영역-->  
   <div class="m-right_favorite"  style="z-index:1000">
-    	<p class="favorite_title">&nbsp;&nbsp;내 즐겨찾기</p>    		
+    	<p class="favorite_title">&nbsp;&nbsp;ブックマークリスト</p>    		
     			<c:if test = "${rightAreaFavoriteList.size() eq 0 }">
                 	<ul style = "padding: 5px !important;">
-                		<li style = "text-align: center; font-size:0.85em;"><span>즐겨찾기 없음</span></li>
+                		<li style = "text-align: center; font-size:0.85em;"><span>無し</span></li>
                 	</ul>                
                 </c:if>
                 <c:if test = "${rightAreaFavoriteList.size() != 0 }">
@@ -87,10 +87,10 @@
             	    </c:forEach>
             	</c:if>
             	<c:if test = "${empty member }">
-            		<a href = "${conPath }/loginView.do?next=modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>
+            		<a href = "${conPath }/loginView.do?next=modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">ブックマーク管理</a>
             	</c:if>     
             	<c:if test = "${not empty member }">           	    
-            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">즐겨찾기 관리</a>
+            	    <a href = "${conPath }/modifyFavoriteView.do" class = "modify" onclick = "window.open(this.href,'즐겨찾기수정','resizable=no width=450 height=550');return false" style = "color: ghostwhite; padding-left: 5px;">ブックマーク管理</a>
             	</c:if>                    
 		</div>
 	</div>	

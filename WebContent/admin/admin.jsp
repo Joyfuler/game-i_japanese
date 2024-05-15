@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-	<title>관리자모드</title>
+	<title>管理者モード</title>
 	<link href = "${conPath }/css/style2.css" rel = "stylesheet">
 	<link href = "${conPath }/css/admin.css" rel = "stylesheet">
 	<link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
@@ -170,34 +170,34 @@
     </div>
 	<div id="tabs">
 		<ul>
-	    	<li><a href="#tabs-1">회원 리스트 출력</a></li>
-	    	<li><a href="#tabs-2">신규 게임 추가</a></li>
-	    	<li><a href="#tabs-3">게임정보 변경</a></li>
-	    	<li><a href="#tabs-4">관리자 추가/제거</a></li>
-	    	<li><a href="#tabs-5">상단메뉴 관리</a></li>	
-	    	<li><a href ="#tabs-6">신고 게시글 관리</a></li>    	
+	    	<li><a href="#tabs-1">会員リスト</a></li>
+	    	<li><a href="#tabs-2">ゲーム追加</a></li>
+	    	<li><a href="#tabs-3">ゲーム情報変更</a></li>
+	    	<li><a href="#tabs-4">管理者を追加・解除</a></li>
+	    	<li><a href="#tabs-5">上段メニュー管理</a></li>	
+	    	<li><a href ="#tabs-6">通報管理</a></li>    	
 	  </ul>
 	  <div id="tabs-1">
 	    <p>
-			회원리스트 (총 <b style = "color:red;">${totCnt }</b>명)
+			会員リスト (全部 <b style = "color:red;">${totCnt }</b>人)
 		</p>	
 		<table>
 			<tr style = "border-bottom: 1px solid gray;">
-				<th> ID </th><th> 닉네임 </th><th>이메일</th><th>휴대폰번호</th><th>프로필사진</th><th>멤버등급</th><th>차단</th>
+				<th> ID </th><th> ハンドルネーム </th><th>メール</th><th>携帯番号</th><th>プロフィール写真</th><th>会員レベル</th><th>ブラックリスト</th>
 			</tr>
 			<c:forEach var = "list" items = "${memberList }">
 			<tr>
-				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${empty list.mphone? "번호없음" : list.mphone }</td>
+				<td> ${list.mid }</td><td>${list.mnickname }</td><td>${list.memail }</td><td>${empty list.mphone? "携帯なし" : list.mphone }</td>
 				<td><img src = "${conPath}/memberPhotoUp/${list.mphoto }" height= "25px"></td>
-				<td>${list.mlevel eq 1 ? "관리자" : (list.mlevel eq 0? "일반회원": (list.mlevel eq -2 ? "차단회원" : "탈퇴회원"))}</td>
+				<td>${list.mlevel eq 1 ? "管理者" : (list.mlevel eq 0? "일반회원": (list.mlevel eq -2 ? "ブラック会員" : "脱退会員"))}</td>
 				<c:if test = "${list.mlevel eq 0 }">
-					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 차단</button></td>
+					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'" > 追加</button></td>
 				</c:if>
 				<c:if test = "${list.mlevel eq -2 }">
 					<td><button class = "blockUser" data-id = "${list.mid }" onclick = "location.href='${conPath}/adminBlockUser.do?mlevel=${list.mlevel }&mid=${list.mid }'"> 차단해제</button></td>
 				</c:if>
 				<c:if test = "${list.mlevel eq -1 }">
-					<td>(탈퇴회원)</td>
+					<td>(脱退会員)</td>
 				</c:if>
 			</tr>	
 			</c:forEach>
@@ -222,44 +222,44 @@
 	  
 	  <!--  두번째 탭 영역. 신규 게임 추가 -->
 	  <div id="tabs-2">
-	  <span> 새로 추가할 게임 정보를 입력해 주세요. 게임 추가시 게시판이 함께 추가됩니다 </span>
+	  <span> 新しく追加するゲームの情報を入力してください。追加すると掲示板が自動的に生成されます</span>
 	     <form action = "${conPath }/adminAddGame.do" method = "post" enctype = "multipart/form-data">
 	    	<table>	   
 	    		<tr>
-	    			<th>게시판아이디</th>
+	    			<th>掲示板ID</th>
 	    			<td><input type = "text" name = "gid"><br><br>
 	    				<p style = "color: red; font-size: 0.9em;" class = "existChk">&nbsp; &nbsp; &nbsp;</p>
 	    			</td>
 	    		</tr>		
 	    		<tr>
-	    			<th>게임명</th>
+	    			<th>ゲーム名</th>
 	    			<td><input type = "text" name = "gname"></td><td></td>
 	    		</tr>
 	    		<tr>
-	    			<th>장르</th>
+	    			<th>ジャンル</th>
 	    			<td><input type = "text" name = "ggenre"></td>
 	    		<tr>
-	    			<th>개발사</th> 
+	    			<th>開発社</th> 
 	    			<td><input type = "text" name = "gpub"></td>
 	    		</tr>
 	    		<tr>	
-	    			<th>출시일</th>
-	    			<td><input type = "text" name = "gpdate" class = "datepicker" placeholder = "클릭해 달력 열기"></td>
+	    			<th>リリース日付</th>
+	    			<td><input type = "text" name = "gpdate" class = "datepicker" placeholder = "カレンダーを開く"></td>
 	    		</tr>
 	    		<tr>	
-	    			<th>게임아이콘 <br>(1:1 비율, 100x100 권장)</th>
+	    			<th>ゲームアイコン <br>(1:1 比率、 100x100サイズ推奨)</th>
 	    			<td><input type = "file" name ="gicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img class = "preview" height = "45px"></td>
 	    			
 	    		</tr>
 	    		<tr>	    			
-	    			<th>게임설명 </th>
+	    			<th>ゲーム説明 </th>
 	    			<td>
 	    				<textarea cols="20" rows="3" name = "gdesc"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    			<input type = "submit" value = "게임추가" style = "width: 200px; padding: 5px;">
+	    			<input type = "submit" value = "ゲーム追加" style = "width: 200px; padding: 5px;">
 	    			</td>
 	    		</tr>		
 	    	</table>
@@ -268,62 +268,62 @@
 	  
 	  <!--  세 번째 탭 영역. 게임 정보 변경 -->
 	  <div id="tabs-3">
-	  게시판 아이디를 검색해 주세요.
+	  掲示板IDを入力してください
 	   	<form action = "${conPath }/adminModifyGame.do" method = "post" enctype = "multipart/form-data">	   
 	   		<input type = "hidden" name = "dbGicon">	
 	    	<table>	   
 	    		<tr>
-	    			<th>게시판아이디</th>
+	    			<th>掲示板ID</th>
 	    			<td>
-	    				<input type = "text" id = "gid" name = "gid" class = "modifyGid"></td><td><input type = "button" value = "검색" class = "gidSearch">
+	    				<input type = "text" id = "gid" name = "gid" class = "modifyGid"></td><td><input type = "button" value = "検索" class = "gidSearch">
 	    			</td> 	
 	    		<tr>
-	    			<th>게임명</th>
+	    			<th>ゲーム名</th>
 	    			<td>
 	    				<input type = "text" id = "gname" name = "gname" class = "modifyGname"></td><td></td><td></td><td>
 	    			</td>	
 	    		</tr>
 	    		<tr>
-	    			<th>장르</th>
+	    			<th>ジャンル</th>
 	    			<td>
 	    				<input type = "text" id = "ggenre" name = "ggenre" class = "modifyGgenre">
 	    			</td>
 	    		</tr>	
 	    		<tr>
-	    			<th>개발사</th> 
+	    			<th>開発社</th> 
 	    			<td>
 	    				<input type = "text" id = "gpub" name = "gpub" class = "modifyGpub">
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<th>출시일</th>
+	    			<th>リリース日付</th>
 	    			<td>
 	    				<input type = "text" name = "gpdate" class = "modifyGpdate datepicker">
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<th>게임아이콘</th>
+	    			<th>ゲームアイコン</th>
 	    			<td>
 	    				<input type = "file" id ="gicon" name = "gicon" class = "modifyGicon" onchange = "displayImg(this)" style = "margin-top:20px;"><img class = "preview" height = "100">
 	    			</td>
 	    		</tr>
 	    		<tr>	
-	    			<th>게임설명 </th>
+	    			<th>ゲーム説明 </th>
 	    			<td>
-	    				<textarea name = "gdesc" rows="3" cols="20" placeholder="입력하지 않으시면 기존 게임 설명으로 반영됩니다"></textarea>
+	    				<textarea name = "gdesc" rows="3" cols="20" placeholder="修正しない場合、既存の説明が適用されます。"></textarea>
 	    			</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<td><input type = "submit" value = "정보변경"></td>
+	    			<td><input type = "submit" value = "情報修正"></td>
 	    		</tr>		
 	    	</table>
 	    </form>	    
 	    <hr>
 	    <!--  세 번째 탭 영역 하단, 게임 리스트 출력 -->
-	    <span>게임 게시판 리스트</span>
+	    <span>掲示板リスト</span>
 	    <table>	    	
 			<tr style = "border-bottom: 1px solid gray;">
-				<th> 게시판ID </th><th> 게임명 </th><th>장르</th><th>개발사</th><th>아이콘</th><th>출시일</th><th>조회수</th>
+				<th> 掲示板ID </th><th> ゲーム名 </th><th>ジャンル</th><th>開発社</th><th>アイコン</th><th>リリース日</th><th>アクセス数</th>
 			</tr>
 			<c:forEach var = "gameLists" items = "${gameList }">
 			<tr>
@@ -381,7 +381,7 @@
 	   <!--  다섯번째 영역. 게시판 상단 메뉴 관리 -->	   		   		
 	    	<table>	   
 	    		<tr>
-	    			<th>상단메뉴 관리</th>
+	    			<th>おすすめリスト管理</th>
 	    		</tr>
 	    		<tr>
 	    		<c:set var="idx" value="1"/>
@@ -409,24 +409,24 @@
 	    		</c:forEach>
 	    		</tr>	    		
 	    		<tr>
-	    			<th> 클릭해 내릴 게임을 선택</th>
+	    			<th>クリックしておすすめリストから削除</th>
 	    		</tr>	
 	    		<tr>	
 	    			<td>
 	    				<form action = "${conPath }/topMenuSetup.do">
 	    				<input type = "hidden" name = "method" value = "remove">
 	    				<input type = "text" id= "removeMenuGname">
-	    				<input type = "text" id = "removeMenuGid" name = "gid" readonly="readonly"><input type = "submit" value = "내리기">	    				
+	    				<input type = "text" id = "removeMenuGid" name = "gid" readonly="readonly"><input type = "submit" value = "削除">	    				
 	    				</form>
 	    			</td>
 	    		</tr>	    		
 	    		<tr>
-	    			<th> 올릴 게임을 선택</th>
+	    			<th> おすすめリストに登録</th>
 	    		</tr>
 	    		<tr>	    			
 	    			<td>
 	    				<form action = "${conPath }/topMenuSetup.do">
-	    				<input type = "text" id = "addMenu" name = "gid"><input type = "button" class = "searchGname" value = "ID검색">
+	    				<input type = "text" id = "addMenu" name = "gid"><input type = "button" class = "searchGname" value = "ID検索">
 	    				<input type = "hidden" name = "method" value = "add">
 	    			</td>
 	    			<td>	
@@ -436,12 +436,12 @@
 	    		<tr>
 	    			<td>		
 	    				<c:if test = "${topGameList.size() >= 18 }">
-	    				<input type = "button" value = "올리기" style = "color: gray;"><br><br>
-	    				<b style = "color: red;">(상단 게임 목록은  <br>
-	    				최대 18개까지만 등록됩니다) </b>
+	    				<input type = "button" value = "登録" style = "color: gray;"><br><br>
+	    				<b style = "color: red;">(おすすめリストは  <br>
+	    				最大18個まで登録出来ます) </b>
 	    				</c:if>
 	    				<c:if test = "${topGameList.size() < 18 }">
-	    				<input type = "submit" value = "올리기">
+	    				<input type = "submit" value = "登録">
 	    				</c:if>
 	    				</form>	    				
 	    			</td>
@@ -454,25 +454,25 @@
 	    	<table>
 	    		<tr>
 	    			<th>
-	    				상단 이미지 영역 설정 <br>(클릭해 변경할 기사를 선택 -<br>사이즈는 265 x 400으로 통일해주세요)
+	    				バナーイメージ変更 <br>(クリックして変更するイメージ選択ー<br>サイズは 265 x 400で統一してください)
 	    			</th>
 	    		</tr>
 	    		<tr>
 	    			<c:set var= "idx" value="1"/>
 	    			<c:forEach var="articles" items="${articleList }">	    				    		
 	    				<td>
-	    					이미지${idx }<br><img data-id= "${articles.artid }" src = "${conPath }/img/${articles.img1 }" class = "articleImg"><br>
-	    					게시판아이디 : <span data-id = "${articles.link1}" class = "articleId">${articles.link1 }</span>
+	    					イメージ${idx }<br><img data-id= "${articles.artid }" src = "${conPath }/img/${articles.img1 }" class = "articleImg"><br>
+	    					掲示板ID : <span data-id = "${articles.link1}" class = "articleId">${articles.link1 }</span>
 	    				</td>
 	    			<c:set var = "idx" value = "${idx +1 }"/>	 
 	    			</c:forEach>	    			
 	    		</tr>
 	    		<tr>
 	    			<td>
-	    				선택 기사: <input type = "text" name = "artid" class = "artid">
+	    				選択イメージ: <input type = "text" name = "artid" class = "artid">
 	    			</td>
 	    			<td>	
-	    				이미지 업로드<br>(미첨부시 기존파일적용) <input type = "file" name = "img1" onchange = "displayImg(this)">
+	    				イメージアップロード<br>(しない場合、既存のイメージ適用) <input type = "file" name = "img1" onchange = "displayImg(this)">
 	    			</td>
 	    			<td>
 	    				<img class = "preview" height = "100px">
@@ -480,18 +480,18 @@
 	    		</tr>
 	    		<tr>
 	    			<td>	
-	    				게시판 아이디: <input type = "text" name = "link1" class = "link1">
+	    				掲示板ID: <input type = "text" name = "link1" class = "link1">
 	    				<input type = "hidden" name = "dbimg1" class = "dbimg1">
 	    			</td>
 	    			<td>	    			
-	    				<input type = "submit" value = "기사 변경">
+	    				<input type = "submit" value = "イメージ変更">
 	    			</td>
 	    		</tr>		
 	    	</table>
 	    </form>	    
 	    	<table>
 	    		<tr>
-	    			<th> 상단 검색어 편집 </th>
+	    			<th> 上段検索ワード編集 </th>
 	    		</tr>	    		
 	    			<c:set var= "idx" value="1"/>
 	    			<c:forEach var="searchWord" items="${searchWordList }">

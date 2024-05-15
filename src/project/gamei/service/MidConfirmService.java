@@ -13,9 +13,9 @@ public class MidConfirmService implements Service {
 		MemberDao mDao = MemberDao.getInstance();
 		int result = mDao.midConfirm(mid);
 		if (result == MemberDao.EXISTENT) {
-			request.setAttribute("joinConfirmResult","중복된 ID입니다.");			
+			request.setAttribute("joinConfirmResult","このIDは既に使用されています");			
 		} else {
-			request.setAttribute("joinConfirmResult","사용 가능한 ID입니다.");
+			request.setAttribute("joinConfirmResult","使用可能なIDです");
 		}
 	}
 }

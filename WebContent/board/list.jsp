@@ -64,7 +64,7 @@
         <div class="board_title">        	
         			<h2 class="title_bar" onclick = "location.href='${conPath}/boardList.do?gid=${gameInfo.gid }'" style = "cursor: pointer;">
 						<img src = "${conPath }/img/${gameInfo.gicon }" height = "44px" onerror = "noImage(this)">
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 게시판
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${gameInfo.gname } 掲示板
 					</h2>					 
 		</div>		
     </div>    
@@ -76,18 +76,18 @@
             <table class="board-table">
                 <thead>
                 <tr>
-                    <th scope="col" class="th-num">번호</th>
-                    <th scope="col" class="th-title">제목</th>
-                    <th scope="col" class="th-date">등록일</th>
-                    <th scope="col" class="th-name">닉네임</th>
-                    <th scope="col" class="th-hit">조회수</th>
+                    <th scope="col" class="th-num">番号</th>
+                    <th scope="col" class="th-title">タイトル</th>
+                    <th scope="col" class="th-date">作成日付</th>
+                    <th scope="col" class="th-name">ハンドルネーム</th>
+                    <th scope="col" class="th-hit">閲覧数</th>
                 </tr>
                 </thead>
                 <tbody>
                 	<c:if test = "${gid != 'notice' }">	
                 		<c:forEach var = "notice" items="${noticeList }">                	
                 		<tr>
-                    		<td><b>공지 </b></td>
+                    		<td style="font-color:aqua;"><b> お知らせ </b></td>
                     		<th>
                     			<a href="javascript:void(0);" onclick = "window.open('${conPath }/boardContent.do?gid=${notice.gid }&bno=${notice.bno }&pageNum=${param.pageNum }', '_blank', 'width=1200, height = 900, resizable = yes, scrollbars = yes')">${notice.btitle }</a>
                     		</th>
@@ -149,15 +149,15 @@
         		<button onclick = "blockUserAlert()" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성</button>
         	</c:if>
         	<c:if test="${not empty member and param.gid != 'notice'}">
-        		<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+        		<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 投稿する </button>
         	</c:if>
 			<c:if test="${empty member and param.gid != 'notice'}">
-				<button onclick = "location.href='${conPath}/loginView.do?next=boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+				<button onclick = "location.href='${conPath}/loginView.do?next=boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 投稿する </button>
 			</c:if>
 			<c:if test = "${not empty member and member.mlevel eq 1 and param.gid eq 'notice' }">
-				<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 글작성 </button>
+				<button onclick = "location.href='${conPath}/boardWriteView.do?gid=${gid }'" style = "margin-top: 5px; margin-left:900px; position: absolute;"> 投稿する </button>
 			</c:if>	 			        	        
-        	<button onclick = "location.href='${conPath}/boardList.do?gid=${gid }'" style = "margin-top: 5px; margin-left:980px; position: absolute;"> 전체글 </button>
+        	<button onclick = "location.href='${conPath}/boardList.do?gid=${gid }'" style = "margin-top: 5px; margin-left:980px; position: absolute;"> 全部 </button>
         </div>
     </div>
 	<div id="board-search">
@@ -167,14 +167,14 @@
                 	<table>
                 		<tr>
                         	<td><select id = "query" name = "query">
-             		            <option value = "btitle" selected="selected">제목</option>                        
-                     		    <option value = "mname">작성자</option>
+             		            <option value = "btitle" selected="selected">タイトル</option>                        
+                     		    <option value = "mname">作成者</option>
                         		</select>
                         	</td>
                         	<td>
-                        		<input type="text" name="searchWord" placeholder="검색어를 입력해주세요." value = "${param.searchWord }">
+                        		<input type="text" name="searchWord" placeholder="検索ワードを入力" value = "${param.searchWord }">
                         	</td>                        
-                        	<td><button>검색</button></td>
+                        	<td><button>検索</button></td>
                         </tr>
             	   	</table>                            
             </form>            

@@ -97,7 +97,7 @@
   	</div>
   	<form action = "${conPath }/main.do" class = "listSort">    
 	    <select id = "selectBox" name = "sortBy">
-	      	<option value = "new">ソート</option>
+	      	<option value = "new">ソート方式</option>
 	      	<c:if test = "${sortBy eq 'new' or empty sortBy}">
 	     	 	<option value = "new" selected = "selected"> リリース日順 </option>
 		      	<option value = "highScore"> 高い評価</option>
@@ -135,14 +135,14 @@
               <c:set var = "timeGap" value = "${sortedList.gpdate.time - currentDate.time }"/>
               <c:choose>              
               	<c:when test = "${timeGap >= 0}">
-             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース日まで ${timeGap/86400000}일 남음)</p>              
+             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース日まで ${timeGap/86400000}日)</p>              
               	</c:when> 
               	<c:when test = "${timeGap < 0}">
-             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース)</p>              
+             	 <p class="card-text2 card-text" style = "color:white;">リリース日: ${sortedList.gpdate } (リリース済み)</p>              
               	</c:when>
               </c:choose>	
               <p class="card-text3 card-text card-intro" style = "color:white;">${sortedList.gdesc }</p>
-              &nbsp;&nbsp;<a href="${conPath }/review.do?gid=${sortedList.gid }" class="btn btn-primary">評価</a> <a href="${conPath }/boardList.do?gid=${sortedList.gid }" class="btn btn-primary">コミュニティ</a>
+              &nbsp;&nbsp;<a href="${conPath }/review.do?gid=${sortedList.gid }" class="btn btn-primary">評価</a> <a href="${conPath }/boardList.do?gid=${sortedList.gid }" class="btn btn-primary">掲示板</a>
             </div>
           </div>
         </div>

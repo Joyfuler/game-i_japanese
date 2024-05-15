@@ -30,10 +30,10 @@
 					<b>${member.mnickname }</b>
 				</td>
 				<td>				
-					<textarea rows="3" cols="30" name="bctext" style="width:500px; height:80px; float:left; margin: 5px; margin-left: 20px;" placeholder="댓글내용"  required="required"></textarea>
+					<textarea rows="3" cols="30" name="bctext" style="width:500px; height:80px; float:left; margin: 5px; margin-left: 20px;" placeholder="コメントを入力"  required="required"></textarea>
 				</td>
 				<td>	
-					<input type="submit" value="작성하기">
+					<input type="submit" value="作成">
 				</td>
 			</tr>		
 		</table>

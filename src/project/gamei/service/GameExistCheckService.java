@@ -13,9 +13,9 @@ public class GameExistCheckService implements Service {
 		GameDao gDao = GameDao.getInstance();
 		int result = gDao.existCheck(gid);
 		if (result == GameDao.EXISTENT) {
-			request.setAttribute("existCheck", "존재하는 아이디입니다.");			
+			request.setAttribute("existCheck", "既に使用されているIDです");			
 		} else {
-			request.setAttribute("existCheck", "사용 가능한 아이디입니다.");
+			request.setAttribute("existCheck", "使用可能なIDです");
 		}
 	}
 }

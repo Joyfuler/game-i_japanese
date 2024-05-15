@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>즐겨찾기관리 - Game-i</title>
+<title>ブックマーク管理 - Game-i</title>
 <link href = "${conPath }/css/style2.css" rel = "stylesheet">
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -80,19 +80,19 @@
 		alert('${modifyResult}');
 	</script>
 </c:if>
-	게임명을 검색하거나, <br>
-	하단의 목록을 클릭해 선택한 후 삭제할 수 있습니다.<br>	
+	ゲーム名を検索してください <br>
+	（削除の場合、下のリストをクリックしても選択できます。）<br>	
 	<hr>
 	<input type = "hidden" name = "gid" class = "gidInput">
 	<input type = "text" name = "gname" class = "gnameInput">	
 	<br>
 	<!-- gameName으로 검색버튼을 누르면 해당  game의 dto를 가져옴. gid에는 dto.gid를 추가한다-->
-	검색결과: <b><span class = "searchGid"> &nbsp; </span><span class = "searchGname"> &nbsp; </span> <span class = "searchGgenre"> &nbsp; </span></b><img class = "searchGicon preview" height = "40px" onerror = "hideImage(this)" onload = "displayImage(this)">
+	検索結果: <b><span class = "searchGid"> &nbsp; </span><span class = "searchGname"> &nbsp; </span> <span class = "searchGgenre"> &nbsp; </span></b><img class = "searchGicon preview" height = "40px" onerror = "hideImage(this)" onload = "displayImage(this)">
 	<br><br>		
-	<input type = "button" value = "추가하기" class = "addFavorite">&nbsp; &nbsp; <input type = "button" value = "삭제하기" class = "deleteFavorite">
+	<input type = "button" value = "追加" class = "addFavorite">&nbsp; &nbsp; <input type = "button" value = "削除" class = "deleteFavorite">
 	<br><br>
 	<hr>
-	 <p class="favorite_title" style = "background-color: #212529; color: aqua; padding-left: 5px;">내 즐겨찾기 목록</p>
+	 <p class="favorite_title" style = "background-color: #212529; color: aqua; padding-left: 5px;">ブックマークのリスト</p>
     <table>
     	<c:forEach var="lists" items = "${favoriteList }">
 		<tr>

@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title> ${boardContent.gname } 게시글 상세보기</title>
+<title> ${boardContent.gname } 投稿の詳細</title>
 <link rel="icon" type="image/x-icon" href="${conPath }/img/logo4.gif" sizes="144x144">
 <link href = "${conPath }/css/style2.css" rel = "stylesheet">
 <link href = "${conPath }/css/boardContent.css" rel = "stylesheet">
@@ -91,7 +91,7 @@
   <div class="page-title">
         <div class="board_title">        	
         	<h2 class="title_bar" onclick = 'location.href="${conPath}/boardList.do?gid=${boardContent.gid }"' style = "cursor: pointer;">
-				<img src = "${conPath }/img/${boardContent.gicon }" height = "44px" onerror = "noImage(this)">&nbsp;${boardContent.gname } 게시글 상세보기					
+				<img src = "${conPath }/img/${boardContent.gicon }" height = "44px" onerror = "noImage(this)">&nbsp;${boardContent.gname } ー 投稿の詳細					
 			</h2>
 		</div>
   </div>          
@@ -105,17 +105,17 @@
                        	  	<span class = "nickNamespan"><b>${boardContent.mnickname }</b></span>
                     	</td>
                     	<td class="title-cell">
-                       		<b>작성일: <fmt:formatDate value= "${boardContent.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></b><br>
+                       		<b>作成日付: <fmt:formatDate value= "${boardContent.brdate }" pattern="yyyy-MM-dd HH:mm:ss"/></b><br>
                        		<b>IP : ${boardContent.bip }</b>
                     	</td>
                     	<td class = "title-cell">
-	                    	<b>조회수: ${boardContent.bhit } </b><br>
-    	                	<b>댓글  (${totCnt }) </b>
+	                    	<b>閲覧数: ${boardContent.bhit } </b><br>
+    	                	<b>コメント  (${totCnt }) </b>
     	                </td>	
         	        </tr>
             	    <tr>
                 		<td>
-	                		글제목
+	                		タイトル
     	            	</td>
                     	<td colspan="2" class="content-cell">                                                
                         	<b>${boardContent.btitle }</b>
@@ -123,7 +123,7 @@
                 	</tr>
                 	<tr>
                 		<td>
-                			글내용
+                			内容
                 		</td>
                     	<td colspan="3" class="content-cell" height="200px">
                     		<img src = "${conPath }/img/${boardContent.bimg }" id = "uploadedImg" width = "500px"><br>
@@ -135,7 +135,7 @@
                	<table>
                		<tr>
                		 	<td>
-               		 		<b>댓글 <span style = color:red;>${totCnt }건</span></b>
+               		 		<b>コメント <span style = color:red;>${totCnt }件</span></b>
                		 	</td>	
                		</tr>
                		<c:forEach var = "boardComments" items = "${boardComment }">
@@ -162,16 +162,16 @@
 	                        		<span style = "color: red;">${boardComments.mnickname }</span><br>
 	                        	</c:if>	                        	
 	                        	<c:if test = "${empty member }">
-    	                    		<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">답글</a>
+    	                    		<a href = "${conPath }/loginView.do?next=boardList.do?gid=${boardContent.gid}" class = "replyComment" style = "padding-left: 25px;">リプライ</a>
     	                    	</c:if>
     	                    	<c:if test = "${not empty member and member.mlevel eq -2 }">
-    	                    		<a style = "padding-left: 25px;" onclick = "blockUserAlert()" >답글</a>
+    	                    		<a style = "padding-left: 25px;" onclick = "blockUserAlert()" >リプライ</a>
     	                    	</c:if>
 	                        	<c:if test = "${not empty member }">
-    	                    		<a id = "${boardComments.bcno }" class = "replyComment" style = "padding-left: 25px;">답글</a>
+    	                    		<a id = "${boardComments.bcno }" class = "replyComment" style = "padding-left: 25px;">リプライ</a>
     	                    	</c:if>
     	                    	<c:if test= "${member.mid eq boardComments.mid or member.mlevel eq 1}">
-    	        	            	<a href = "${conPath }/commentDelete.do?gid=${boardContent.gid }&bno=${boardContent.bno }&bcno=${boardComments.bcno }" style = "padding-left: 25px;">삭제</a>
+    	        	            	<a href = "${conPath }/commentDelete.do?gid=${boardContent.gid }&bno=${boardContent.bno }&bcno=${boardComments.bcno }" style = "padding-left: 25px;">削除</a>
     	                    	</c:if>
         	            	</td>
             	        	<td class="comment-content-cell ">
@@ -213,7 +213,7 @@
     	        <input type = "hidden" name = "commentPageNum" value = "${boardComments.commentPageNum }">    
             	<table>            	
             		<tr>
-	            		<td> <b>&nbsp;&nbsp;댓글 작성</b> </td>
+	            		<td> <b>&nbsp;&nbsp;コメントをどうぞ</b> </td>
     	        	</tr>
             		<tr>	
             			<td>
@@ -221,7 +221,7 @@
             			</td>
             			<td>
             				<c:if test = "${empty member }">
-            					<input type = "button" value = "댓글작성" onclick = "location.href='${conPath}/loginView.do?next=boardList.do?gid=${boardContent.gid }'">
+            					<input type = "button" value = "作成" onclick = "location.href='${conPath}/loginView.do?next=boardList.do?gid=${boardContent.gid }'">
             				</c:if>
             				<c:if test = "${not empty member and member.mlevel eq -2 }">
             					<input type = "button" value = "(차단유저)">
@@ -236,22 +236,22 @@
           </div>
        </div>
        <div class = "button-container"> 
-        	<button style="margin-top: 5px; margin-left: 640px; position: absolute;" onclick = "location.href='${conPath}/boardList.do?gid=${boardContent.gid }&pageNum=${pageNum }'">게시글목록</button>
+        	<button style="margin-top: 5px; margin-left: 640px; position: absolute;" onclick = "location.href='${conPath}/boardList.do?gid=${boardContent.gid }&pageNum=${pageNum }'">リスト</button>
         	<c:if test = "${empty member and param.gid != 'notice'}">
-        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/loginView.do?next=boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/loginView.do?next=boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">リプライ</button>
         	</c:if>        	
         	<c:if test = "${not empty member and member.mlevel != -2 and param.gid != 'notice'}">
-        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">リプライ</button>
         	</c:if>
         	<c:if test = "${not empty member and param.gid eq 'notice' and member.mlevel eq 1 }">
-        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">답변글쓰기</button>
+        		<button style="margin-top: 5px; margin-left: 750px; position: absolute;" onclick = "location.href='${conPath}/boardReplyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">リプライ</button>
         	</c:if>
         	<c:if test = "${member.mid eq boardContent.mid or member.mlevel eq 1}">
-        		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" onclick = "location.href='${conPath}/boardModifyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">게시글수정</button>
+        		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" onclick = "location.href='${conPath}/boardModifyView.do?gid=${boardContent.gid }&bno=${boardContent.bno }&pageNum=${pageNum }'">投稿の修正</button>
         		<button style="margin-top: 5px; margin-left: 970px; position: absolute;" onclick = "removeConfirm()">게시글삭제</button>                
         	</c:if>
         	<c:if test = "${member.mid != boardContent.mid }">
-        		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" class = "reportButton">게시글신고</button>
+        		<button style="margin-top: 5px; margin-left: 860px; position: absolute;" class = "reportButton">通報する</button>
         	</c:if>
         </div>
         <br><br>
@@ -262,35 +262,35 @@
          	<input type = "hidden" name = "reportermid" value = "${empty member ? 'nonmember' : member.mid }">       
         	<table style = "border : 1px solid gray;">        	
         		<tr>
-	        		<td> 신고 사유를 선택해주세요. </td>
+	        		<td> 通報の理由を選択してください </td>
     	    	</tr>
         		<tr>	 
         			<td>
         				<input type = "radio" value = "1" class = "reason1" name = "rreason" id = "reason1">
-        				<label for = "reason1">욕설</label>
+        				<label for = "reason1">罵倒</label>
         			</td>
         		</tr>
         		<tr>
 	        		<td>		
         				<input type = "radio" value = "2" class = "reason2" name = "rreason" id = "reason2">
-        				<label for = "reason2">도배</label>
+        				<label for = "reason2">連投</label>
         			</td>
         		</tr>
         		<tr>		
 	        		<td>
         				<input type = "radio" value = "3" class = "reason3" name = "rreason" id = "reason3">
-        				<label for = "reason3">광고/홍보</label>
+        				<label for = "reason3">広告など</label>
         			</td>
         		</tr>
         		<tr>
 	        		<td>		
         				<input type = "radio" value = "4" class = "reason4" name = "rreason" id = "reason4">
-        				<label for = "reason4">기타</label>
+        				<label for = "reason4">その他</label>
         			</td>
         		</tr> 	   		
  	   			<tr>
 	 	   			<td>
- 	   					<input type = "submit" class = "reportSubmit" value = "신고"> 	   				
+ 	   					<input type = "submit" class = "reportSubmit" value = "通報"> 	   				
  	   				</td>	
  	   			</tr>	
  	   		</table>

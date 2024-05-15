@@ -35,9 +35,9 @@ $(document).ready(function(){
 		var mid = $('input#mid').val();
 		let pattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
 		if(mid.length < 4){
-			$('span#idConfirmResult').text('id는 4글자 이상이어야 합니다.');
+			$('span#idConfirmResult').text('IDは四文字以上で入力してください。');
 		} else if (mid.match(pattern)){
-			$('span#idConfirmResult').text('id는 영문/숫자로만 입력해주세요');		
+			$('span#idConfirmResult').text('IDは英語・数字のみで入力してください。');		
 		} else {
 			$.ajax({
 				url : '${conPath}/midConfirm.do',
@@ -62,14 +62,14 @@ $(document).ready(function(){
         var patternEng = /[a-zA-Z]/;        
         var patternSpc = /[~`!@#$%^&*()_\-+={}\[\]\\|:;<>,.?\/]/;        
 		if(!pw && !pwChk){
-			$('#pwChkResult').text('비밀번호를 입력하세요.');
+			$('#pwChkResult').text('PWを 入力してください。');
 		} else if (pw.length <4 || !pw.match(patternNum) || !pw.match(patternEng) || !pw.match(patternSpc)){
-			$('#pwChkResult').text('비밀번호는 4자리 이상, 영문과 숫자·특수문자를 포함하여 입력해야 합니다.');
+			$('#pwChkResult').text('PWは四文字以上、英語と数字・特殊文字を含めて入力してください。');
 		} else if (pw != pwChk) {
-			$('#pwChkResult').text('비밀번호가 일치하지 않습니다.');			
+			$('#pwChkResult').text('PWが一致しません');			
 		} else if(pw == pwChk) {
 			$('#pwChkResult').css('color','#212529');
-			$('#pwChkResult').text('비밀번호가 일치합니다.');
+			$('#pwChkResult').text('PWが一致しています');
 		}
 	});	
 	
@@ -77,9 +77,9 @@ $(document).ready(function(){
 		var memail = $(this).val();
 		var patternEmail = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$";
 		if (!memail.match(patternEmail)){
-			$('span#emailChkResult').text('메일 주소 형식이 맞지 않습니다.');				
+			$('span#emailChkResult').text('メールアドレスの形式が間違っています');				
 		} else {
-			$('span#emailChkResult').text('이메일 중복 체크를 진행해 주세요.');
+			$('span#emailChkResult').text('メールのチェックが必要です');
 			$('input.emailChk').click(function(){
 				var memail = $('#memail').val();
 				$.ajax({
@@ -109,23 +109,23 @@ function submitChk(){
 	var manswer = $('input#manswer').val().trim();
 	var memailChkResult = $('span#emailChkResult').text().trim();
 	var agreeChecked = $('#ruleAgree').is(':checked');
-	if (idConfirmResult != '사용 가능한 ID입니다.'){
-		alert('아이디 중복체크를 해 주세요');
+	if (idConfirmResult != '使用可能なIDです'){
+		alert('先にIDチェックを行って下さい。');
 		return false;
 	} else if (mnickName == ''){
-		alert('닉네임을 입력해주세요');
+		alert('ハンドルネームを入力してください');
 		return false;	
-	} else if (pwChkResult != '비밀번호가 일치합니다.'){
-		alert('비밀번호 형식을 체크하세요');
+	} else if (pwChkResult != 'PWが一致しています'){
+		alert('PWの形式を確認してください');
 		return false;
 	} else if (manswer == ''){
 		alert('본인확인 답변을 입력해주세요');
 		return false;	
-	} else if (memailChkResult != '사용 가능한 이메일입니다.'){
-		alert('메일 형식을 체크하세요.');
+	} else if (memailChkResult != '使用可能なメールアドレスです'){
+		alert('メールの形式を確認してください');
 		return false;
 	} else if (!agreeChecked){
-		alert('약관에 동의해야 가입할 수 있습니다.');
+		alert('利用約款に同意してください');
 		return false;
 	}
 }
@@ -138,7 +138,7 @@ function submitChk(){
 			<div class="icon">
 				<h2 class="rd25_right">
 					<img src="${conPath }/main/img/logo4.gif"
-						alt="noimg" height = "40">&nbsp;&nbsp;&nbsp;회원가입 페이지
+						alt="noimg" height = "40">&nbsp;&nbsp;&nbsp;会員登録ページ
 				</h2>
 			</div>			
 			<div class="gray_frame">				
@@ -149,27 +149,27 @@ function submitChk(){
 								<tr>
 									<th>ID <span style = "color:red;">*</span> </th>
 									<td>
-										<input id="mid" name="mid" type="text" maxlength="12" tabindex="1" autofocus="autofocus">&nbsp;&nbsp;<input type = "button" class = "idChk" value = "중복검사">
+										<input id="mid" name="mid" type="text" maxlength="12" tabindex="1" autofocus="autofocus">&nbsp;&nbsp;<input type = "button" class = "idChk" value = "IDチェック">
 									</td>																																			
 								</tr>
 								<tr>
 									<td></td>
 									<td><span id = "idConfirmResult"> &nbsp; &nbsp; &nbsp; </span></td>
 								<tr>
-									<th>닉네임 <span style = "color:red;">*</span></th>
+									<th>ハンドルネーム <span style = "color:red;">*</span></th>
 									<td>
 									<input id="mnickname" name="mnickname" type="text" maxlength = "12" tabindex="2"> 																		
 									<br><br>
 									</td>
 								</tr>								
 								<tr>
-									<th>비밀번호 <span style = "color:red;">*</span></th>
+									<th>PW <span style = "color:red;">*</span></th>
 									<td>
 										<input id="mpw" name="mpw" maxlength="20" tabindex="3" type="password">										
 									</td>
 								</tr>								
 								<tr>
-									<th>비밀번호확인 <span style = "color:red;">*</span></th>
+									<th>PW確認 <span style = "color:red;">*</span></th>
 									<td><input id="mpwChk" name="mpwChk" maxlength="20" tabindex="4"
 										type="password">										
 									</td>
@@ -179,10 +179,10 @@ function submitChk(){
 									<td><span id = "pwChkResult">&nbsp;</span></td>
 								</tr>
 								<tr>
-									<th>이메일 <span style = "color:red;">*</span></th>
+									<th>メールアドレス <span style = "color:red;">*</span></th>
 									<td>
 										<input id="memail" name="memail" maxlength="20" tabindex="5"
-										type="text">&nbsp;&nbsp;<input type = "button" class = "emailChk" value = "중복검사">										
+										type="text">&nbsp;&nbsp;<input type = "button" class = "emailChk" value = "メールチェック">										
 									</td>									
 								</tr>
 								<tr>
@@ -190,48 +190,48 @@ function submitChk(){
 									<td><span id = "emailChkResult">&nbsp; &nbsp; &nbsp;</span></td> 
 								</tr>										
 								<tr>
-									<th>프로필사진 </th>
+									<th>プロフィール写真 </th>
 									<td><input id="mphoto" name="mphoto" type="file" onchange = "displayImg(this)" style = "margin-top:20px;"><img id = "preview" height="144px"> 																		
 									<br><br></td>
 								</tr>
 								<tr>
-									<th>본인확인질문</th>
+									<th>本人確認用の質問</th>
 								</tr>
 								<tr>										
 									<td colspan="2">
 										<select name = "mquest" style = "width:290px;">
-											<option value = "1"> 어렸을 적 고향은? </option>
-											<option value = "2"> 나온 초등학교 이름은? </option>
-											<option value = "3"> 어릴적 키우던 애완동물 이름은? </option>
+											<option value = "1"> 生まれた故郷は？ </option>
+											<option value = "2"> 卒業した小学校の名前は？ </option>
+											<option value = "3"> 昔飼っていたペットの名前は？ </option>
 										</select>
 									</td>
 								</tr>	
 								<tr>
-									<th>본인확인 답<span style = "color:red;">*</span> </th> 
+									<th>本人確認の答え<span style = "color:red;">*</span> </th> 
 									<td><input type = "text" name = "manswer" id = "manswer" tabindex= "6" maxlength= "15"></td>
 								</tr>
 								<tr>
-									<th>휴대폰번호 </th>
+									<th>携帯番号 </th>
 									<td><input id="mphone" name="mphone" maxlength="13" tabindex="7" 
 										oninput="autoHyphen2(this)" type="text">										
 									</td>									
 								</tr>																	 
 							</tbody>
 						</table>
-						<b>&nbsp;약관동의</b>
+						<b>&nbsp;利用約款に同意</b>
 						<jsp:include page="terms.jsp"/>
-						<input type = "checkbox" id = "ruleAgree" style = "margin-top: 5px;"> <label for = "ruleAgree">약관에 동의합니다.</label>
+						<input type = "checkbox" id = "ruleAgree" style = "margin-top: 5px;"> <label for = "ruleAgree">同意します</label>
 					</div>					
 					<div class="check">
 					<table>
 						<tr>
 							<td>
-								<input type = "submit" class = "btn" value = "회원가입" onclick = "return submitChk()">
+								<input type = "submit" class = "btn" value = "会員登録" onclick = "return submitChk()">
 							</td>
 							<td>
-								<input type = "reset" class = "btn" value = " 초기화"> 
+								<input type = "reset" class = "btn" value = " 初期化"> 
 							<td>					
-								<input type = "button" class = "btn" onclick = "location = '${conPath }/index.jsp'" value = "메인">
+								<input type = "button" class = "btn" onclick = "location = '${conPath }/index.jsp'" value = "前へ">
 							</td>
 						</tr>								
 					</table>											
