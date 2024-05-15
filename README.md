@@ -72,7 +72,7 @@ Game-i
 ![스크린샷 2024-05-14 222347](https://github.com/Joyfuler/game-i_japanese/assets/137759165/f9c1a00a-ca96-4f3f-9840-0c07aff6afab)
 ![스크린샷 2024-05-14 224942](https://github.com/Joyfuler/game-i_japanese/assets/137759165/937461a3-942c-4359-97f3-38693316ec0d)
 ![스크린샷 2024-05-14 232601](https://github.com/Joyfuler/game-i_japanese/assets/137759165/bed2bb1a-d404-424b-b7ef-8c8690576275)
-![슬라이드15](https://github.com/Joyfuler/webPro/assets/137759165/300605cb-3aa4-4cbc-964d-ce1aa952c0ad)
+![cats](https://github.com/Joyfuler/game-i_japanese/assets/137759165/ba0e2ed6-4ffe-403e-9ea9-05656e6ae5a1)
 ![슬라이드16](https://github.com/Joyfuler/webPro/assets/137759165/12e0a526-9cf8-4e29-ab26-183d95d074c2)
 ![슬라이드17](https://github.com/Joyfuler/webPro/assets/137759165/12861b36-d276-4b57-b5db-9df877490291)
 ![슬라이드18](https://github.com/Joyfuler/webPro/assets/137759165/da796421-9bf3-461c-87de-25794d10b7b8)
