@@ -8,7 +8,7 @@ Game-i
 - DMBS : Oracle 11g Express Edition <br>
 - 使用した言語 : Java SE * Platform, HTML5, CSS, CSS3, JavaScript <br>
 - デザインパターン : MVC (モデル・ビュー・コントローラー) パターン <br>
-- 使用オープンライブラリー: jquery v3.7.1, jQueryUI <br>
+- 使用オープンライブラリー: jQuery v3.7.1, jQueryUI <br>
 - プロジェクト紹介 : サイトにアクセスした使用者にサイト內取り扱いゲームについて評価、
 またはサイト内のアクセスランキングなどを確認出来ます。同時に各ゲームに対応したコミュニティを提供するサイトです。
 
