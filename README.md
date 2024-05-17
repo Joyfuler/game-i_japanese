@@ -1,6 +1,6 @@
 Game-i
 ==========
->個人プロジェクト　／　チームプロジェクトはこちら（翻訳進行中：https://github.com/Joyfuler/Adventure_World_japanese
+>個人プロジェクト　／　チームプロジェクトのリンクはこちら（翻訳進行中：https://github.com/Joyfuler/Adventure_World_japanese
 
 - プロジェクト名 : Game-i (ゲームレビュー、及びコミュニティを提供) <br>
 - プロジェクト人数 : 1人 <br>
